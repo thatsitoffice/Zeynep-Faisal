@@ -2,6 +2,13 @@
 ---
 <section class="salon" id="salon">
   <div class="salon-inner">
+    <div class="salon-image">
+      <img 
+        src="/salon-interior.png" 
+        alt="Unser Salon – modernes Ambiente mit Lederstühlen, Spiegeln und natürlichem Licht" 
+        loading="lazy"
+      />
+    </div>
     <div class="salon-content">
       <span class="salon-label">Unser Salon</span>
       <h2 class="salon-title">Wo Stil auf Ruhe trifft</h2>
@@ -15,13 +22,7 @@
         <li>Hochwertige Produkte & Tools</li>
         <li>Natürliches Tageslicht</li>
       </ul>
-    </div>
-    <div class="salon-image">
-      <img 
-        src="/salon-interior.png" 
-        alt="Unser Salon – modernes Ambiente mit Lederstühlen, Spiegeln und natürlichem Licht" 
-        loading="lazy"
-      />
+      <a href="/#book" class="salon-cta">Termin buchen</a>
     </div>
   </div>
 </section>
@@ -41,12 +42,8 @@
     align-items: center;
   }
 
-  .salon-content {
-    order: 1;
-  }
-
   .salon-image {
-    order: 2;
+    order: 1;
     position: relative;
     aspect-ratio: 4/3;
     overflow: hidden;
@@ -58,6 +55,10 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  .salon-content {
+    order: 2;
   }
 
   .salon-label {
@@ -109,18 +110,34 @@
     border-radius: 50%;
   }
 
+  .salon-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--color-stone);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+
+  .salon-cta:hover {
+    background: var(--color-earth);
+  }
+
   @media (max-width: 768px) {
     .salon-inner {
       grid-template-columns: 1fr;
     }
 
-    .salon-content {
+    .salon-image {
       order: 1;
+      aspect-ratio: 16/10;
     }
 
-    .salon-image {
+    .salon-content {
       order: 2;
-      aspect-ratio: 16/10;
     }
   }
 </style>
