@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="Privacy Policy | Kalm Moments" description="Privacy Policy for Kalm Moments Sleep Salon and Massage.">
+  <Header />
+  <main class="legal-page">
+    <article>
+      <h1>Privacy Policy</h1>
+      <p class="effective">Effective Date: 18 December 2024</p>
+      
+      <h2>01. Information We Collect</h2>
+      <p>We may collect the following types of personal information:</p>
+      <ul>
+        <li><strong>Personal Identification Information:</strong> Name, email address, phone number, and date of birth.</li>
+        <li><strong>Booking Information:</strong> Services you book, appointment details, and payment information.</li>
+        <li><strong>Health and Preference Information:</strong> Any preferences or health-related details shared for the purpose of providing appropriate services (e.g., allergies or special treatment needs).</li>
+        <li><strong>Usage Data:</strong> Information about how you interact with our website, such as IP address, browser type, and website usage patterns.</li>
+        <li><strong>Payment Information:</strong> Credit card information or other payment methods for booking services.</li>
+      </ul>
+
+      <h2>02. How We Use Your Information</h2>
+      <p>We use the information we collect for the following purposes:</p>
+      <ul>
+        <li>To provide our services (e.g., massage and salon treatments).</li>
+        <li>To process bookings and payments.</li>
+        <li>To send appointment confirmations, reminders, and promotional offers.</li>
+        <li>To personalize your experience and cater to your specific needs and preferences.</li>
+        <li>To improve our website, services, and customer experience.</li>
+        <li>To comply with legal obligations and enforce our terms and conditions.</li>
+      </ul>
+
+      <h2>03. Sharing Your Information</h2>
+      <p>We do not sell, rent, or trade your personal information to third parties. However, we may share your information in the following situations:</p>
+      <ul>
+        <li><strong>Service Providers:</strong> We may share your information with third-party service providers (e.g., payment processors) to facilitate our services.</li>
+        <li><strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to legal requests by authorities.</li>
+        <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of Kalm Moments, your information may be transferred as part of that transaction.</li>
+      </ul>
+
+      <h2>04. Data Security</h2>
+      <p>We take the security of your personal information seriously. We use industry-standard security measures, such as encryption and secure servers, to protect your data from unauthorized access, alteration, disclosure, or destruction. However, no method of electronic transmission or storage is 100% secure, and we cannot guarantee absolute security. To exercise any of these rights, please contact us using the information below.</p>
+
+      <h2>05. Retention of Data</h2>
+      <p>We will retain your personal information for as long as necessary to fulfill the purposes for which it was collected, as outlined in this Privacy Policy, or as required by law.</p>
+
+      <h2>06. Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page, and the effective date will be updated accordingly. Please review this Privacy Policy periodically for any updates.</p>
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page { padding-top: 100px; padding-bottom: 4rem; }
+  .legal-page article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .legal-page h1 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-earth);
+    margin-bottom: 0.5rem;
+  }
+  .effective { color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  .legal-page h2 { font-family: var(--font-display); font-size: 1.25rem; margin: 2rem 0 1rem; }
+  .legal-page p, .legal-page li { color: var(--color-text-muted); margin-bottom: 0.75rem; }
+  .legal-page ul { margin-left: 1.5rem; }
+</style>

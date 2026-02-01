@@ -1,0 +1,140 @@
+---
+const socialLinks = [
+  { href: "https://www.tiktok.com/@kalm.moments", label: "TikTok" },
+  { href: "https://www.facebook.com/people/Kalm-Moments-Sleep-Salon-Massage/61564133863380/", label: "Facebook" },
+  { href: "https://www.instagram.com/kalmmoments.sleepsalon/", label: "Instagram" },
+];
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="brand">
+        <h2 class="logo">KALM MOMENTS</h2>
+        <p class="tagline">Sleep Salon and Massage</p>
+      </div>
+      <div class="connect">
+        <h3>Connect with us</h3>
+        <div class="social">
+          {socialLinks.map((link) => (
+            <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+              {link.label}
+            </a>
+          ))}
+        </div>
+        <p class="hours">Opening Hours 10:00 AM - 08:00 PM</p>
+        <p><a href="mailto:kalm.moments@gmail.com">kalm.moments@gmail.com</a></p>
+        <p>Sathorn Soi 11 (BTS. Saint Louis)</p>
+        <p><a href="tel:+66994738584">+66 99 473 8584</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="/privacy">Privacy Policy</a>
+      <span>|</span>
+      <a href="/terms">Terms and Conditions</a>
+      <p class="copyright">© 2025 Kalm Moments. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-earth);
+    color: var(--color-sand);
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .brand .logo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  .connect h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .social {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .social a {
+    color: var(--color-sand);
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+  }
+
+  .social a:hover {
+    opacity: 0.8;
+  }
+
+  .connect p {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .connect a {
+    color: var(--color-sand);
+  }
+
+  .footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245, 240, 232, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom a {
+    color: var(--color-sand);
+    opacity: 0.9;
+  }
+
+  .footer-bottom a:hover {
+    opacity: 1;
+  }
+
+  .copyright {
+    margin-left: auto;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 600px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .copyright {
+      margin-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+const testimonials = [
+  { author: "duanghatai v", text: "The massage was very comfortable. The service was good. The auntie was very polite. Use good products" },
+  { author: "andrea pinti", text: "Great head massage, super relaxing, even better than normal massage! Totally recommended, will definitely be back :)" },
+  { author: "mahe combe", text: "An incredible moment of relaxation" },
+  { author: "peckhan tan", text: "I received the kalm mind (full service) 90 minutes treatment and it was JUST what I needed after my travels. It's so wonderfully relaxing, I wish it wouldn't end. The service was very professional and attentive. I would highly recommend!" },
+  { author: "nicky kung", text: "Very good service. Super comfortable and reasonable price. The location is super convenient too." },
+  { author: "Madeleine Segieth", text: "It was an amazing experience. Lovely team. We would ever book this Treatment again when we are in Bangkok." },
+  { author: "Suthasinee Sivara", text: "The service is great and very professional. Highly recommended." },
+  { author: "Guest", text: "It was such a good&relaxing experience. All the service was nice. I would definately come back next time :)" },
+];
+---
+<section class="testimonials" id="Gallery">
+  <h2 class="section-title">what our clients say about us</h2>
+  <div class="testimonials-slider">
+    <div class="testimonials-track">
+      {[...testimonials, ...testimonials].map((t) => (
+        <blockquote class="testimonial">
+          <p>"{t.text}"</p>
+          <cite>— {t.author}</cite>
+        </blockquote>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: 5rem 1.5rem;
+    overflow: hidden;
+  }
+
+  .testimonials .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--color-earth);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .testimonials-slider {
+    overflow: hidden;
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 40s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .testimonial {
+    flex: 0 0 350px;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    font-style: normal;
+  }
+
+  .testimonial p {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .testimonial cite {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-style: normal;
+  }
+</style>

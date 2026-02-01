@@ -1,0 +1,158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const packages = [
+  {
+    name: "kalm mind",
+    duration: "60 min.",
+    price: "690 THB",
+    features: ["Shoulder & Neck Massage", "Head Massage (During Shampoo Wash, Shiseido Product)", "Hair Conditioner (Shiseido Product)", "Waterfall Ring Spa", "Blow Dry Hair (Dyson Airwrap)"],
+  },
+  {
+    name: "kalm mind - full service",
+    duration: "90 min.",
+    price: "990 THB",
+    features: ["Shoulder & Neck Massage", "Hot-Oil Ayurveda Head Massage", "Guasha Head Massage", "Head Massage (During Shampoo Wash, Shiseido Product)", "Hair Conditioner", "Waterfall Ring Spa", "Blow Dry Hair (Dyson Airwrap)"],
+  },
+  {
+    name: "kalm mind - treatment",
+    duration: "100 min.",
+    price: "1,290 THB",
+    features: ["Shoulder & Neck Massage", "Hot-Oil Ayurveda Head Massage", "Guasha Head Massage", "Head Massage (During Shampoo Wash, Shiseido Product)", "Hair Conditioner (Shiseido Product)", "Hair Treatment (Shiseido Product)", "Waterfall Ring Spa", "Blow Dry Hair (Dyson Airwrap)"],
+  },
+];
+
+const benefits = [
+  { title: "Promotes hair growth", text: "Head massage promotes hair growth by stimulating blood circulation in the scalp, which helps deliver oxygen and essential nutrients to the hair follicles." },
+  { title: "Relieves stress and anxiety", text: "Head massage relieves stress and anxiety by activating the parasympathetic nervous system, helping the body relax and unwind." },
+  { title: "Improves sleep quality", text: "Head massage improves sleep quality by calming the nervous system and reducing tension in the scalp and surrounding muscles." },
+];
+
+const highlights = [
+  { title: "Premium hair care", text: "A touch of Clarins quality hair serum after your treatment to nourish and revitalize your hair." },
+  { title: "High quality equipment", text: "Our salon uses Dyson, Shiseido, Clarins, and Esthemax products." },
+  { title: "Waterfall ring", text: "A soothing head massage feature designed to mimic the calming flow of water." },
+];
+---
+<Layout title="Hair SPA | Kalm Moments" description="Hair spa treatments at Kalm Moments Bangkok. Kalm mind packages with Shiseido, Dyson, Clarins. Book your appointment.">
+  <Header />
+  <main class="service-page">
+    <section class="service-hero">
+      <h1>Hair SPA</h1>
+      <p>Indulge in a journey of rejuvenation. Our hair spa program revitalizes every strand, leaving your locks nourished, silky, and smooth.</p>
+    </section>
+    <section class="packages-section">
+      <h2>Packages</h2>
+      <div class="packages-grid">
+        {packages.map((pkg) => (
+          <article class="package-card">
+            <h3>{pkg.name}</h3>
+            <p class="meta">{pkg.duration} | {pkg.price}</p>
+            <ul>
+              {pkg.features.map((f) => <li>{f}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+    <section class="benefits-section">
+      <h2>Benefits</h2>
+      <div class="benefits-list">
+        {benefits.map((b) => (
+          <div class="benefit-item">
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+    <section class="highlights-section">
+      <h2>Why choose us</h2>
+      <div class="highlights-grid">
+        {highlights.map((h) => (
+          <div class="highlight">
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+    <section class="cta-section">
+      <p>Never miss your wellness moment, book an appointment with us!</p>
+      <a href="/book" class="cta-btn">Book an Appointment</a>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .service-page { padding-top: 80px; }
+  .service-hero {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: var(--color-sand);
+  }
+  .service-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--color-earth);
+    margin-bottom: 1rem;
+  }
+  .service-hero p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--color-text-muted);
+  }
+  .packages-section, .benefits-section, .highlights-section {
+    padding: 4rem 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .packages-section h2, .benefits-section h2, .highlights-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-earth);
+    margin-bottom: 2rem;
+  }
+  .packages-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  .package-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .package-card h3 { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 1rem; }
+  .package-card ul { list-style: none; }
+  .package-card li { padding: 0.25rem 0; color: var(--color-text-muted); font-size: 0.95rem; }
+  .package-card li::before { content: "• "; color: var(--color-sage); }
+  .benefits-list, .highlights-grid { display: grid; gap: 1.5rem; }
+  .benefit-item, .highlight {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .benefit-item h3, .highlight h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .benefit-item p, .highlight p { color: var(--color-text-muted); font-size: 0.95rem; }
+  .cta-section {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: var(--color-sand);
+  }
+  .cta-section p { margin-bottom: 1rem; color: var(--color-text-muted); }
+  .cta-btn {
+    display: inline-block;
+    background: var(--color-stone);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .cta-btn:hover { background: var(--color-earth); }
+</style>

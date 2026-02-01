@@ -1,0 +1,142 @@
+---
+const services = [
+  {
+    title: "Hair SPA",
+    desc: "Indulge in a journey of rejuvenation. Our hair spa program revitalizes every strand, leaving your locks nourished, silky, and smooth.",
+    packages: [
+      { name: "kalm mind", duration: "60 minutes", price: "690 THB" },
+      { name: "kalm mind Full Service", duration: "90 minutes", price: "990 THB" },
+      { name: "kalm mind treatment", duration: "100 minutes", price: "1,290 THB" },
+    ],
+    link: "/services/hair-spa",
+  },
+  {
+    title: "body massage",
+    desc: "Relax and recharge with our body massage. Let the calming touch and gentle oils melt away stress, ease tension, and bring peace to your body and mind.",
+    packages: [
+      { name: "office syndrome mini", duration: "60 minutes - 120 minutes", price: "590 THB - 1180 THB" },
+      { name: "office syndrome full service", duration: "90 minutes", price: "1,190 THB" },
+      { name: "Full body", duration: "60 minutes - 120 minutes", price: "750 THB - 1500 THB" },
+    ],
+    link: "/services/body-massage",
+  },
+  {
+    title: "face massage",
+    desc: "A refreshing treatment that enhances your natural glow. Combining soothing techniques that restore and elevate your complexion.",
+    packages: [
+      { name: "face exercise glowing skin", duration: "60 minutes", price: "1,490 THB" },
+      { name: "face exercise lifting", duration: "75 minutes", price: "1,990 THB" },
+      { name: "face exercise combo", duration: "120 minutes", price: "1,990 THB" },
+    ],
+    link: "/services/face-massage",
+  },
+];
+---
+<section class="services" id="ourServices">
+  <h2 class="section-title">our services</h2>
+  <p class="section-desc">Discover the art of relaxation and let us craft your perfect moment of calm. At Kalm Moments, we offer 3 main services from head, body and the face. Designed to nurture your body, mind, and soul.</p>
+  <div class="services-grid">
+    {services.map((service) => (
+      <article class="service-card">
+        <h3>{service.title}</h3>
+        <p class="service-desc">{service.desc}</p>
+        <ul class="packages">
+          {service.packages.map((pkg) => (
+            <li>
+              <span class="pkg-name">{pkg.name}</span>
+              <span class="pkg-meta">{pkg.duration} · {pkg.price}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={service.link} class="learn-more">Learn More</a>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 5rem 1.5rem;
+    background: var(--color-sand);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-earth);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-muted);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-earth);
+    margin-bottom: 1rem;
+  }
+
+  .service-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .packages {
+    list-style: none;
+  }
+
+  .packages li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+  }
+
+  .packages li:last-child {
+    border-bottom: none;
+  }
+
+  .pkg-name {
+    display: block;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .pkg-meta {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .learn-more {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--color-stone);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .learn-more:hover {
+    color: var(--color-earth);
+  }
+</style>

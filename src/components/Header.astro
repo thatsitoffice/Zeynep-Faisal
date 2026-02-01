@@ -1,0 +1,144 @@
+---
+const navLinks = [
+  { href: "/#aboutUs", label: "About Us" },
+  { href: "/#ourServices", label: "Our Services" },
+  { href: "/#resultAndBenefit", label: "Results & Benefits" },
+  { href: "/#Gallery", label: "Gallery" },
+  { href: "/book", label: "Book an Appointment", cta: true },
+];
+---
+<header class="header">
+  <nav class="nav">
+    <a href="/" class="logo">kalm moments</a>
+    <button class="menu-btn" aria-label="Toggle menu" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class={link.cta ? "cta" : ""}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.querySelector('.nav-links');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.classList.remove('active');
+      });
+    });
+  }
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+  }
+
+  .nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-earth);
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-stone);
+  }
+
+  .nav-links a.cta {
+    background: var(--color-stone);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+  }
+
+  .nav-links a.cta:hover {
+    background: var(--color-earth);
+  }
+
+  .menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: var(--color-earth);
+    transition: 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .menu-btn {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 60px;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: calc(100vh - 60px);
+      background: var(--color-cream);
+      flex-direction: column;
+      padding: 2rem;
+      gap: 1.5rem;
+      transition: right 0.3s;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.05);
+    }
+
+    .nav-links.open {
+      right: 0;
+    }
+  }
+</style>
