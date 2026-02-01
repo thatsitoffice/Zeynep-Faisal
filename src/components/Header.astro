@@ -1,11 +1,12 @@
 ---
+const planityUrl = "https://www.planity.com/de-DE/new-style-by-zeynep-faisal-meisterbetrieb-45891-gelsenkirchen";
 const navLinks = [
   { href: "/#aboutUs", label: "Über uns" },
   { href: "/#salon", label: "Salon" },
   { href: "/#ourServices", label: "Leistungen" },
   { href: "/#resultAndBenefit", label: "Vorteile" },
   { href: "/#Gallery", label: "Galerie" },
-  { href: "/book", label: "Termin buchen", cta: true },
+  { href: planityUrl, label: "Termin buchen", cta: true, external: true },
 ];
 ---
 <header class="header">
@@ -19,7 +20,7 @@ const navLinks = [
     <ul class="nav-links">
       {navLinks.map((link) => (
         <li>
-          <a href={link.href} class={link.cta ? "cta" : ""}>{link.label}</a>
+          <a href={link.href} class={link.cta ? "cta" : ""} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined}>{link.label}</a>
         </li>
       ))}
     </ul>
