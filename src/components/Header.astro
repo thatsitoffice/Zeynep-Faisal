@@ -51,9 +51,7 @@ const navLinks = [
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(250, 248, 245, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+    background: transparent;
   }
 
   .nav {
@@ -69,7 +67,7 @@ const navLinks = [
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--color-earth);
+    color: white;
     letter-spacing: 0.02em;
     text-transform: lowercase;
   }
@@ -84,23 +82,24 @@ const navLinks = [
   .nav-links a {
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--color-text);
+    color: white;
     transition: color 0.2s;
   }
 
   .nav-links a:hover {
-    color: var(--color-stone);
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .nav-links a.cta {
-    background: var(--color-stone);
-    color: white;
+    background: white;
+    color: var(--color-text);
     padding: 0.5rem 1.25rem;
     border-radius: 4px;
   }
 
   .nav-links a.cta:hover {
-    background: var(--color-earth);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-earth);
   }
 
   .menu-btn {
@@ -115,7 +114,7 @@ const navLinks = [
   .menu-btn span {
     width: 24px;
     height: 2px;
-    background: var(--color-earth);
+    background: white;
     transition: 0.3s;
   }
 
@@ -131,16 +130,34 @@ const navLinks = [
       width: 80%;
       max-width: 300px;
       height: calc(100vh - 60px);
-      background: var(--color-cream);
+      background: white;
       flex-direction: column;
       padding: 2rem;
       gap: 1.5rem;
       transition: right 0.3s;
-      box-shadow: -4px 0 20px rgba(0,0,0,0.05);
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
     }
 
     .nav-links.open {
       right: 0;
+    }
+
+    .nav-links.open a {
+      color: var(--color-text);
+    }
+
+    .nav-links.open a:hover {
+      color: var(--color-stone);
+    }
+
+    .nav-links.open a.cta {
+      background: var(--color-stone);
+      color: white;
+    }
+
+    .nav-links.open a.cta:hover {
+      background: var(--color-earth);
+      color: white;
     }
   }
 </style>

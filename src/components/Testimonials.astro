@@ -1,15 +1,18 @@
 ---
 const testimonials = [
-  { author: "Sarah M.", text: "Super nettes Team und tolle Beratung! Bin jedes Mal zufrieden und komme gerne wieder." },
-  { author: "Thomas K.", text: "Endlich ein Friseur, der versteht, was ich will. Sehr professionell und unkompliziert." },
-  { author: "Lisa B.", text: "Die Strähnchen sind perfekt geworden. Ich habe viele Komplimente bekommen – vielen Dank!" },
-  { author: "Michael R.", text: "Bester Herrenhaarschnitt seit langem. Guter Preis, freundlicher Service, top Ergebnis." },
-  { author: "Julia S.", text: "Die Atmosphäre im Salon ist so angenehm. Man fühlt sich sofort willkommen." },
-  { author: "David W.", text: "Immer pünktlich, immer professionell. Sehr empfehlenswert." },
+  { author: "Kundin", text: "Die Atmosphäre im Salon ist angenehm und entspannt. Zeynep versteht meine Wünsche jedes Mal genau und das Ergebnis ist wieder einmal einfach perfekt!" },
+  { author: "Stammkunde", text: "Gehe seit Jahren hin und bin wie immer total zufrieden." },
+  { author: "Kundin", text: "Super nette und kompetente Beratung. Bin mit dem Ergebnis nach Hause gegangen, wie ich es mir vorgestellt hatte und sehr zufrieden." },
+  { author: "Kundin", text: "Ich bin sehr zufrieden." },
+  { author: "Kundin", text: "Top Beratung und Ergebnis!" },
+  { author: "Kundin", text: "Immer wieder gerne – bestens aufgehoben." },
 ];
+
+const googleReviewsUrl = "https://www.google.com/search?q=New+Style+by+Zeynep+%26+Faisal+-+Meisterbetrieb+-+Gelsenkirchen+Rezensionen&hl=de&tbm=lcl";
 ---
 <section class="testimonials" id="Gallery">
   <h2 class="section-title">Was unsere Kunden sagen</h2>
+  <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer" class="reviews-link">Alle Google-Bewertungen ansehen →</a>
   <div class="testimonials-slider">
     <div class="testimonials-track">
       {[...testimonials, ...testimonials].map((t) => (
@@ -33,7 +36,20 @@ const testimonials = [
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     color: var(--color-earth);
     text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .reviews-link {
+    display: block;
+    text-align: center;
+    color: var(--color-stone);
+    font-weight: 500;
+    font-size: 0.95rem;
     margin-bottom: 3rem;
+  }
+
+  .reviews-link:hover {
+    color: var(--color-earth);
   }
 
   .testimonials-slider {
