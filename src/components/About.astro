@@ -1,31 +1,56 @@
 ---
+const aboutImage = null; // z.B. "/about.jpg" für Bild
 ---
 <section class="about" id="aboutUs">
-  <h2 class="section-title">Über uns</h2>
-  <p class="about-text">
-    Suchen Sie nach dem perfekten Ort für eine ausführliche Haar- und Hautpflege? 
-    In unserer meistergeführten Friseuroase in Gelsenkirchen erwartet Sie ein Team aus professionellen Stylisten 
-    mit freundlichem Empfang und hervorragenden Dienstleistungen.
-  </p>
-  <p class="about-text">
-    Vom stylischen Haarschnitt über die pflegende Haarkur bis zur Haarverlängerung – wir bieten eine breite Palette 
-    an Leistungen. Freuen Sie sich auf individuelle, kompetente Beratung und ein absolut zufriedenstellendes Ergebnis.
-  </p>
+  <div class="about-inner">
+    <div class="about-content">
+      <h2 class="section-title">Über uns</h2>
+      <p class="about-text">
+        Suchen Sie nach dem perfekten Ort für eine ausführliche Haar- und Hautpflege? 
+        In unserer meistergeführten Friseuroase in Gelsenkirchen erwartet Sie ein Team aus professionellen Stylisten 
+        mit freundlichem Empfang und hervorragenden Dienstleistungen.
+      </p>
+      <p class="about-text">
+        Vom stylischen Haarschnitt über die pflegende Haarkur bis zur Haarverlängerung – wir bieten eine breite Palette 
+        an Leistungen. Freuen Sie sich auf individuelle, kompetente Beratung und ein absolut zufriedenstellendes Ergebnis.
+      </p>
+    </div>
+    <div class="about-image">
+      {aboutImage ? (
+        <img src={aboutImage} alt="Unser Salon – Zeynep & Faisal" />
+      ) : (
+        <div class="image-placeholder">
+          <span>Bild</span>
+        </div>
+      )}
+    </div>
+  </div>
 </section>
 
 <style>
   .about {
     padding: var(--section-padding) clamp(1.5rem, 5vw, 3rem);
-    max-width: 800px;
+    background: var(--color-sand);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    max-width: 1100px;
     margin: 0 auto;
-    text-align: center;
+    align-items: center;
+  }
+
+  .about-content {
+    order: 1;
   }
 
   .section-title {
     font-family: var(--font-display);
     font-size: clamp(1.75rem, 4vw, 2.25rem);
     color: var(--color-earth);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .about-text {
@@ -37,5 +62,49 @@
 
   .about-text:last-of-type {
     margin-bottom: 0;
+  }
+
+  .about-image {
+    order: 2;
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #e5e0d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-placeholder span {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .about-content {
+      order: 1;
+    }
+
+    .about-image {
+      order: 2;
+      aspect-ratio: 16/10;
+    }
   }
 </style>
