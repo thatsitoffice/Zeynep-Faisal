@@ -1,18 +1,26 @@
 ---
 const testimonials = [
-  { author: "Kundin", text: "Die Atmosphäre im Salon ist angenehm und entspannt. Zeynep versteht meine Wünsche jedes Mal genau und das Ergebnis ist wieder einmal einfach perfekt!" },
-  { author: "Stammkunde", text: "Gehe seit Jahren hin und bin wie immer total zufrieden." },
-  { author: "Kundin", text: "Super nette und kompetente Beratung. Bin mit dem Ergebnis nach Hause gegangen, wie ich es mir vorgestellt hatte und sehr zufrieden." },
-  { author: "Kundin", text: "Ich bin sehr zufrieden." },
-  { author: "Kundin", text: "Top Beratung und Ergebnis!" },
-  { author: "Kundin", text: "Immer wieder gerne – bestens aufgehoben." },
+  { author: "Antje K.", text: "Die Atmosphäre im Salon ist angenehm und entspannt. Zeynep versteht meine Wünsche jedes Mal genau und das Ergebnis ist wieder einmal einfach perfekt!" },
+  { author: "Thomas M.", text: "Gehe seit Jahren hin und bin wie immer total zufrieden." },
+  { author: "Laura S.", text: "Super nette und kompetente Beratung. Bin mit dem Ergebnis nach Hause gegangen, wie ich es mir vorgestellt hatte und sehr zufrieden." },
+  { author: "Sandra B.", text: "Ich bin sehr zufrieden." },
+  { author: "Maria P.", text: "Top Beratung und Ergebnis!" },
+  { author: "Julia W.", text: "Immer wieder gerne – bestens aufgehoben." },
 ];
 
 const googleReviewsUrl = "https://www.google.com/search?q=New+Style+by+Zeynep+%26+Faisal+-+Meisterbetrieb+-+Gelsenkirchen+Rezensionen&hl=de&tbm=lcl";
+const googleShareLink1 = "https://share.google/HxGs71Ba5TZsc7RHf";
+const googleShareLink2 = "https://share.google/DBUoCAw2UmF2A1G1a";
 ---
 <section class="testimonials" id="kunden">
   <h2 class="section-title">Was unsere Kunden sagen</h2>
-  <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer" class="reviews-link">Alle Google-Bewertungen ansehen →</a>
+  <p class="reviews-links">
+    <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer">Alle Google-Bewertungen ansehen</a>
+    <span class="reviews-sep">·</span>
+    <a href={googleShareLink1} target="_blank" rel="noopener noreferrer">Google Maps</a>
+    <span class="reviews-sep">·</span>
+    <a href={googleShareLink2} target="_blank" rel="noopener noreferrer">Weitere Bewertungen</a>
+  </p>
   <div class="testimonials-slider">
     <div class="testimonials-track">
       {[...testimonials, ...testimonials].map((t) => (
@@ -39,17 +47,25 @@ const googleReviewsUrl = "https://www.google.com/search?q=New+Style+by+Zeynep+%2
     margin-bottom: 1.25rem;
   }
 
-  .reviews-link {
-    display: block;
+  .reviews-links {
     text-align: center;
-    color: var(--color-stone);
-    font-weight: 500;
+    color: var(--color-text-muted);
     font-size: 0.95rem;
     margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
   }
 
-  .reviews-link:hover {
+  .reviews-links a {
+    color: var(--color-stone);
+    font-weight: 500;
+  }
+
+  .reviews-links a:hover {
     color: var(--color-earth);
+  }
+
+  .reviews-sep {
+    margin: 0 0.5rem;
+    opacity: 0.6;
   }
 
   .testimonials-slider {
