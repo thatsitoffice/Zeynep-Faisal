@@ -1,0 +1,15 @@
+---
+description: Nach Änderungen automatisch zu GitHub pushen
+alwaysApply: true
+---
+
+# GitHub Push nach Änderungen
+
+Nach jeder Bearbeitung am Projekt die Änderungen zu GitHub pushen:
+
+1. `git add .` ausführen
+2. Sinnvollen Commit-Message auf Deutsch erstellen
+3. `git commit -m "..."` ausführen
+4. `git push` ausführen
+
+Repository: https://github.com/thatsitoffice/Zeynep-Faisal
