@@ -35,16 +35,17 @@
 
   .salon-inner {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 0.9fr 1.1fr;
     max-width: 1400px;
     margin: 0 auto;
     min-height: 85vh;
-    gap: 0;
+    gap: 3%;
   }
 
   .salon-image {
     position: relative;
     overflow: hidden;
+    max-height: 85vh;
   }
 
   .salon-image img {
@@ -124,10 +125,12 @@
   @media (max-width: 900px) {
     .salon-inner {
       grid-template-columns: 1fr;
+      gap: 0;
     }
 
     .salon-image {
       min-height: 50vh;
+      max-height: none;
     }
 
     .salon-content {
