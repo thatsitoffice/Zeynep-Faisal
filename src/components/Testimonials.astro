@@ -9,24 +9,11 @@ const testimonials = [
 ];
 
 const googleReviewsUrl = "https://www.google.com/search?q=New+Style+by+Zeynep+%26+Faisal+-+Meisterbetrieb+-+Gelsenkirchen+Rezensionen&hl=de&tbm=lcl";
-const googleShareLinks = [
-  "https://share.google/HxGs71Ba5TZsc7RHf",
-  "https://share.google/DBUoCAw2UmF2A1G1a",
-  "https://share.google/gVVk296XOWtTU3Fg5",
-  "https://share.google/zdlqBVIYfYfveXz7L",
-  "https://share.google/IiU68he23MYbDjMnc",
-];
 ---
 <section class="testimonials" id="kunden">
   <h2 class="section-title">Was unsere Kunden sagen</h2>
   <p class="reviews-links">
     <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer">Alle Google-Bewertungen ansehen</a>
-    {googleShareLinks.map((url, i) => (
-      <>
-        <span class="reviews-sep">·</span>
-        <a href={url} target="_blank" rel="noopener noreferrer">Bewertung {i + 1}</a>
-      </>
-    ))}
   </p>
   <div class="testimonials-slider">
     <div class="testimonials-track">
