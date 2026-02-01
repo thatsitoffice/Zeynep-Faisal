@@ -2,14 +2,6 @@
 ---
 <section class="salon" id="salon">
   <div class="salon-inner">
-    <div class="salon-image">
-      <img 
-        src="/salon-interior.png" 
-        alt="Unser Salon – modernes Ambiente mit Lederstühlen, Spiegeln und natürlichem Licht" 
-        loading="lazy"
-      />
-      <div class="salon-image-accent"></div>
-    </div>
     <div class="salon-content">
       <span class="salon-label">Unser Salon</span>
       <h2 class="salon-title">Wo Stil auf Ruhe trifft</h2>
@@ -24,28 +16,41 @@
         <li>Natürliches Tageslicht</li>
       </ul>
     </div>
+    <div class="salon-image">
+      <img 
+        src="/salon-interior.png" 
+        alt="Unser Salon – modernes Ambiente mit Lederstühlen, Spiegeln und natürlichem Licht" 
+        loading="lazy"
+      />
+    </div>
   </div>
 </section>
 
 <style>
   .salon {
-    padding: 0;
-    background: var(--color-cream);
+    padding: var(--section-padding) clamp(1.5rem, 5vw, 3rem);
+    background: var(--color-sand);
   }
 
   .salon-inner {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    max-width: 1400px;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    max-width: 1100px;
     margin: 0 auto;
-    min-height: 85vh;
-    gap: 3%;
+    align-items: center;
+  }
+
+  .salon-content {
+    order: 1;
   }
 
   .salon-image {
+    order: 2;
     position: relative;
+    aspect-ratio: 4/3;
     overflow: hidden;
-    max-height: 85vh;
+    border-radius: 8px;
   }
 
   .salon-image img {
@@ -53,24 +58,6 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-  }
-
-  .salon-image-accent {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to top, rgba(44, 36, 32, 0.15), transparent);
-    pointer-events: none;
-  }
-
-  .salon-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: clamp(4rem, 8vw, 6rem) clamp(2.5rem, 5vw, 4rem);
-    background: var(--color-cream);
   }
 
   .salon-label {
@@ -84,7 +71,7 @@
 
   .salon-title {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
     font-weight: 400;
     color: var(--color-earth);
     line-height: 1.2;
@@ -92,10 +79,10 @@
   }
 
   .salon-text {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--color-text-muted);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
+    line-height: 1.9;
+    margin-bottom: 1.25rem;
   }
 
   .salon-features {
@@ -122,19 +109,18 @@
     border-radius: 50%;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     .salon-inner {
       grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .salon-image {
-      min-height: 50vh;
-      max-height: none;
     }
 
     .salon-content {
-      padding: 3rem 1.5rem 4rem;
+      order: 1;
+    }
+
+    .salon-image {
+      order: 2;
+      aspect-ratio: 16/10;
     }
   }
 </style>
