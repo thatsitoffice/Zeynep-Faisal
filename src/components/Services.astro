@@ -1,40 +1,40 @@
 ---
 const services = [
   {
-    title: "Hair SPA",
-    desc: "Indulge in a journey of rejuvenation. Our hair spa program revitalizes every strand, leaving your locks nourished, silky, and smooth.",
+    title: "Haarschnitt",
+    desc: "Ob klassisch oder modern – wir schneiden Ihr Haar präzise und passend zu Ihrem Typ. Für Damen und Herren.",
     packages: [
-      { name: "kalm mind", duration: "60 minutes", price: "690 THB" },
-      { name: "kalm mind Full Service", duration: "90 minutes", price: "990 THB" },
-      { name: "kalm mind treatment", duration: "100 minutes", price: "1,290 THB" },
+      { name: "Damenhaarschnitt", duration: "ca. 45 Min.", price: "ab 45 €" },
+      { name: "Herrenhaarschnitt", duration: "ca. 30 Min.", price: "ab 28 €" },
+      { name: "Kinderschnitt", duration: "ca. 30 Min.", price: "ab 22 €" },
     ],
     link: "/services/hair-spa",
   },
   {
-    title: "body massage",
-    desc: "Relax and recharge with our body massage. Let the calming touch and gentle oils melt away stress, ease tension, and bring peace to your body and mind.",
+    title: "Färben & Strähnchen",
+    desc: "Neue Nuancen, sanfte Highlights oder kräftige Coloration – wir beraten Sie individuell für Ihren perfekten Look.",
     packages: [
-      { name: "office syndrome mini", duration: "60 minutes - 120 minutes", price: "590 THB - 1180 THB" },
-      { name: "office syndrome full service", duration: "90 minutes", price: "1,190 THB" },
-      { name: "Full body", duration: "60 minutes - 120 minutes", price: "750 THB - 1500 THB" },
+      { name: "Strähnchen", duration: "ca. 90 Min.", price: "ab 75 €" },
+      { name: "Komplettfärbung", duration: "ca. 60 Min.", price: "ab 55 €" },
+      { name: "Ansatz auffrischen", duration: "ca. 45 Min.", price: "ab 45 €" },
     ],
     link: "/services/body-massage",
   },
   {
-    title: "face massage",
-    desc: "A refreshing treatment that enhances your natural glow. Combining soothing techniques that restore and elevate your complexion.",
+    title: "Styling & Pflege",
+    desc: "Professionelle Pflegebehandlungen und Styling für gesundes, glänzendes Haar. Verwöhnen Sie sich.",
     packages: [
-      { name: "face exercise glowing skin", duration: "60 minutes", price: "1,490 THB" },
-      { name: "face exercise lifting", duration: "75 minutes", price: "1,990 THB" },
-      { name: "face exercise combo", duration: "120 minutes", price: "1,990 THB" },
+      { name: "Spülung & Styling", duration: "ca. 30 Min.", price: "ab 25 €" },
+      { name: "Haar-Maske", duration: "ca. 45 Min.", price: "ab 35 €" },
+      { name: "Hochsteckfrisur", duration: "nach Aufwand", price: "auf Anfrage" },
     ],
     link: "/services/face-massage",
   },
 ];
 ---
 <section class="services" id="ourServices">
-  <h2 class="section-title">our services</h2>
-  <p class="section-desc">Discover the art of relaxation and let us craft your perfect moment of calm. At Kalm Moments, we offer 3 main services from head, body and the face. Designed to nurture your body, mind, and soul.</p>
+  <h2 class="section-title">Unsere Leistungen</h2>
+  <p class="section-desc">Von klassischem Haarschnitt bis zu Farbe und Pflege – wir bieten Ihnen ein volles Programm an Friseurleistungen. Individuell auf Sie abgestimmt.</p>
   <div class="services-grid">
     {services.map((service) => (
       <article class="service-card">
@@ -48,7 +48,7 @@ const services = [
             </li>
           ))}
         </ul>
-        <a href={service.link} class="learn-more">Learn More</a>
+        <a href={service.link} class="learn-more">Mehr erfahren</a>
       </article>
     ))}
   </div>

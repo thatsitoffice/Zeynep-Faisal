@@ -5,46 +5,46 @@ import Footer from '../../components/Footer.astro';
 
 const packages = [
   {
-    name: "kalm mind",
-    duration: "60 min.",
-    price: "690 THB",
-    features: ["Shoulder & Neck Massage", "Head Massage (During Shampoo Wash, Shiseido Product)", "Hair Conditioner (Shiseido Product)", "Waterfall Ring Spa", "Blow Dry Hair (Dyson Airwrap)"],
+    name: "Damenhaarschnitt",
+    duration: "ca. 45 Min.",
+    price: "ab 45 €",
+    features: ["Beratung", "Waschen & Pflege", "Präziser Schnitt", "Styling & Föhnen"],
   },
   {
-    name: "kalm mind - full service",
-    duration: "90 min.",
-    price: "990 THB",
-    features: ["Shoulder & Neck Massage", "Hot-Oil Ayurveda Head Massage", "Guasha Head Massage", "Head Massage (During Shampoo Wash, Shiseido Product)", "Hair Conditioner", "Waterfall Ring Spa", "Blow Dry Hair (Dyson Airwrap)"],
+    name: "Herrenhaarschnitt",
+    duration: "ca. 30 Min.",
+    price: "ab 28 €",
+    features: ["Beratung", "Waschen", "Schnitt", "Styling"],
   },
   {
-    name: "kalm mind - treatment",
-    duration: "100 min.",
-    price: "1,290 THB",
-    features: ["Shoulder & Neck Massage", "Hot-Oil Ayurveda Head Massage", "Guasha Head Massage", "Head Massage (During Shampoo Wash, Shiseido Product)", "Hair Conditioner (Shiseido Product)", "Hair Treatment (Shiseido Product)", "Waterfall Ring Spa", "Blow Dry Hair (Dyson Airwrap)"],
+    name: "Kinderschnitt",
+    duration: "ca. 30 Min.",
+    price: "ab 22 €",
+    features: ["Kinderfreundliche Atmosphäre", "Schneller, präziser Schnitt", "Styling"],
   },
 ];
 
 const benefits = [
-  { title: "Promotes hair growth", text: "Head massage promotes hair growth by stimulating blood circulation in the scalp, which helps deliver oxygen and essential nutrients to the hair follicles." },
-  { title: "Relieves stress and anxiety", text: "Head massage relieves stress and anxiety by activating the parasympathetic nervous system, helping the body relax and unwind." },
-  { title: "Improves sleep quality", text: "Head massage improves sleep quality by calming the nervous system and reducing tension in the scalp and surrounding muscles." },
+  { title: "Für jeden Typ der richtige Schnitt", text: "Wir schneiden Ihr Haar passend zu Ihrem Gesicht, Ihrem Alltag und Ihrem Stil – ob klassisch, modern oder lässig." },
+  { title: "Hochwertige Produkte", text: "Wir verwenden professionelle Shampoos und Pflegeprodukte, die Ihr Haar schonen und zum Strahlen bringen." },
+  { title: "Entspannte Atmosphäre", text: "Bei uns nehmen wir uns Zeit. Sie sollen sich wohlfühlen und mit einem Look gehen, der zu Ihnen passt." },
 ];
 
 const highlights = [
-  { title: "Premium hair care", text: "A touch of Clarins quality hair serum after your treatment to nourish and revitalize your hair." },
-  { title: "High quality equipment", text: "Our salon uses Dyson, Shiseido, Clarins, and Esthemax products." },
-  { title: "Waterfall ring", text: "A soothing head massage feature designed to mimic the calming flow of water." },
+  { title: "Individuelle Beratung", text: "Vor dem Schnitt besprechen wir mit Ihnen Ihre Wünsche und finden gemeinsam den passenden Look." },
+  { title: "Erfahrene Stylisten", text: "Unser Team arbeitet mit Präzision und Fingerspitzengefühl – für ein Ergebnis, das überzeugt." },
+  { title: "Moderne Techniken", text: "Wir setzen auf bewährte Methoden und zeitgemäße Trends für Ihr bestes Ergebnis." },
 ];
 ---
-<Layout title="Hair SPA | Kalm Moments" description="Hair spa treatments at Kalm Moments Bangkok. Kalm mind packages with Shiseido, Dyson, Clarins. Book your appointment.">
+<Layout title="Haarschnitt | Zeynep & Faisal" description="Haarschnitt bei Zeynep & Faisal. Damen, Herren und Kinder. Individuelle Beratung, professionelle Ergebnisse.">
   <Header />
   <main class="service-page">
     <section class="service-hero">
-      <h1>Hair SPA</h1>
-      <p>Indulge in a journey of rejuvenation. Our hair spa program revitalizes every strand, leaving your locks nourished, silky, and smooth.</p>
+      <h1>Haarschnitt</h1>
+      <p>Ob klassisch oder modern – wir schneiden Ihr Haar präzise und passend zu Ihrem Typ. Für Damen, Herren und Kinder.</p>
     </section>
     <section class="packages-section">
-      <h2>Packages</h2>
+      <h2>Leistungen & Preise</h2>
       <div class="packages-grid">
         {packages.map((pkg) => (
           <article class="package-card">
@@ -58,7 +58,7 @@ const highlights = [
       </div>
     </section>
     <section class="benefits-section">
-      <h2>Benefits</h2>
+      <h2>Vorteile</h2>
       <div class="benefits-list">
         {benefits.map((b) => (
           <div class="benefit-item">
@@ -69,7 +69,7 @@ const highlights = [
       </div>
     </section>
     <section class="highlights-section">
-      <h2>Why choose us</h2>
+      <h2>Warum zu uns?</h2>
       <div class="highlights-grid">
         {highlights.map((h) => (
           <div class="highlight">
@@ -80,8 +80,8 @@ const highlights = [
       </div>
     </section>
     <section class="cta-section">
-      <p>Never miss your wellness moment, book an appointment with us!</p>
-      <a href="/book" class="cta-btn">Book an Appointment</a>
+      <p>Vereinbaren Sie jetzt Ihren Termin – wir freuen uns auf Sie!</p>
+      <a href="/book" class="cta-btn">Termin buchen</a>
     </section>
   </main>
   <Footer />
@@ -116,10 +116,7 @@ const highlights = [
     color: var(--color-earth);
     margin-bottom: 2rem;
   }
-  .packages-grid {
-    display: grid;
-    gap: 2rem;
-  }
+  .packages-grid { display: grid; gap: 2rem; }
   .package-card {
     background: white;
     padding: 2rem;

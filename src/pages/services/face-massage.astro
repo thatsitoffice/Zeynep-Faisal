@@ -5,55 +5,51 @@ import Footer from '../../components/Footer.astro';
 
 const packages = [
   {
-    name: "Face Exercise - Glowing Skin",
-    duration: "60 min.",
-    price: "1,490 THB",
-    products: "Bioderma, Clarins, Elixir, Anessa Product",
-    features: ["Water Cleansing", "Scrub", "European face massage", "Mask", "Mini Massage (Shoulder&Neck)", "Moisturizer Cryo Face Massage", "Apply sunscreen"],
+    name: "Spülung & Styling",
+    duration: "ca. 30 Min.",
+    price: "ab 25 €",
+    features: ["Waschen", "Pflegespülung", "Föhnen", "Styling"],
   },
   {
-    name: "Face Exercise - Lifting",
-    duration: "75 min.",
-    price: "1,990 THB",
-    products: "Bioderma, Clarins, Elixir, Esthemax, Anessa Product",
-    features: ["Water Cleansing", "Scrub", "European face massage", "Guasha Face Massage", "Lifting Face Massage", "Mask", "Mini Massage (Shoulder & Neck)", "Moisturizer Cryo Face Massage", "Apply sunscreen"],
+    name: "Haar-Maske",
+    duration: "ca. 45 Min.",
+    price: "ab 35 €",
+    features: ["Waschen", "Intensive Pflegemaske", "Massage", "Styling"],
   },
   {
-    name: "Face Exercise Combo",
-    duration: "120 min.",
-    price: "1,990 THB",
-    products: "Includes Glowing Skin + Kalm Mind Treatment",
-    features: ["Face Exercise Glowing Skin package", "Kalm Mind - Treatment (Head spa)"],
+    name: "Hochsteckfrisur",
+    duration: "nach Aufwand",
+    price: "auf Anfrage",
+    features: ["Beratung", "Frisur nach Wunsch", "z. B. für besondere Anlässe"],
   },
 ];
 
 const benefits = [
-  { title: "Improves circulation", text: "Face massage stimulates blood flow to the skin, delivering oxygen and nutrients for a radiant complexion." },
-  { title: "Relieves tension", text: "Relaxes the muscles in the face, jaw, and forehead, reducing tension headaches and jaw clenching." },
-  { title: "Boosts lymphatic drainage", text: "Stimulates the lymphatic system to reduce puffiness, swelling, and promote a clearer complexion." },
+  { title: "Gesundes, glänzendes Haar", text: "Professionelle Pflegebehandlungen revitalisieren strapaziertes Haar und bringen es zum Strahlen." },
+  { title: "Verwöhnprogramm", text: "Nehmen Sie sich eine Auszeit – bei uns werden Sie rundum verwöhnt." },
+  { title: "Perfekt für jeden Anlass", text: "Ob Hochzeit, Geburtstag oder Business-Event – wir stylen Sie für Ihren großen Moment." },
 ];
 
 const highlights = [
-  { title: "Gentle touch", text: "Expert therapists use specialized tools and techniques to relax facial muscles and enhance your natural glow." },
-  { title: "High quality skin care", text: "Finest quality products to cleanse, hydrate, and revitalize your skin." },
-  { title: "Hygienic treatments", text: "Sanitized tools, single-use applicators, and non-comedogenic products." },
+  { title: "Professionelle Produkte", text: "Wir setzen auf bewährte Pflege- und Styling-Produkte für optimale Ergebnisse." },
+  { title: "Erfahrene Stylisten", text: "Unser Team beherrscht alle gängigen Styling-Techniken und berät Sie gerne." },
+  { title: "Individuelle Wünsche", text: "Jede Frisur wird auf Sie und Ihren Anlass zugeschnitten." },
 ];
 ---
-<Layout title="Face Massage | Kalm Moments" description="Face massage at Kalm Moments Bangkok. Glowing Skin, Lifting, Combo. Bioderma, Clarins, Esthemax. Book now.">
+<Layout title="Styling & Pflege | Zeynep & Faisal" description="Styling und Haarpflege bei Zeynep & Faisal. Professionelle Behandlungen für gesundes, glänzendes Haar.">
   <Header />
   <main class="service-page">
     <section class="service-hero">
-      <h1>Face Massage</h1>
-      <p>A refreshing treatment that enhances your natural glow. Combining soothing techniques that restore and elevate your complexion.</p>
+      <h1>Styling & Pflege</h1>
+      <p>Professionelle Pflegebehandlungen und Styling für gesundes, glänzendes Haar. Verwöhnen Sie sich.</p>
     </section>
     <section class="packages-section">
-      <h2>Packages</h2>
+      <h2>Leistungen & Preise</h2>
       <div class="packages-grid">
         {packages.map((pkg) => (
           <article class="package-card">
             <h3>{pkg.name}</h3>
             <p class="meta">{pkg.duration} | {pkg.price}</p>
-            <p class="products">{pkg.products}</p>
             <ul>
               {pkg.features.map((f) => <li>{f}</li>)}
             </ul>
@@ -62,7 +58,7 @@ const highlights = [
       </div>
     </section>
     <section class="benefits-section">
-      <h2>Benefits</h2>
+      <h2>Vorteile</h2>
       <div class="benefits-list">
         {benefits.map((b) => (
           <div class="benefit-item">
@@ -73,7 +69,7 @@ const highlights = [
       </div>
     </section>
     <section class="highlights-section">
-      <h2>Why choose us</h2>
+      <h2>Warum zu uns?</h2>
       <div class="highlights-grid">
         {highlights.map((h) => (
           <div class="highlight">
@@ -84,8 +80,8 @@ const highlights = [
       </div>
     </section>
     <section class="cta-section">
-      <p>Never miss your wellness moment, book an appointment with us!</p>
-      <a href="/book" class="cta-btn">Book an Appointment</a>
+      <p>Vereinbaren Sie jetzt Ihren Termin – wir freuen uns auf Sie!</p>
+      <a href="/book" class="cta-btn">Termin buchen</a>
     </section>
   </main>
   <Footer />
@@ -93,25 +89,67 @@ const highlights = [
 
 <style>
   .service-page { padding-top: 80px; }
-  .service-hero { padding: 4rem 1.5rem; text-align: center; background: var(--color-sand); }
-  .service-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); color: var(--color-earth); margin-bottom: 1rem; }
-  .service-hero p { max-width: 600px; margin: 0 auto; color: var(--color-text-muted); }
-  .packages-section, .benefits-section, .highlights-section { padding: 4rem 1.5rem; max-width: 1000px; margin: 0 auto; }
-  .packages-section h2, .benefits-section h2, .highlights-section h2 { font-family: var(--font-display); font-size: 1.75rem; color: var(--color-earth); margin-bottom: 2rem; }
+  .service-hero {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: var(--color-sand);
+  }
+  .service-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--color-earth);
+    margin-bottom: 1rem;
+  }
+  .service-hero p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--color-text-muted);
+  }
+  .packages-section, .benefits-section, .highlights-section {
+    padding: 4rem 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .packages-section h2, .benefits-section h2, .highlights-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-earth);
+    margin-bottom: 2rem;
+  }
   .packages-grid { display: grid; gap: 2rem; }
-  .package-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .package-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
   .package-card h3 { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
-  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 0.25rem; }
-  .package-card .products { font-size: 0.85rem; color: var(--color-sage); margin-bottom: 1rem; }
+  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 1rem; }
   .package-card ul { list-style: none; }
   .package-card li { padding: 0.25rem 0; color: var(--color-text-muted); font-size: 0.95rem; }
   .package-card li::before { content: "• "; color: var(--color-sage); }
   .benefits-list, .highlights-grid { display: grid; gap: 1.5rem; }
-  .benefit-item, .highlight { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .benefit-item, .highlight {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
   .benefit-item h3, .highlight h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem; }
   .benefit-item p, .highlight p { color: var(--color-text-muted); font-size: 0.95rem; }
-  .cta-section { padding: 4rem 1.5rem; text-align: center; background: var(--color-sand); }
+  .cta-section {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: var(--color-sand);
+  }
   .cta-section p { margin-bottom: 1rem; color: var(--color-text-muted); }
-  .cta-btn { display: inline-block; background: var(--color-stone); color: white; padding: 1rem 2rem; border-radius: 4px; font-weight: 500; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--color-stone);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: 500;
+  }
   .cta-btn:hover { background: var(--color-earth); }
 </style>

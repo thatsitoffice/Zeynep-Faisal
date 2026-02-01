@@ -1,19 +1,18 @@
 ---
 const socialLinks = [
-  { href: "https://www.tiktok.com/@kalm.moments", label: "TikTok" },
-  { href: "https://www.facebook.com/people/Kalm-Moments-Sleep-Salon-Massage/61564133863380/", label: "Facebook" },
-  { href: "https://www.instagram.com/kalmmoments.sleepsalon/", label: "Instagram" },
+  { href: "https://www.facebook.com/", label: "Facebook" },
+  { href: "https://www.instagram.com/", label: "Instagram" },
 ];
 ---
 <footer class="footer">
   <div class="container">
     <div class="footer-main">
       <div class="brand">
-        <h2 class="logo">KALM MOMENTS</h2>
-        <p class="tagline">Sleep Salon and Massage</p>
+        <h2 class="logo">ZEYNEP & FAISAL</h2>
+        <p class="tagline">Friseursalon</p>
       </div>
       <div class="connect">
-        <h3>Connect with us</h3>
+        <h3>Kontakt</h3>
         <div class="social">
           {socialLinks.map((link) => (
             <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
@@ -21,17 +20,16 @@ const socialLinks = [
             </a>
           ))}
         </div>
-        <p class="hours">Opening Hours 10:00 AM - 08:00 PM</p>
-        <p><a href="mailto:kalm.moments@gmail.com">kalm.moments@gmail.com</a></p>
-        <p>Sathorn Soi 11 (BTS. Saint Louis)</p>
-        <p><a href="tel:+66994738584">+66 99 473 8584</a></p>
+        <p class="hours">Öffnungszeiten: 10:00 – 19:00 Uhr</p>
+        <p><a href="mailto:info@zeynep-faisal.de">info@zeynep-faisal.de</a></p>
+        <p><a href="tel:+49123456789">+49 123 456 789</a></p>
       </div>
     </div>
     <div class="footer-bottom">
-      <a href="/privacy">Privacy Policy</a>
+      <a href="/privacy">Datenschutz</a>
       <span>|</span>
-      <a href="/terms">Terms and Conditions</a>
-      <p class="copyright">© 2025 Kalm Moments. All Rights Reserved.</p>
+      <a href="/terms">Impressum & AGB</a>
+      <p class="copyright">© 2025 Zeynep & Faisal. Alle Rechte vorbehalten.</p>
     </div>
   </div>
 </footer>
