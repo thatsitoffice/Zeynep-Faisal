@@ -1,28 +1,41 @@
 ---
 const team = [
-  { name: "Zeynep", initials: "Z", image: null },
-  { name: "Faisal", initials: "F", image: null },
-  { name: "Emre Omran", initials: "EO", image: null },
-  { name: "Bekir", initials: "B", image: null },
-  { name: "Abdul", initials: "A", image: null },
-  { name: "Yana", initials: "Y", image: null },
+  { name: "Zeynep", initials: "Z", role: "Inhaberin", image: null },
+  { name: "Faisal", initials: "F", role: "Inhaber", image: null },
+  { name: "Emre Omran", initials: "EO", role: "Stylist", image: null },
+  { name: "Bekir", initials: "B", role: "Stylist", image: null },
+  { name: "Abdul", initials: "A", role: "Stylist", image: null },
+  { name: "Yana", initials: "Y", role: "Stylist", image: null },
 ];
 ---
 <section class="team" id="mitarbeiter">
-  <h2 class="section-title">Mitarbeiter</h2>
-  <div class="team-card">
+  <div class="team-hero">
+    <div class="team-hero-bg"></div>
+    <div class="team-hero-overlay"></div>
+    <h2 class="team-hero-title">Das Team</h2>
+  </div>
+  <div class="team-intro">
+    <h3 class="team-intro-label">Und die Stylisten</h3>
+    <p>Individuelle Beratung, Leidenschaft für Haare und der Blick für Ihre individuelle Schönheit – unser Team steht für professionelles Handwerk und eine Atmosphäre, in der Sie sich wohlfühlen.</p>
+  </div>
+  <div class="team-grid-section">
+    <p class="team-grid-label">Unser Team</p>
+    <h3 class="team-grid-title">Stellen sich vor</h3>
     <div class="team-grid">
       {team.map((member) => (
-        <div class="member">
-          <div class="avatar">
+        <article class="team-card">
+          <div class="team-card-image">
             {member.image ? (
-              <img src={member.image} alt={member.name} width="80" height="80" />
+              <img src={member.image} alt={member.name} />
             ) : (
               <span class="initials">{member.initials}</span>
             )}
           </div>
-          <span class="name">{member.name}</span>
-        </div>
+          <div class="team-card-content">
+            <p class="team-card-name">{member.name}</p>
+            <p class="team-card-role">{member.role}</p>
+          </div>
+        </article>
       ))}
     </div>
   </div>
@@ -30,78 +43,153 @@ const team = [
 
 <style>
   .team {
-    padding: var(--section-padding) clamp(1.5rem, 5vw, 3rem);
-    background: var(--color-sand);
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--color-earth);
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-  }
-
-  .team-card {
-    max-width: 600px;
-    margin: 0 auto;
     background: white;
-    padding: clamp(2rem, 4vw, 3rem);
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   }
 
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(1.25rem, 2vw, 1.75rem) clamp(1.5rem, 3vw, 2rem);
-  }
-
-  .member {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .avatar {
-    width: 80px;
-    height: 80px;
-    min-width: 80px;
-    min-height: 80px;
-    border-radius: 50%;
-    background: #1a1a1a;
+  .team-hero {
+    position: relative;
+    min-height: 45vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
   }
 
-  .avatar img {
+  .team-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url("/salon-interior.png") center/cover no-repeat;
+  }
+
+  .team-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(28, 28, 28, 0.4) 0%,
+      rgba(28, 28, 28, 0.7) 100%
+    );
+  }
+
+  .team-hero-title {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.05em;
+  }
+
+  .team-intro {
+    padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .team-intro-label {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 500;
+    color: var(--color-earth);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .team-intro p {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
+  .team-grid-section {
+    background: #1a1a1a;
+    padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .team-grid-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .team-grid-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    background: transparent;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .team-card-image {
+    aspect-ratio: 1;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .team-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
   .initials {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-family: var(--font-display);
-  }
-
-  .name {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 500;
-    color: var(--color-earth);
+    font-family: var(--font-display);
   }
 
-  @media (min-width: 600px) {
+  .team-card-content {
+    background: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .team-card-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-earth);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .team-card-role {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 768px) {
     .team-grid {
       grid-template-columns: repeat(3, 1fr);
-    }
-
-    .team-card {
-      max-width: 700px;
     }
   }
 </style>
