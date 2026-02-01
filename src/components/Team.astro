@@ -9,11 +9,6 @@ const team = [
 ];
 ---
 <section class="team" id="mitarbeiter">
-  <div class="team-hero">
-    <div class="team-hero-bg"></div>
-    <div class="team-hero-overlay"></div>
-    <h2 class="team-hero-title">Das Team</h2>
-  </div>
   <div class="team-grid-section">
     <p class="team-grid-label">Unser Team</p>
     <h3 class="team-grid-title">Stellen sich vor</h3>
@@ -39,42 +34,7 @@ const team = [
 
 <style>
   .team {
-    background: white;
-  }
-
-  .team-hero {
-    position: relative;
-    min-height: 45vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .team-hero-bg {
-    position: absolute;
-    inset: 0;
-    background: url("/salon-interior.png") center/cover no-repeat;
-  }
-
-  .team-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(28, 28, 28, 0.4) 0%,
-      rgba(28, 28, 28, 0.7) 100%
-    );
-  }
-
-  .team-hero-title {
-    position: relative;
-    z-index: 1;
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 5rem);
-    font-weight: 500;
-    color: white;
-    letter-spacing: 0.05em;
+    background: #1a1a1a;
   }
 
   .team-grid-section {
