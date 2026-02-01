@@ -1,32 +1,35 @@
 ---
 const services = [
   {
-    title: "Haarschnitt",
-    desc: "Ob klassisch oder modern – wir schneiden Ihr Haar präzise und passend zu Ihrem Typ. Für Damen und Herren.",
+    title: "Haar Design & Styling",
+    desc: "Ob Express Cut, Signature Haircut oder Precision Buzz Cut – wir schneiden Ihr Haar präzise und passend zu Ihrem Typ. Für Damen, Herren und Kinder.",
     packages: [
-      { name: "Damenhaarschnitt", duration: "ca. 45 Min.", price: "ab 45 €" },
-      { name: "Herrenhaarschnitt", duration: "ca. 30 Min.", price: "ab 28 €" },
-      { name: "Kinderschnitt", duration: "ca. 30 Min.", price: "ab 22 €" },
+      { name: "Signature Haircut – Waschen, Schneiden & Föhnen kurz", duration: "1 Std.", price: "37 €" },
+      { name: "Signature Haircut – mittel", duration: "1 Std.", price: "42 €" },
+      { name: "Men's Signature Cut – Waschen, Schneiden & Styling", duration: "30 Min.", price: "22 €" },
+      { name: "Boy's Haircut – Jungen bis 6 Jahre", duration: "30 Min.", price: "15 €" },
     ],
     link: "/services/hair-spa",
   },
   {
-    title: "Färben & Strähnchen",
-    desc: "Neue Nuancen, sanfte Highlights oder kräftige Coloration – wir beraten Sie individuell für Ihren perfekten Look.",
+    title: "Color & Gloss",
+    desc: "Alle Farbbehandlungen mit REDKEN Professional – ammoniakfrei, silikonfrei. Von Ansatzabdeckung über Komplettfärbung bis Balayage und Highlights.",
     packages: [
-      { name: "Strähnchen", duration: "ca. 90 Min.", price: "ab 75 €" },
-      { name: "Komplettfärbung", duration: "ca. 60 Min.", price: "ab 55 €" },
-      { name: "Ansatz auffrischen", duration: "ca. 45 Min.", price: "ab 45 €" },
+      { name: "REDKEN Root Shadow – Ansatzabdeckung", duration: "1 Std.", price: "ab 40 €" },
+      { name: "REDKEN Color Gels Oils – Komplettfärbung kurz", duration: "1,5 Std.", price: "ab 55 €" },
+      { name: "REDKEN Highlights Full Head", duration: "2,5–3 Std.", price: "ab 150 €" },
+      { name: "Balayage Signature", duration: "3 Std. 40 Min.", price: "ab 220 €" },
     ],
     link: "/services/body-massage",
   },
   {
-    title: "Styling & Pflege",
-    desc: "Professionelle Pflegebehandlungen und Styling für gesundes, glänzendes Haar. Verwöhnen Sie sich.",
+    title: "Haarverlängerung & Pflege",
+    desc: "Luxury Bonding Extensions aus 100 % Echthaar von MyExtensions. Dazu REDKEN Tiefenpflege und Beauty Finish.",
     packages: [
-      { name: "Spülung & Styling", duration: "ca. 30 Min.", price: "ab 25 €" },
-      { name: "Haar-Maske", duration: "ca. 45 Min.", price: "ab 35 €" },
-      { name: "Hochsteckfrisur", duration: "nach Aufwand", price: "auf Anfrage" },
+      { name: "Luxury Bonding Extensions 50 cm", duration: "1 Std.", price: "ab 5,50 €/Strähne" },
+      { name: "REDKEN Acidic Bonding Conditioner", duration: "10 Min.", price: "9 €" },
+      { name: "REDKEN Acidic Protein Amino Treatment", duration: "20 Min.", price: "32 €" },
+      { name: "Eyebrow Sculping / Tinting", duration: "15 Min.", price: "9–10 €" },
     ],
     link: "/services/face-massage",
   },
@@ -34,7 +37,7 @@ const services = [
 ---
 <section class="services" id="ourServices">
   <h2 class="section-title">Unsere Leistungen</h2>
-  <p class="section-desc">Von klassischem Haarschnitt bis zu Farbe und Pflege – wir bieten Ihnen ein volles Programm an Friseurleistungen. Individuell auf Sie abgestimmt.</p>
+  <p class="section-desc">Vom Haarschnitt über Coloration bis zur Haarverlängerung – wir bieten ein volles Programm mit REDKEN Professional und MyExtensions. Individuell auf Sie abgestimmt.</p>
   <div class="services-grid">
     {services.map((service) => (
       <article class="service-card">
@@ -53,90 +56,3 @@ const services = [
     ))}
   </div>
 </section>
-
-<style>
-  .services {
-    padding: 5rem 1.5rem;
-    background: var(--color-sand);
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--color-earth);
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  .section-desc {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    color: var(--color-text-muted);
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .service-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-
-  .service-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--color-earth);
-    margin-bottom: 1rem;
-  }
-
-  .service-desc {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-
-  .packages {
-    list-style: none;
-  }
-
-  .packages li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
-  }
-
-  .packages li:last-child {
-    border-bottom: none;
-  }
-
-  .pkg-name {
-    display: block;
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  .pkg-meta {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-  }
-
-  .learn-more {
-    display: inline-block;
-    margin-top: 1.5rem;
-    color: var(--color-stone);
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .learn-more:hover {
-    color: var(--color-earth);
-  }
-</style>

@@ -4,44 +4,24 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
 const packages = [
-  {
-    name: "Damenhaarschnitt",
-    duration: "ca. 45 Min.",
-    price: "ab 45 €",
-    features: ["Beratung", "Waschen & Pflege", "Präziser Schnitt", "Styling & Föhnen"],
-  },
-  {
-    name: "Herrenhaarschnitt",
-    duration: "ca. 30 Min.",
-    price: "ab 28 €",
-    features: ["Beratung", "Waschen", "Schnitt", "Styling"],
-  },
-  {
-    name: "Kinderschnitt",
-    duration: "ca. 30 Min.",
-    price: "ab 22 €",
-    features: ["Kinderfreundliche Atmosphäre", "Schneller, präziser Schnitt", "Styling"],
-  },
-];
-
-const benefits = [
-  { title: "Für jeden Typ der richtige Schnitt", text: "Wir schneiden Ihr Haar passend zu Ihrem Gesicht, Ihrem Alltag und Ihrem Stil – ob klassisch, modern oder lässig." },
-  { title: "Hochwertige Produkte", text: "Wir verwenden professionelle Shampoos und Pflegeprodukte, die Ihr Haar schonen und zum Strahlen bringen." },
-  { title: "Entspannte Atmosphäre", text: "Bei uns nehmen wir uns Zeit. Sie sollen sich wohlfühlen und mit einem Look gehen, der zu Ihnen passt." },
-];
-
-const highlights = [
-  { title: "Individuelle Beratung", text: "Vor dem Schnitt besprechen wir mit Ihnen Ihre Wünsche und finden gemeinsam den passenden Look." },
-  { title: "Erfahrene Stylisten", text: "Unser Team arbeitet mit Präzision und Fingerspitzengefühl – für ein Ergebnis, das überzeugt." },
-  { title: "Moderne Techniken", text: "Wir setzen auf bewährte Methoden und zeitgemäße Trends für Ihr bestes Ergebnis." },
+  { name: "Express Cut – Trockenschnitt kurz", duration: "45 Min.", price: "27 €", note: "Optional mit Haarwäsche" },
+  { name: "Express Cut – Trockenschnitt mittel", duration: "1 Std.", price: "30 €", note: "Optional mit Haarwäsche" },
+  { name: "Express Cut – Trockenschnitt lang", duration: "1 Std.", price: "ab 32 €", note: "Optional mit Haarwäsche" },
+  { name: "Signature Haircut – Waschen, Schneiden & Föhnen kurz", duration: "1 Std.", price: "37 €" },
+  { name: "Signature Haircut – Waschen, Schneiden & Föhnen mittel", duration: "1 Std.", price: "42 €" },
+  { name: "Men's Signature Cut – Waschen, Schneiden & Styling", duration: "30 Min.", price: "22 €" },
+  { name: "Men's Dry Cut – Trockenhaarschnitt", duration: "30 Min.", price: "17 €" },
+  { name: "Precision Buzz Cut – 0 mm", duration: "30 Min.", price: "20 €" },
+  { name: "Boy's Haircut – Jungen bis 6 Jahre", duration: "30 Min.", price: "15 €" },
+  { name: "Scalp Massage with Tonic", duration: "10 Min.", price: "15 €" },
 ];
 ---
-<Layout title="Haarschnitt | Zeynep & Faisal" description="Haarschnitt bei Zeynep & Faisal. Damen, Herren und Kinder. Individuelle Beratung, professionelle Ergebnisse.">
+<Layout title="Haar Design & Styling | Zeynep & Faisal" description="Haarschnitt bei Zeynep & Faisal in Gelsenkirchen. Damen, Herren und Kinder. Signature Haircut, Express Cut, Barbershop.">
   <Header />
   <main class="service-page">
     <section class="service-hero">
-      <h1>Haarschnitt</h1>
-      <p>Ob klassisch oder modern – wir schneiden Ihr Haar präzise und passend zu Ihrem Typ. Für Damen, Herren und Kinder.</p>
+      <h1>Haar Design & Styling</h1>
+      <p>Ob Express Cut, Signature Haircut oder Precision Buzz Cut – wir schneiden Ihr Haar präzise und passend zu Ihrem Typ. Für Damen, Herren und Kinder.</p>
     </section>
     <section class="packages-section">
       <h2>Leistungen & Preise</h2>
@@ -50,38 +30,14 @@ const highlights = [
           <article class="package-card">
             <h3>{pkg.name}</h3>
             <p class="meta">{pkg.duration} | {pkg.price}</p>
-            <ul>
-              {pkg.features.map((f) => <li>{f}</li>)}
-            </ul>
+            {pkg.note && <p class="note">{pkg.note}</p>}
           </article>
-        ))}
-      </div>
-    </section>
-    <section class="benefits-section">
-      <h2>Vorteile</h2>
-      <div class="benefits-list">
-        {benefits.map((b) => (
-          <div class="benefit-item">
-            <h3>{b.title}</h3>
-            <p>{b.text}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-    <section class="highlights-section">
-      <h2>Warum zu uns?</h2>
-      <div class="highlights-grid">
-        {highlights.map((h) => (
-          <div class="highlight">
-            <h3>{h.title}</h3>
-            <p>{h.text}</p>
-          </div>
         ))}
       </div>
     </section>
     <section class="cta-section">
       <p>Vereinbaren Sie jetzt Ihren Termin – wir freuen uns auf Sie!</p>
-      <a href="https://www.planity.com/de-DE/new-style-by-zeynep-faisal-meisterbetrieb-45891-gelsenkirchen" target="_blank" rel="noopener noreferrer" class="cta-btn">Termin buchen</a>
+      <a href="/#book" class="cta-btn">Termin buchen</a>
     </section>
   </main>
   <Footer />
@@ -89,67 +45,18 @@ const highlights = [
 
 <style>
   .service-page { padding-top: 80px; }
-  .service-hero {
-    padding: 4rem 1.5rem;
-    text-align: center;
-    background: var(--color-sand);
-  }
-  .service-hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--color-earth);
-    margin-bottom: 1rem;
-  }
-  .service-hero p {
-    max-width: 600px;
-    margin: 0 auto;
-    color: var(--color-text-muted);
-  }
-  .packages-section, .benefits-section, .highlights-section {
-    padding: 4rem 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .packages-section h2, .benefits-section h2, .highlights-section h2 {
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    color: var(--color-earth);
-    margin-bottom: 2rem;
-  }
-  .packages-grid { display: grid; gap: 2rem; }
-  .package-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-  .package-card h3 { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
-  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 1rem; }
-  .package-card ul { list-style: none; }
-  .package-card li { padding: 0.25rem 0; color: var(--color-text-muted); font-size: 0.95rem; }
-  .package-card li::before { content: "• "; color: var(--color-sage); }
-  .benefits-list, .highlights-grid { display: grid; gap: 1.5rem; }
-  .benefit-item, .highlight {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-  .benefit-item h3, .highlight h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem; }
-  .benefit-item p, .highlight p { color: var(--color-text-muted); font-size: 0.95rem; }
-  .cta-section {
-    padding: 4rem 1.5rem;
-    text-align: center;
-    background: var(--color-sand);
-  }
+  .service-hero { padding: 4rem 1.5rem; text-align: center; background: var(--color-sand); }
+  .service-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); color: var(--color-earth); margin-bottom: 1rem; }
+  .service-hero p { max-width: 600px; margin: 0 auto; color: var(--color-text-muted); }
+  .packages-section { padding: 4rem 1.5rem; max-width: 1000px; margin: 0 auto; }
+  .packages-section h2 { font-family: var(--font-display); font-size: 1.75rem; color: var(--color-earth); margin-bottom: 2rem; }
+  .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .package-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .package-card h3 { font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 0.25rem; }
+  .package-card .note { font-size: 0.85rem; color: var(--color-text-muted); }
+  .cta-section { padding: 4rem 1.5rem; text-align: center; background: var(--color-sand); }
   .cta-section p { margin-bottom: 1rem; color: var(--color-text-muted); }
-  .cta-btn {
-    display: inline-block;
-    background: var(--color-stone);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    font-weight: 500;
-  }
+  .cta-btn { display: inline-block; background: var(--color-stone); color: white; padding: 1rem 2rem; border-radius: 4px; font-weight: 500; }
   .cta-btn:hover { background: var(--color-earth); }
 </style>

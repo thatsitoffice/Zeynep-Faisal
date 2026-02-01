@@ -4,44 +4,26 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
 const packages = [
-  {
-    name: "Spülung & Styling",
-    duration: "ca. 30 Min.",
-    price: "ab 25 €",
-    features: ["Waschen", "Pflegespülung", "Föhnen", "Styling"],
-  },
-  {
-    name: "Haar-Maske",
-    duration: "ca. 45 Min.",
-    price: "ab 35 €",
-    features: ["Waschen", "Intensive Pflegemaske", "Massage", "Styling"],
-  },
-  {
-    name: "Hochsteckfrisur",
-    duration: "nach Aufwand",
-    price: "auf Anfrage",
-    features: ["Beratung", "Frisur nach Wunsch", "z. B. für besondere Anlässe"],
-  },
-];
-
-const benefits = [
-  { title: "Gesundes, glänzendes Haar", text: "Professionelle Pflegebehandlungen revitalisieren strapaziertes Haar und bringen es zum Strahlen." },
-  { title: "Verwöhnprogramm", text: "Nehmen Sie sich eine Auszeit – bei uns werden Sie rundum verwöhnt." },
-  { title: "Perfekt für jeden Anlass", text: "Ob Hochzeit, Geburtstag oder Business-Event – wir stylen Sie für Ihren großen Moment." },
-];
-
-const highlights = [
-  { title: "Professionelle Produkte", text: "Wir setzen auf bewährte Pflege- und Styling-Produkte für optimale Ergebnisse." },
-  { title: "Erfahrene Stylisten", text: "Unser Team beherrscht alle gängigen Styling-Techniken und berät Sie gerne." },
-  { title: "Individuelle Wünsche", text: "Jede Frisur wird auf Sie und Ihren Anlass zugeschnitten." },
+  { name: "Luxury Bonding Extensions – 50 cm (je Strähne 1 gr)", duration: "1 Std.", price: "ab 5,50 €", note: "100 % Echthaar von MyExtensions" },
+  { name: "Luxury Bonding Extensions – 60 cm (je Strähne 1 gr)", duration: "1 Std.", price: "ab 6 €", note: "100 % Echthaar von MyExtensions" },
+  { name: "Beratung & Farbauswahl Luxury Bonding", duration: "20 Min.", price: "kostenlos", note: "Empfohlen vor jeder Haarverlängerung" },
+  { name: "Entfernung von Keratin Bondings (je Strähne)", duration: "1 Std.", price: "ab 1 €" },
+  { name: "REDKEN Acidic Bonding Conditioner", duration: "10 Min.", price: "9 €", note: "Intensive Tiefenpflege" },
+  { name: "REDKEN Acidic Protein Amino Treatment", duration: "20 Min.", price: "32 €", note: "Höchste Exklusivität, seidiger Glanz" },
+  { name: "Eyebrow Sculping – Augenbrauen formen", duration: "15 Min.", price: "9 €" },
+  { name: "Eyebrow Tinting – Augenbrauen färben", duration: "15 Min.", price: "10 €" },
+  { name: "Eyelash Tinting – Wimpern färben", duration: "15 Min.", price: "10 €" },
+  { name: "Beard Trim & Shave – klassische Nassrasur", duration: "10 Min.", price: "14 €" },
+  { name: "Beard Machine Shave", duration: "10 Min.", price: "9 €" },
+  { name: "Beard Tinting – Bart färben", duration: "15 Min.", price: "17 €" },
 ];
 ---
-<Layout title="Styling & Pflege | Zeynep & Faisal" description="Styling und Haarpflege bei Zeynep & Faisal. Professionelle Behandlungen für gesundes, glänzendes Haar.">
+<Layout title="Haarverlängerung & Pflege | Zeynep & Faisal" description="Luxury Bonding Extensions, REDKEN Pflege, Beauty Finish. Haarverlängerung mit MyExtensions, Bartpflege, Augenbrauen.">
   <Header />
   <main class="service-page">
     <section class="service-hero">
-      <h1>Styling & Pflege</h1>
-      <p>Professionelle Pflegebehandlungen und Styling für gesundes, glänzendes Haar. Verwöhnen Sie sich.</p>
+      <h1>Haarverlängerung & Pflege</h1>
+      <p>Luxury Bonding Extensions aus 100 % Echthaar von MyExtensions. Dazu REDKEN Tiefenpflege, Beauty Finish und Bartpflege für Herren.</p>
     </section>
     <section class="packages-section">
       <h2>Leistungen & Preise</h2>
@@ -50,38 +32,14 @@ const highlights = [
           <article class="package-card">
             <h3>{pkg.name}</h3>
             <p class="meta">{pkg.duration} | {pkg.price}</p>
-            <ul>
-              {pkg.features.map((f) => <li>{f}</li>)}
-            </ul>
+            {pkg.note && <p class="note">{pkg.note}</p>}
           </article>
         ))}
       </div>
     </section>
-    <section class="benefits-section">
-      <h2>Vorteile</h2>
-      <div class="benefits-list">
-        {benefits.map((b) => (
-          <div class="benefit-item">
-            <h3>{b.title}</h3>
-            <p>{b.text}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-    <section class="highlights-section">
-      <h2>Warum zu uns?</h2>
-      <div class="highlights-grid">
-        {highlights.map((h) => (
-          <div class="highlight">
-            <h3>{h.title}</h3>
-            <p>{h.text}</p>
-          </div>
-        ))}
-      </div>
-    </section>
     <section class="cta-section">
-      <p>Vereinbaren Sie jetzt Ihren Termin – wir freuen uns auf Sie!</p>
-      <a href="https://www.planity.com/de-DE/new-style-by-zeynep-faisal-meisterbetrieb-45891-gelsenkirchen" target="_blank" rel="noopener noreferrer" class="cta-btn">Termin buchen</a>
+      <p>Wir empfehlen vor jeder Haarverlängerung eine kostenlose Beratung & Farbauswahl. Vereinbaren Sie jetzt Ihren Termin!</p>
+      <a href="/#book" class="cta-btn">Termin buchen</a>
     </section>
   </main>
   <Footer />
@@ -89,67 +47,18 @@ const highlights = [
 
 <style>
   .service-page { padding-top: 80px; }
-  .service-hero {
-    padding: 4rem 1.5rem;
-    text-align: center;
-    background: var(--color-sand);
-  }
-  .service-hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--color-earth);
-    margin-bottom: 1rem;
-  }
-  .service-hero p {
-    max-width: 600px;
-    margin: 0 auto;
-    color: var(--color-text-muted);
-  }
-  .packages-section, .benefits-section, .highlights-section {
-    padding: 4rem 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .packages-section h2, .benefits-section h2, .highlights-section h2 {
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    color: var(--color-earth);
-    margin-bottom: 2rem;
-  }
-  .packages-grid { display: grid; gap: 2rem; }
-  .package-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-  .package-card h3 { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; }
-  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 1rem; }
-  .package-card ul { list-style: none; }
-  .package-card li { padding: 0.25rem 0; color: var(--color-text-muted); font-size: 0.95rem; }
-  .package-card li::before { content: "• "; color: var(--color-sage); }
-  .benefits-list, .highlights-grid { display: grid; gap: 1.5rem; }
-  .benefit-item, .highlight {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-  .benefit-item h3, .highlight h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem; }
-  .benefit-item p, .highlight p { color: var(--color-text-muted); font-size: 0.95rem; }
-  .cta-section {
-    padding: 4rem 1.5rem;
-    text-align: center;
-    background: var(--color-sand);
-  }
+  .service-hero { padding: 4rem 1.5rem; text-align: center; background: var(--color-sand); }
+  .service-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); color: var(--color-earth); margin-bottom: 1rem; }
+  .service-hero p { max-width: 600px; margin: 0 auto; color: var(--color-text-muted); }
+  .packages-section { padding: 4rem 1.5rem; max-width: 1000px; margin: 0 auto; }
+  .packages-section h2 { font-family: var(--font-display); font-size: 1.75rem; color: var(--color-earth); margin-bottom: 2rem; }
+  .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .package-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .package-card h3 { font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .package-card .meta { color: var(--color-stone); font-weight: 500; margin-bottom: 0.25rem; }
+  .package-card .note { font-size: 0.85rem; color: var(--color-text-muted); }
+  .cta-section { padding: 4rem 1.5rem; text-align: center; background: var(--color-sand); }
   .cta-section p { margin-bottom: 1rem; color: var(--color-text-muted); }
-  .cta-btn {
-    display: inline-block;
-    background: var(--color-stone);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    font-weight: 500;
-  }
+  .cta-btn { display: inline-block; background: var(--color-stone); color: white; padding: 1rem 2rem; border-radius: 4px; font-weight: 500; }
   .cta-btn:hover { background: var(--color-earth); }
 </style>
