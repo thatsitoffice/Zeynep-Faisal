@@ -1,0 +1,107 @@
+---
+const team = [
+  { name: "Zeynep", initials: "Z", image: null },
+  { name: "Faisal", initials: "F", image: null },
+  { name: "Emre Omran", initials: "EO", image: null },
+  { name: "Bekir", initials: "B", image: null },
+  { name: "Abdul", initials: "A", image: null },
+  { name: "Yana", initials: "Y", image: null },
+];
+---
+<section class="team" id="mitarbeiter">
+  <h2 class="section-title">Mitarbeiter</h2>
+  <div class="team-card">
+    <div class="team-grid">
+      {team.map((member) => (
+        <div class="member">
+          <div class="avatar">
+            {member.image ? (
+              <img src={member.image} alt={member.name} width="80" height="80" />
+            ) : (
+              <span class="initials">{member.initials}</span>
+            )}
+          </div>
+          <span class="name">{member.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team {
+    padding: 5rem 1.5rem;
+    background: var(--color-sand);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-earth);
+    margin-bottom: 2rem;
+  }
+
+  .team-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 2rem;
+  }
+
+  .member {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .initials {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--color-earth);
+  }
+
+  @media (min-width: 600px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .team-card {
+      max-width: 700px;
+    }
+  }
+</style>
