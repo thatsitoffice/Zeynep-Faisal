@@ -20,7 +20,7 @@ const bg =
   </div>
   <div class="final-cta__scrim" aria-hidden="true"></div>
 
-  <div class="container final-cta__inner" data-reveal>
+  <div class="final-cta__inner" data-reveal>
     <p class="final-cta__eyebrow">Planity</p>
     <h2 id="final-cta-heading" class="final-cta__title display-lg">
       Ihr Termin — in wenigen Schritten reserviert
@@ -42,8 +42,17 @@ const bg =
   .final-cta {
     position: relative;
     overflow: hidden;
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-xl);
+    padding-inline: var(--page-pad);
     color: #faf8f5;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    .final-cta {
+      padding-block: var(--space-2xl);
+      padding-inline: 0;
+    }
   }
 
   .final-cta__media {
@@ -92,9 +101,22 @@ const bg =
     position: relative;
     z-index: 2;
     text-align: left;
-    max-width: 38rem;
-    padding-block: var(--space-lg);
+    width: 100%;
+    max-width: 36rem;
+    margin-inline: 0;
+    padding-block: var(--space-md);
+    box-sizing: border-box;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (min-width: 768px) {
+    .final-cta__inner {
+      width: 30%;
+      max-width: none;
+      margin-left: 20%;
+      margin-right: auto;
+      padding-block: var(--space-lg);
+    }
   }
 
   .final-cta__eyebrow {
@@ -113,7 +135,7 @@ const bg =
 
   .final-cta__lead {
     margin: var(--space-md) 0 var(--space-lg);
-    max-width: 36rem;
+    max-width: none;
     color: rgba(247, 245, 242, 0.92);
     font-size: 1.08rem;
     line-height: 1.65;
@@ -131,7 +153,7 @@ const bg =
     margin: 0;
     font-size: 0.8rem;
     color: rgba(247, 245, 242, 0.65);
-    max-width: 32rem;
+    max-width: none;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   }
 </style>
