@@ -4,6 +4,9 @@
  */
 import { SALON_IMAGES } from "../data/salon-images";
 
+/** Panorama unter der Galerie — Styling-Stationen (gleiches Asset wie Preisseiten-Hero) */
+const salonFloor = SALON_IMAGES.preiseHero;
+
 const shots = [
   {
     src: SALON_IMAGES.mood2.src,
@@ -55,6 +58,20 @@ const shots = [
         ))
       }
     </div>
+
+    <figure class="mood-gallery__panorama" data-reveal>
+      <div class="mood-gallery__panorama-frame">
+        <img
+          src={salonFloor.src}
+          alt="Salon — Stylingplätze, Spiegel und ruhige Arbeitsatmosphäre"
+          width={salonFloor.w}
+          height={salonFloor.h}
+          loading="lazy"
+          decoding="async"
+          class="mood-gallery__panorama-img"
+        />
+      </div>
+    </figure>
   </div>
 </section>
 
@@ -94,14 +111,21 @@ const shots = [
     font-size: clamp(1.75rem, 3.5vw, 2.35rem);
     letter-spacing: -0.02em;
     color: var(--color-editorial);
-    max-width: 22rem;
+    max-width: min(42rem, 100%);
   }
 
   .mood-gallery__lead {
     margin: 0 0 var(--space-xl);
-    max-width: 32rem;
+    max-width: min(52rem, 100%);
     font-size: 1rem;
     line-height: 1.65;
+  }
+
+  @media (min-width: 900px) {
+    .mood-gallery__heading,
+    .mood-gallery__lead {
+      padding-right: clamp(0rem, 6vw, 4rem);
+    }
   }
 
   .mood-gallery__grid {
@@ -168,6 +192,35 @@ const shots = [
   @media (hover: hover) {
     .mood-gallery__frame:hover .mood-gallery__img {
       transform: scale(1.03);
+    }
+  }
+
+  .mood-gallery__panorama {
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+    border: none;
+  }
+
+  .mood-gallery__panorama-frame {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 2400 / 1792;
+    max-height: min(72vh, 38rem);
+    box-shadow: var(--shadow-card);
+    background: var(--color-line);
+  }
+
+  .mood-gallery__panorama-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 48%;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .mood-gallery__panorama-img {
+      object-position: 58% 42%;
     }
   }
 </style>
