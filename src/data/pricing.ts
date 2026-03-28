@@ -152,6 +152,34 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
 ];
 
+/**
+ * Startseite: drei Kacheln mit Sprungmarken auf /preise/
+ * (`anchorId` entspricht `id` am jeweiligen `PriceCategoryCard`).
+ */
+export type PriceMainGroupTile = {
+  anchorId: string;
+  title: string;
+  blurb: string;
+};
+
+export const PRICE_MAIN_GROUP_TILES: PriceMainGroupTile[] = [
+  {
+    anchorId: "damen-cut",
+    title: "Damen",
+    blurb: "Schnitt, Color, Blond Signature, Pflege & Beauty — Einstieg bei Hair Design | Damen.",
+  },
+  {
+    anchorId: "herren-cut",
+    title: "Herren",
+    blurb: "Haarstyling, Color, Bart & Finish — Einstieg bei Haar Design | Herren.",
+  },
+  {
+    anchorId: "extensions",
+    title: "Extensions",
+    blurb: "Luxury Bonding Extensions, Beratung & Entfernung — 100 % Echthaar.",
+  },
+];
+
 /** Kurz-Vorschau auf der Startseite — gruppiert wie in Planity. */
 export type PricePreviewRow = PriceRow & {
   badge?: string;
