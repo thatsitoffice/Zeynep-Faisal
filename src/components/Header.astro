@@ -1,5 +1,6 @@
 ---
 import BookingButton from "./BookingButton.astro";
+import GoogleRatingChip from "./GoogleRatingChip.astro";
 import { SITE } from "../data/site";
 
 interface Props {
@@ -29,11 +30,10 @@ const toSection = (fragment: string) => (isHome ? `#${fragment}` : `/#${fragment
 
 const nav = [
   { href: "/", label: "Home" },
-  { href: toSection("leistungen"), label: "Leistungen" },
+  { href: toSection("vertrauen"), label: "Vorteile" },
   { href: "/preise/", label: "Preise" },
   { href: toSection("produkte"), label: "Produkte" },
   { href: toSection("stimmung"), label: "Atmosphäre" },
-  { href: toSection("stimmen"), label: "Stimmen" },
 ];
 ---
 
@@ -65,19 +65,23 @@ const nav = [
       </ul>
     </nav>
 
-    <div class="site-header__cta">
-      <BookingButton variant={bookingVariant} />
+    <div class="site-header__end">
+      <div class="site-header__rating">
+        <GoogleRatingChip variant="header" lightBar={!isOverlay} />
+      </div>
+      <div class="site-header__cta">
+        <BookingButton variant={bookingVariant} />
+      </div>
+      <a
+        class:list={["site-header__cta-mobile", "btn", mobileBtnClass]}
+        href={SITE.bookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Termin buchen (Planity)"
+      >
+        Buchen
+      </a>
     </div>
-
-    <a
-      class:list={["site-header__cta-mobile", "btn", mobileBtnClass]}
-      href={SITE.bookingUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Termin buchen (Planity)"
-    >
-      Buchen
-    </a>
   </div>
 </header>
 
@@ -123,10 +127,25 @@ const nav = [
   .site-header__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
+    gap: clamp(0.65rem, 2vw, 1.15rem);
     min-height: var(--header-h);
     padding-block: var(--space-sm);
+  }
+
+  .site-header__end {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  @media (min-width: 900px) {
+    .site-header__end {
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
   }
 
   .site-header__brand {
@@ -188,6 +207,30 @@ const nav = [
   @media (min-width: 900px) {
     .site-header__nav {
       display: block;
+    }
+  }
+
+  .site-header__rating {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .site-header__rating :global(.google-chip__meta) {
+    font-size: 0.58rem;
+  }
+
+  .site-header__rating :global(.google-chip__stars) {
+    font-size: 0.58rem;
+  }
+
+  .site-header__rating :global(.google-chip) {
+    padding: 0.22rem 0.5rem 0.22rem 0.42rem;
+  }
+
+  @media (max-width: 420px) {
+    .site-header__rating :global(.google-chip__suffix) {
+      display: none;
     }
   }
 
