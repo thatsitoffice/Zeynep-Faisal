@@ -193,71 +193,24 @@ export type PricePreviewBlock = {
 };
 
 /**
- * Startseite: häufig gebuchte Kernleistungen mit Preisen — abgestimmt auf
- * @see PLANITY_PRICING_URL
- * Vollständiges Angebot: Planity oder /preise/
+ * Startseiten-Auszug: dieselben Kategorien wie `PRICE_CATEGORIES`, aber nur wenige
+ * Zeilen pro Block — Details und Varianten nur auf `/preise/` bzw. Planity.
  */
-export const PRICE_PREVIEW_BLOCKS: PricePreviewBlock[] = [
-  {
-    id: "damen-schnitt",
-    title: "Hair Design & Styling | Damen",
-    rows: [
-      {
-        name: "Express Cut — Trockenschnitt kurz",
-        duration: "45 Min. · optional mit Haarwäsche",
-        price: "27 €",
-      },
-      {
-        name: "Express Cut — Trockenschnitt mittel",
-        duration: "60 Min. · optional mit Haarwäsche",
-        price: "30 €",
-      },
-      {
-        name: "Express Cut — Trockenschnitt lang",
-        duration: "60 Min. · optional mit Haarwäsche",
-        price: "ab 32 €",
-      },
-      {
-        name: "Signature Haircut — Waschen, Schneiden & Föhnen kurz",
-        duration: "60 Min.",
-        price: "37 €",
-      },
-      {
-        name: "Signature Haircut — Waschen, Schneiden & Föhnen mittel",
-        duration: "60 Min.",
-        price: "42 €",
-      },
-    ],
-  },
-  {
-    id: "herren-schnitt",
-    title: "Haar Design & Styling | Herren",
-    rows: [
-      { name: "Men's Signature Cut — Waschen, Schneiden & Styling", duration: "30 Min.", price: "22 €" },
-      { name: "Men's Dry Cut — Trockenhaarschnitt", duration: "30 Min.", price: "17 €" },
-      { name: "Precision Buzz Cut — 0 mm", duration: "30 Min.", price: "20 €" },
-      { name: "Boy's Haircut — bis 6 Jahre", duration: "30 Min.", price: "15 €" },
-    ],
-  },
-  {
-    id: "damen-color",
-    title: "Color & Gloss | Damen",
-    rows: [
-      { name: "REDKEN Root Shadow — Ansatzabdeckung", duration: "60 Min.", price: "ab 40 €" },
-      { name: "REDKEN Color Gels Oils — globale Komplettfärbung kurz", duration: "90 Min.", price: "ab 55 €" },
-      { name: "REDKEN Color Gels Oils — globale Komplettfärbung mittel", duration: "90 Min.", price: "ab 70 €" },
-      { name: "REDKEN Shades EQ Gloss — Signature Gloss", duration: "30 Min.", price: "ab 40 €" },
-    ],
-  },
-  {
-    id: "herren-color-bart",
-    title: "Color, Bart & Finish | Herren",
-    rows: [
-      { name: "Men's Grey Coverage — natürliche Grauhaarkaschierung", duration: "25 Min.", price: "ab 35 €" },
-      { name: "Men's Natural Highlights — dezente Kammsträhnen", duration: "25 Min.", price: "ab 35 €" },
-      { name: "Beard Trim & Shave — klassische Nassrasur", duration: "10 Min.", price: "14 €" },
-      { name: "Beard Machine Shave — Maschinenrasur", duration: "10 Min.", price: "9 €" },
-      { name: "Beard Tinting — Bart färben", duration: "15 Min.", price: "17 €" },
-    ],
-  },
-];
+export const PRICE_PREVIEW_MAX_ROWS = 3 as const;
+
+function isCatalogAggregateRow(r: PriceRow): boolean {
+  return r.price === "—" && Boolean(r.note);
+}
+
+/**
+ * Aus `PRICE_CATEGORIES` abgeleitet (keine zweite manuelle Liste).
+ * @see PLANITY_PRICING_URL
+ */
+export const PRICE_PREVIEW_BLOCKS: PricePreviewBlock[] = PRICE_CATEGORIES.map((cat) => ({
+  id: cat.id,
+  title: cat.title,
+  rows: cat.rows
+    .filter((r) => !isCatalogAggregateRow(r))
+    .slice(0, PRICE_PREVIEW_MAX_ROWS)
+    .map((r) => ({ ...r })),
+})).filter((b) => b.rows.length > 0);

@@ -1,0 +1,148 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { SITE } from "../data/site";
+import { LEGAL } from "../data/legal";
+import { PLANITY_PRICING_URL } from "../data/pricing";
+
+const pageTitle = `Datenschutz | ${SITE.name}`;
+const pageDescription = `Datenschutzerklärung — ${SITE.name}, Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.`;
+---
+
+<LegalLayout title={pageTitle} description={pageDescription} heading="Datenschutz">
+  <h2>1. Verantwortliche Stelle</h2>
+  <p>
+    Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer datenschutzrechtlicher Bestimmungen ist:
+  </p>
+  <address>
+    <strong>{LEGAL.entityDisplayName}</strong><br />
+    {LEGAL.streetLine}<br />
+    {LEGAL.postalCode} {LEGAL.city}<br />
+    {LEGAL.country}<br />
+    <br />
+    Telefon: <a href={`tel:${LEGAL.phoneTel}`}>{LEGAL.phoneDisplay}</a><br />
+    E-Mail: <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>
+  </address>
+
+  <h2>2. Allgemeines zur Datenverarbeitung</h2>
+  <p>
+    Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie unserer
+    Inhalte und Leistungen erforderlich ist. Die Verarbeitung erfolgt regelmäßig nur nach Einwilligung des Betroffenen oder
+    soweit eine Rechtsgrundlage in der DSGVO oder einem anderen Gesetz vorgesehen ist.
+  </p>
+
+  <h2>3. Hosting</h2>
+  <p>
+    Diese Website wird bei einem externen Dienstleister gehostet. Der Hoster verarbeitet in unserem Auftrag ggf. personenbezogene
+    Daten (z. B. in Server-Logdateien), soweit dies technisch erforderlich ist, um die Seite auszuliefern.
+  </p>
+  <p>
+    <strong>Anbieter (bitte in <code>src/data/legal.ts</code> konkret benennen):</strong><br />
+    {LEGAL.hostingProviderName}<br />
+    {LEGAL.hostingProviderAddress}
+  </p>
+  <p>
+    Datenschutzhinweise des Hosters:{" "}
+    {
+      LEGAL.hostingPrivacyUrl.startsWith("http") ? (
+        <a href={LEGAL.hostingPrivacyUrl} target="_blank" rel="noopener noreferrer">
+          {LEGAL.hostingPrivacyUrl}
+        </a>
+      ) : (
+        <em>
+          Bitte URL der Datenschutzerklärung Ihres Hosters in <code>src/data/legal.ts</code> (<code>hostingPrivacyUrl</code>)
+          eintragen.
+        </em>
+      )
+    }
+  </p>
+  <p>
+    Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und effizienten Bereitstellung der Website).
+  </p>
+
+  <h2>4. Server-Logdateien</h2>
+  <p>
+    Beim Aufruf dieser Website erfasst der Hoster automatisch Informationen in sogenannten Server-Logdateien (z. B. Browsertyp,
+    Datum und Uhrzeit des Zugriffs, IP-Adresse). Die Speicherung dient der Sicherheit (z. B. zur Abwehr von Angriffen) und der
+    technischen Stabilität. Eine Zusammenführung mit anderen Datenquellen findet in der Regel nicht statt.
+  </p>
+  <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <h2>5. Kontakt per E-Mail</h2>
+  <p>
+    Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen mitgeteilten Daten (E-Mail-Inhalt, ggf. Metadaten) ausschließlich
+    zur Bearbeitung der Anfrage verwendet und nicht ohne Ihre Einwilligung an Dritte weitergegeben.
+  </p>
+  <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung/-durchführung) bzw. Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <h2>6. Online-Terminbuchung (Planity)</h2>
+  <p>
+    Für die Online-Buchung von Terminen verlinken wir auf die Plattform Planity. Wenn Sie den Link nutzen, gelten die
+    Datenschutzbestimmungen von Planity; wir haben keinen Einfluss auf die dortige Datenverarbeitung.
+  </p>
+  <p>
+    <a href={PLANITY_PRICING_URL} target="_blank" rel="noopener noreferrer">Planity — New Style by Zeynep &amp; Faisal</a>
+  </p>
+
+  <h2>7. Einbindung von Karten (Google Maps)</h2>
+  <p>
+    Auf dieser Website kann eine Karte von Google eingebunden sein. Beim Aufruf können Daten (u. a. IP-Adresse) an Google
+    übermittelt werden. Näheres entnehmen Sie der Datenschutzerklärung von Google:{" "}
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>
+  </p>
+
+  <h2>8. Google Fonts</h2>
+  <p>
+    Diese Seite nutzt zur einheitlichen Darstellung Schriftarten von Google Fonts. Beim Aufruf der Website lädt Ihr Browser
+    die benötigten Schriftdateien in den Cache. Dazu muss der von Ihnen verwendete Browser die Server von Google ansteuern.
+    Hierdurch erlangt Google Kenntnis darüber, dass über Ihre IP-Adresse unsere Website aufgerufen wurde.
+  </p>
+  <p>
+    Weitere Informationen:{" "}
+    <a href="https://developers.google.com/fonts/faq" target="_blank" rel="noopener noreferrer">Google Fonts FAQ</a> und{" "}
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Datenschutz</a>.
+  </p>
+  <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an ansprechender, lesbarer Darstellung).</p>
+
+  <h2>9. Bewertungen / Google Places (Build-Zeit)</h2>
+  <p>
+    Falls auf dieser Website öffentliche Bewertungszahlen oder Texte angezeigt werden, können diese beim Erstellen der
+    statischen Seite (Build) über die Google Places API abgerufen worden sein. Dabei werden keine personenbezogenen Daten
+    der Websitebesucher an Google übermittelt; die Abfrage erfolgt serverseitig beim Hosting-Build.
+  </p>
+
+  <h2>10. Cookies</h2>
+  <p>
+    Diese Website verwendet keine Cookies zu Werbe- oder Analysezwecken. Technisch notwendige Cookies Ihres Browsers oder
+    des Hosters können ohne Ihr Zutun gesetzt werden, soweit dies für den Betrieb der Seite erforderlich ist.
+  </p>
+
+  <h2>11. Ihre Rechte</h2>
+  <p>Sie haben — soweit die gesetzlichen Voraussetzungen erfüllt sind — insbesondere:</p>
+  <ul>
+    <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+    <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+    <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+    <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+    <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+    <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+  </ul>
+  <p>
+    Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Zuständig ist insbesondere:
+  </p>
+  <p>{LEGAL.supervisoryAuthority}</p>
+
+  <h2>12. Speicherdauer</h2>
+  <p>
+    Personenbezogene Daten werden gelöscht oder gesperrt, sobald der Zweck der Speicherung entfällt, es sei denn, gesetzliche
+    Aufbewahrungsfristen stehen dem entgegen.
+  </p>
+
+  <h2>13. Änderung dieser Erklärung</h2>
+  <p>
+    Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen
+    entspricht oder um Änderungen unserer Leistungen umzusetzen. Für Ihren erneuten Besuch gilt die jeweils aktuelle Fassung.
+  </p>
+  <p class="muted" style="font-size: 0.9rem; margin-top: 1.5rem;">
+    Stand: März 2026 — Text dient der Orientierung und ersetzt keine individuelle Rechtsberatung.
+  </p>
+</LegalLayout>
