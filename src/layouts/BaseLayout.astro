@@ -77,5 +77,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
   <body>
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
     <slot />
+    <script is:inline>
+      (function () {
+        var header = document.getElementById("site-header");
+        if (!header || header.getAttribute("data-overlay") !== "true") return;
+        var hero = document.querySelector(".hero--editorial");
+        function update() {
+          if (!hero) {
+            header.classList.add("site-header--scrolled");
+            return;
+          }
+          var rect = hero.getBoundingClientRect();
+          header.classList.toggle("site-header--scrolled", rect.bottom < 80);
+        }
+        update();
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+      })();
+    </script>
   </body>
 </html>

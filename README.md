@@ -17,7 +17,9 @@ npm run build
 
 Ausgabe: `dist/` (z. B. [Cloudflare Pages](https://pages.cloudflare.com/) oder GitHub Pages).
 
-Seiten: `/` (Start), `/preise/` (vollständige Preisliste aus `src/data/pricing.ts`).
+Seiten: `/` (Start mit Fullscreen-Hero + transparentem Header), `/preise/` (vollständige Preisliste aus `src/data/pricing.ts`).
+
+Layout: seitlicher Innenabstand site-weit **`10%`** (`--page-pad` in `src/styles/global.css`).
 
 ## Inhalte pflegen
 

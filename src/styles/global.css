@@ -36,6 +36,7 @@
 
   --max-read: 38rem;
   --max-content: 72rem;
+  --page-pad: 10%;
   --header-h: 4.35rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -123,13 +124,21 @@ a:hover {
   top: var(--space-sm);
 }
 
+/** Seitenrand durchgängig 10 % (vom Viewport-Inhalt) */
 .container {
-  width: min(100% - var(--space-lg) * 2, var(--max-content));
+  width: 100%;
+  max-width: 100%;
   margin-inline: auto;
+  padding-inline: var(--page-pad);
+  box-sizing: border-box;
 }
 
 .container--narrow {
-  width: min(100% - var(--space-lg) * 2, 48rem);
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+  box-sizing: border-box;
 }
 
 /* --- Typografie --- */
@@ -238,6 +247,36 @@ a:hover {
 
 .btn--on-dark:hover {
   background: #fff;
+  text-decoration: none;
+}
+
+/* Hero / dunkle Flächen: Pill-Buttons (Editorial / Spa-Ästhetik) */
+.btn--hero-solid {
+  background: #faf8f5;
+  color: var(--color-ink);
+  border-radius: 999px;
+  border: 1px solid rgba(250, 248, 245, 0.95);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.35);
+}
+
+.btn--hero-solid:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px -12px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+
+.btn--hero-outline {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.96);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(6px);
+}
+
+.btn--hero-outline:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
   text-decoration: none;
 }
 

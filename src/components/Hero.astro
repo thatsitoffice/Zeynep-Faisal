@@ -3,153 +3,220 @@ import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
 
 /**
- * Hero-Bild: Platzhalter — durch eigenes Shooting ersetzen (WebP/AVIF, ca. 1600px breit).
- * Quelle hier nur als hochwertiger Demo-Look; Rechte vor Veröffentlichung klären.
+ * Editorial Fullscreen-Hero — inspiriert von High-End Spa/Beauty (ruhiges Bild, Typo unten links, Pill-CTAs).
+ * Bild: durch eigenes Shooting ersetzen (WebP/AVIF, Rechte klären).
  */
 const heroImage = {
-  src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80",
-  alt: "Ruhiger, heller Salonraum mit stilvoller Ausstattung — stellvertretend für die Atmosphäre bei New Style",
-  width: 1600,
-  height: 2000,
+  src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=2000&q=85",
+  alt: "Exklusiver Friseur-Salon — warmes Licht, ruhige Atmosphäre",
+  width: 2000,
+  height: 1333,
 };
 ---
 
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="hero__ambient" aria-hidden="true"></div>
-  <div class="hero__grid container">
+<section class="hero hero--editorial" aria-labelledby="hero-heading">
+  <div class="hero__media">
+    <img
+      class="hero__img"
+      src={heroImage.src}
+      alt={heroImage.alt}
+      width={heroImage.width}
+      height={heroImage.height}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+
+  <div class="hero__content container">
     <div class="hero__copy" data-reveal style="--reveal-delay: 0ms">
-      <p class="eyebrow">{SITE.city} · {SITE.tagline}</p>
-      <h1 id="hero-heading" class="display-xl">
-        Wo Präzision auf Ruhe trifft — Ihr Haar in Meisterhand.
+      <p class="hero__kicker">{SITE.city} · {SITE.tagline}</p>
+      <h1 id="hero-heading" class="hero__title">
+        <span class="hero__title-main">New Style</span>
+        <span class="hero__title-sub">by Zeynep &amp; Faisal</span>
       </h1>
-      <p class="lead hero__lead">
-        Im Herzen von Gelsenkirchen verwandeln wir Ihren Besuch in ein klares, hochwertiges Erlebnis: Beratung mit Tiefe,
-        Handwerk mit Haltung — und ein Ergebnis, das sich jeden Tag leicht tragen lässt.
+      <p class="hero__lead">
+        Wo Präzision auf Ruhe trifft — Handwerk mit Haltung, Beratung mit Tiefe. Für ein Ergebnis, das sich jeden Tag
+        leicht trägt.
       </p>
       <div class="hero__actions">
-        <BookingButton />
-        <a class="btn btn--ghost" href="#leistungen">Leistungen entdecken</a>
+        <BookingButton variant="heroSolid" />
+        <a class="btn btn--hero-outline" href="#leistungen">Leistungen entdecken</a>
       </div>
-      <p class="hero__note muted">
-        Online buchen bei Planity — Wunschtermin, Service und Team wählen Sie selbst.
+      <p class="hero__note">
+        <span class="hero__note-dot" aria-hidden="true"></span>
+        Online-Termin bei Planity — 24/7 buchbar, Zahlung vor Ort.
       </p>
     </div>
-    <figure class="hero__figure" data-reveal style="--reveal-delay: 140ms">
-      <div class="hero__frame">
-        <img
-          src={heroImage.src}
-          alt={heroImage.alt}
-          width={heroImage.width}
-          height={heroImage.height}
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          class="hero__img"
-        />
-      </div>
-      <figcaption class="hero__caption">Atmosphäre &amp; Handwerk — authentisches Bild nach Freigabe einsetzen.</figcaption>
-    </figure>
   </div>
 </section>
 
 <style>
-  .hero {
+  .hero--editorial {
     position: relative;
-    padding-block: var(--space-xl) var(--space-2xl);
-    padding-top: calc(var(--space-xl) + var(--header-h));
-    margin-top: calc(-1 * var(--header-h));
-  }
-
-  .hero__ambient {
-    position: absolute;
-    inset: 0;
-    top: 10%;
-    background: radial-gradient(ellipse 55% 45% at 85% 25%, rgba(196, 165, 116, 0.11), transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .hero__grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    gap: var(--space-xl);
-    align-items: center;
-  }
-
-  @media (min-width: 960px) {
-    .hero__grid {
-      grid-template-columns: 1fr 1.05fr;
-      gap: var(--space-2xl);
-    }
-  }
-
-  .hero__lead {
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero__actions {
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-  }
-
-  .hero__note {
-    font-size: 0.875rem;
-    margin: 0;
-    max-width: 28rem;
-  }
-
-  .hero__figure {
-    margin: 0;
-  }
-
-  .hero__frame {
-    position: relative;
-    border-radius: var(--radius-lg);
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: clamp(2.75rem, 7vh, 5.5rem);
+    padding-top: calc(var(--header-h) + 1.5rem);
+    margin-top: 0;
     overflow: hidden;
-    box-shadow: var(--shadow-soft);
-    aspect-ratio: 4 / 5;
-    background: var(--color-line);
-    outline: 1px solid rgba(255, 255, 255, 0.5);
-    outline-offset: -1px;
   }
 
-  .hero__frame::after {
-    content: "";
+  .hero__media {
     position: absolute;
     inset: 0;
-    background: linear-gradient(160deg, transparent 55%, rgba(20, 19, 18, 0.12) 100%);
-    pointer-events: none;
-    z-index: 1;
+    z-index: 0;
   }
 
   .hero__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    transform: scale(1.07);
-    transition: transform 1.35s var(--ease-luxe);
+    object-position: center 28%;
+    transform: scale(1.06);
+    transition: transform 1.5s var(--ease-luxe);
   }
 
-  .hero__figure.is-visible .hero__img {
+  .hero--editorial.is-boot .hero__img {
     transform: scale(1);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .hero__img {
-      transform: none;
+      transform: scale(1);
       transition: none;
     }
   }
 
-  .hero__caption {
-    margin-top: var(--space-sm);
-    font-size: 0.75rem;
-    color: var(--color-ink-soft);
-    line-height: 1.4;
+  /* Lesbarkeit: dunkler Verlauf unten, weiches Licht oben */
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      195deg,
+      rgba(15, 14, 13, 0.1) 0%,
+      rgba(15, 14, 13, 0.05) 38%,
+      rgba(15, 14, 13, 0.55) 72%,
+      rgba(12, 11, 10, 0.82) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero__vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(0, 0, 0, 0.18), transparent 55%);
+    pointer-events: none;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .hero__copy {
+    max-width: 38rem;
+  }
+
+  .hero__kicker {
+    margin: 0 0 1rem;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .hero__title {
+    margin: 0 0 1.25rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .hero__title-main {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3.1rem, 11vw, 6.25rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    display: block;
+    text-shadow: 0 4px 48px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero__title-sub {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.15rem, 3.2vw, 1.65rem);
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.88);
+    display: block;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero__lead {
+    margin: 0 0 1.75rem;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 26rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    align-items: center;
+    margin-bottom: 1.35rem;
+  }
+
+  .hero__actions :global(.btn) {
+    min-height: 3rem;
+    padding-inline: 1.5rem;
+  }
+
+  .hero__note {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 22rem;
+    line-height: 1.45;
+  }
+
+  .hero__note-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(196, 165, 116, 0.85);
+    flex-shrink: 0;
   }
 </style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    var hero = document.querySelector(".hero--editorial");
+    if (!hero) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      hero.classList.add("is-boot");
+      return;
+    }
+    requestAnimationFrame(function () {
+      hero.classList.add("is-boot");
+    });
+  });
+</script>
