@@ -291,7 +291,9 @@ const carouselMulti = displayReviews.length > 1;
   .testimonials--carousel {
     position: relative;
     overflow: hidden;
-    padding-block: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    /* Zusätzlich 3 % der Sektionsbreite (wie bei %-Padding üblich: relativ zur Breite) */
+    padding-bottom: calc(var(--space-2xl) + 3%);
   }
 
   .testimonials__watermark {
