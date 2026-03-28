@@ -7,6 +7,8 @@ import InlineBookCTA from "../components/InlineBookCTA.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PricingPreviewSection from "../components/PricingPreviewSection.astro";
 import ProductsSection from "../components/ProductsSection.astro";
+import FeatureGlass from "../components/FeatureGlass.astro";
+import MoodGallery from "../components/MoodGallery.astro";
 import AboutSection from "../components/AboutSection.astro";
 import TestimonialsSection from "../components/TestimonialsSection.astro";
 import FinalCTA from "../components/FinalCTA.astro";
@@ -56,7 +58,7 @@ const jsonLd = {
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
-  <Header variant="overlay" />
+  <Header variant="overlay" heroTone="light" />
   <main id="main">
     <Hero />
     <TrustSection />
@@ -64,11 +66,13 @@ const jsonLd = {
       text="Wenn Sie Wert auf Ruhe, Klarheit und Meisterhand legen, reservieren Sie jetzt Ihren Termin — passend zu Ihrem Alltag im Ruhrgebiet."
     />
     <ServicesSection />
+    <FeatureGlass />
     <PricingPreviewSection />
     <InlineBookCTA
       text="Preise verstanden? Als Nächstes wählen Sie in Planity einfach Leistung und Zeit — wir freuen uns auf Sie."
     />
     <ProductsSection />
+    <MoodGallery />
     <AboutSection />
     <TestimonialsSection />
     <FinalCTA />

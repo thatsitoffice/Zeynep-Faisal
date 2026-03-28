@@ -5,10 +5,21 @@ import { SITE } from "../data/site";
 interface Props {
   /** Start: transparent über Hero (Startseite). Sonst klassische helle Leiste. */
   variant?: "default" | "overlay";
+  /**
+   * Nur bei `variant="overlay"`:
+   * - `dark` = dunkles Vollbild-Hero, helle Nav-Schrift
+   * - `light` = helles Editorial-Hero, dunkle Nav (Kalm-inspiriert)
+   */
+  heroTone?: "dark" | "light";
 }
 
-const { variant = "default" } = Astro.props;
+const { variant = "default", heroTone = "dark" } = Astro.props;
 const isOverlay = variant === "overlay";
+const isOverlayLight = isOverlay && heroTone === "light";
+const isOverlayDark = isOverlay && !isOverlayLight;
+
+const bookingVariant = isOverlayDark ? "heroOutline" : "primary";
+const mobileBtnClass = isOverlayDark ? "btn--hero-outline" : "btn--primary";
 
 const nav = [
   { href: "#leistungen", label: "Leistungen" },
@@ -20,9 +31,14 @@ const nav = [
 ---
 
 <header
-  class:list={["site-header", isOverlay && "site-header--overlay"]}
+  class:list={[
+    "site-header",
+    isOverlay && "site-header--overlay",
+    isOverlayLight && "site-header--overlay-light",
+  ]}
   id="site-header"
   data-overlay={isOverlay ? "true" : undefined}
+  data-hero-tone={isOverlay ? heroTone : undefined}
 >
   <div class="site-header__inner container">
     <a class="site-header__brand" href="/" aria-label={`${SITE.name} — Start`}>
@@ -43,11 +59,11 @@ const nav = [
     </nav>
 
     <div class="site-header__cta">
-      <BookingButton variant={isOverlay ? "heroOutline" : "primary"} />
+      <BookingButton variant={bookingVariant} />
     </div>
 
     <a
-      class:list={["site-header__cta-mobile", "btn", isOverlay ? "btn--hero-outline" : "btn--primary"]}
+      class:list={["site-header__cta-mobile", "btn", mobileBtnClass]}
       href={SITE.bookingUrl}
       target="_blank"
       rel="noopener noreferrer"
@@ -74,7 +90,6 @@ const nav = [
       box-shadow 0.45s ease;
   }
 
-  /* Transparent über Hero — editorial wie Kalm-inspirierte Sites */
   .site-header--overlay {
     position: fixed;
     left: 0;
@@ -84,6 +99,10 @@ const nav = [
     -webkit-backdrop-filter: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: none;
+  }
+
+  .site-header--overlay.site-header--overlay-light:not(.site-header--scrolled) {
+    border-bottom-color: rgba(45, 33, 24, 0.08);
   }
 
   .site-header--overlay.site-header--scrolled {
@@ -138,11 +157,12 @@ const nav = [
     transition: color 0.35s ease;
   }
 
-  .site-header--overlay:not(.site-header--scrolled) .site-header__name {
+  /* Dunkles Hero: helle Schrift bis zum Scrollen */
+  .site-header--overlay:not(.site-header--overlay-light):not(.site-header--scrolled) .site-header__name {
     color: rgba(255, 255, 255, 0.96);
   }
 
-  .site-header--overlay:not(.site-header--scrolled) .site-header__tag {
+  .site-header--overlay:not(.site-header--overlay-light):not(.site-header--scrolled) .site-header__tag {
     color: rgba(255, 255, 255, 0.55);
   }
 
@@ -186,11 +206,11 @@ const nav = [
     color: var(--color-accent);
   }
 
-  .site-header--overlay:not(.site-header--scrolled) .site-header__list a {
+  .site-header--overlay:not(.site-header--overlay-light):not(.site-header--scrolled) .site-header__list a {
     color: rgba(255, 255, 255, 0.88);
   }
 
-  .site-header--overlay:not(.site-header--scrolled) .site-header__list a:hover {
+  .site-header--overlay:not(.site-header--overlay-light):not(.site-header--scrolled) .site-header__list a:hover {
     color: #fff;
   }
 
@@ -221,7 +241,6 @@ const nav = [
     }
   }
 
-  /* Nach dem Hero: Buchungsbutton wie Primary (auf heller Leiste lesbar) */
   .site-header--overlay.site-header--scrolled .site-header__cta :global(.btn--hero-outline) {
     background: var(--color-ink);
     color: #faf8f5;
@@ -234,7 +253,7 @@ const nav = [
     border-color: var(--color-deep);
   }
 
-  .site-header--overlay.site-header--scrolled.site-header--overlay .site-header__cta-mobile.btn--hero-outline {
+  .site-header--overlay.site-header--scrolled .site-header__cta-mobile.btn--hero-outline {
     background: var(--color-ink);
     color: #faf8f5;
     border-color: var(--color-ink);

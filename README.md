@@ -21,6 +21,8 @@ Seiten: `/` (Start mit Fullscreen-Hero + transparentem Header), `/preise/` (voll
 
 Layout: seitlicher Innenabstand site-weit **`10%`** (`--page-pad` in `src/styles/global.css`).
 
+Startseite: **Editorial-Hero** (hell, Pill-Bild in der Headline), **Header** `heroTone="light"`, Sektionen **FeatureGlass** (Glassmorphism), **MoodGallery** (Watermark, gestaffelte Bilder), **About** mit überlappenden Fotos + Liniengrafik.
+
 ## Inhalte pflegen
 
 - Zentrale URLs & Kontakt: `src/data/site.ts`

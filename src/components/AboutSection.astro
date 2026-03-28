@@ -3,18 +3,47 @@ import SectionHeading from "./SectionHeading.astro";
 import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
 
-const storyImage = {
-  src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80",
-  alt: "Team am Arbeiten — Platzhalter bis zum eigenen Shooting",
-  width: 1200,
-  height: 900,
+const imgA = {
+  src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+  alt: "Styling im Detail",
+};
+const imgB = {
+  src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+  alt: "Team am Arbeiten — Platzhalter",
 };
 ---
 
-<section class="section about" id="ueber-uns" aria-labelledby="about-heading">
+<section class="section about about--split" id="ueber-uns" aria-labelledby="about-heading">
   <div class="container">
-    <div class="about__grid">
-      <div data-reveal style="--reveal-delay: 0ms">
+    <div class="about__split">
+      <div class="about__visual" data-reveal style="--reveal-delay: 0ms">
+        <svg class="about__branch" viewBox="0 0 200 280" fill="none" aria-hidden="true">
+          <path
+            d="M40 260 C 60 180, 20 120, 80 80 C 120 50, 100 20, 140 10 C 170 5, 185 40, 160 70"
+            stroke="currentColor"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            opacity="0.2"
+          ></path>
+          <path
+            d="M100 200 C 130 160, 110 100, 160 60"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            opacity="0.15"
+          ></path>
+        </svg>
+        <div class="about__stack">
+          <figure class="about__fig about__fig--sm">
+            <img src={imgA.src} alt={imgA.alt} width="800" height="1000" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="about__fig about__fig--lg">
+            <img src={imgB.src} alt={imgB.alt} width="800" height="600" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="about__copy" data-reveal style="--reveal-delay: 100ms">
         <SectionHeading
           eyebrow="Über uns"
           title="Eine Marke, die leise überzeugt"
@@ -37,39 +66,81 @@ const storyImage = {
         </ul>
         <BookingButton />
       </div>
-      <figure class="about__figure" data-reveal style="--reveal-delay: 110ms">
-        <div class="about__frame">
-          <img
-            src={storyImage.src}
-            alt={storyImage.alt}
-            width={storyImage.width}
-            height={storyImage.height}
-            loading="lazy"
-            decoding="async"
-            class="about__img"
-          />
-        </div>
-        <figcaption class="about__caption">
-          Markenwelt: eigenes Teamfoto / Salondetail — hier nur stilistischer Platzhalter.
-        </figcaption>
-      </figure>
     </div>
   </div>
 </section>
 
 <style>
-  .about__grid {
+  .about--split .about__split {
     display: grid;
     gap: var(--space-xl);
-    align-items: start;
+    align-items: center;
   }
 
-  @media (min-width: 900px) {
-    .about__grid {
+  @media (min-width: 960px) {
+    .about--split .about__split {
       grid-template-columns: 1fr 1fr;
       gap: var(--space-2xl);
-      align-items: center;
     }
+  }
+
+  .about__visual {
+    position: relative;
+    min-height: 320px;
+  }
+
+  .about__branch {
+    position: absolute;
+    left: -5%;
+    top: -4%;
+    width: 55%;
+    max-width: 220px;
+    height: auto;
+    color: var(--color-accent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .about__stack {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-md);
+    align-items: end;
+    padding-left: var(--space-sm);
+  }
+
+  .about__fig {
+    margin: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    background: var(--color-line);
+  }
+
+  .about__fig--sm {
+    align-self: start;
+    margin-top: 2rem;
+  }
+
+  .about__fig img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about__fig--sm img {
+    aspect-ratio: 3 / 4;
+  }
+
+  .about__fig--lg img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about__copy :global(.section-heading) {
+    margin-bottom: var(--space-lg);
   }
 
   .about__list {
@@ -80,29 +151,5 @@ const storyImage = {
 
   .about__list li {
     margin-bottom: var(--space-sm);
-  }
-
-  .about__figure {
-    margin: 0;
-  }
-
-  .about__frame {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    box-shadow: var(--shadow-soft);
-    background: var(--color-line);
-  }
-
-  .about__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .about__caption {
-    margin-top: var(--space-sm);
-    font-size: 0.75rem;
-    color: var(--color-ink-soft);
   }
 </style>
