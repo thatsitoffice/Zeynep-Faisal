@@ -298,6 +298,10 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
 
     .site-header__menu-toggle {
       display: flex;
+      position: relative;
+      z-index: 2;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 
@@ -405,10 +409,10 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     border-color: var(--color-deep);
   }
 
-  /* —— Menü-Symbol: drei Striche (nur schmale Viewports) —— */
+  /* —— Menü-Symbol: drei Striche —— */
+  /* display: Sichtbarkeit nur über Media Queries (Desktop: none !important oben), sonst überschreibt diese Regel das mobile display:flex */
   .site-header__menu-toggle {
     box-sizing: border-box;
-    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;

@@ -3,7 +3,7 @@
  */
 function initHeaderDrawer(): void {
   const header = document.getElementById("site-header");
-  const toggle = document.querySelector<HTMLButtonElement>("[data-drawer-toggle]");
+  const toggle = header?.querySelector<HTMLButtonElement>("[data-drawer-toggle]");
   const drawer = document.getElementById("site-nav-drawer");
   if (!header || !toggle || !drawer) return;
 
@@ -52,4 +52,12 @@ function initHeaderDrawer(): void {
   window.addEventListener("resize", closeIfDesktop);
 }
 
-initHeaderDrawer();
+function run(): void {
+  initHeaderDrawer();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", run, { once: true });
+} else {
+  run();
+}
