@@ -3,7 +3,6 @@
  * Stimmen: Watermark + Karussell (Desktop) / Akkordeon (Mobil).
  * Inhalte: Places API beim Build, sonst MANUAL_GOOGLE_REVIEWS, sonst Kurz-Fallback.
  */
-import BookingButton from "./BookingButton.astro";
 import { GOOGLE, GOOGLE_REVIEWS_FALLBACK } from "../data/google";
 import { MANUAL_GOOGLE_REVIEWS } from "../data/manual-google-reviews";
 import { fetchPlaceReviewData } from "../lib/googlePlaces";
@@ -286,9 +285,6 @@ const carouselMulti = displayReviews.length > 1;
           : "Bewertungen stammen von Google. Vollständige Texte über den Link oben."
       }
     </p>
-    <div class="testimonials__book">
-      <BookingButton />
-    </div>
   </div>
 </section>
 
@@ -650,14 +646,10 @@ const carouselMulti = displayReviews.length > 1;
   }
 
   .testimonials__legal {
-    margin: 0 auto var(--space-lg);
+    margin: 0 auto;
     font-size: 0.78rem;
     line-height: 1.45;
     max-width: 32rem;
-  }
-
-  .testimonials__book :global(.btn) {
-    min-height: 3rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
