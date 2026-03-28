@@ -20,7 +20,7 @@ const bg =
   </div>
   <div class="final-cta__scrim" aria-hidden="true"></div>
 
-  <div class="container container--narrow final-cta__inner" data-reveal>
+  <div class="container final-cta__inner" data-reveal>
     <p class="final-cta__eyebrow">Planity</p>
     <h2 id="final-cta-heading" class="final-cta__title display-lg">
       Ihr Termin — in wenigen Schritten reserviert
@@ -60,21 +60,41 @@ const bg =
     filter: saturate(1.05) brightness(0.92);
   }
 
+  /* Über dem Bild, unter dem Text: dunkel von links nach rechts auslaufen */
   .final-cta__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background:
-      linear-gradient(180deg, rgba(12, 10, 9, 0.5) 0%, rgba(12, 10, 9, 0.72) 45%, rgba(8, 7, 6, 0.88) 100%),
-      linear-gradient(90deg, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.35) 50%, rgba(10, 9, 8, 0.65) 100%);
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(8, 7, 6, 0.94) 0%,
+      rgba(8, 7, 6, 0.78) 28%,
+      rgba(8, 7, 6, 0.42) 52%,
+      rgba(8, 7, 6, 0.14) 78%,
+      rgba(8, 7, 6, 0) 100%
+    );
+  }
+
+  @media (max-width: 640px) {
+    .final-cta__scrim {
+      background: linear-gradient(
+        90deg,
+        rgba(8, 7, 6, 0.92) 0%,
+        rgba(8, 7, 6, 0.75) 35%,
+        rgba(8, 7, 6, 0.5) 65%,
+        rgba(8, 7, 6, 0.35) 100%
+      );
+    }
   }
 
   .final-cta__inner {
     position: relative;
     z-index: 2;
-    text-align: center;
+    text-align: left;
+    max-width: 38rem;
     padding-block: var(--space-lg);
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
   }
 
   .final-cta__eyebrow {
@@ -92,26 +112,26 @@ const bg =
   }
 
   .final-cta__lead {
-    margin: var(--space-md) auto var(--space-lg);
+    margin: var(--space-md) 0 var(--space-lg);
     max-width: 36rem;
-    color: rgba(247, 245, 242, 0.9);
+    color: rgba(247, 245, 242, 0.92);
     font-size: 1.08rem;
     line-height: 1.65;
-    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
   }
 
   .final-cta__actions {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-sm);
   }
 
   .final-cta__hint {
     margin: 0;
     font-size: 0.8rem;
-    color: rgba(247, 245, 242, 0.62);
-    max-width: 26rem;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+    color: rgba(247, 245, 242, 0.65);
+    max-width: 32rem;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   }
 </style>
