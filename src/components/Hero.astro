@@ -1,15 +1,13 @@
 ---
-import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
 
-/** Vollflächiges Hero — hohe Auflösung für scharfe Darstellung */
+/** Warmes, ruhiges Motiv — Vollbild wie im Referenz-Layout */
 const bg = {
-  src: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=2400&q=85",
-  alt: "Salon-Atmosphäre — stellvertretend für New Style by Zeynep & Faisal",
+  src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=2400&q=85",
 };
 ---
 
-<section class="hero hero--editorial hero--fullscreen" aria-labelledby="hero-heading">
+<section class="hero hero--editorial hero--kalm" id="top" aria-labelledby="hero-heading">
   <div class="hero__media" aria-hidden="true">
     <img
       src={bg.src}
@@ -26,41 +24,37 @@ const bg = {
   <div class="hero__grain hero__grain--dark" aria-hidden="true"></div>
 
   <div class="hero__inner container">
-    <div class="hero__copy" data-reveal style="--reveal-delay: 0ms">
-      <p class="hero__kicker">{SITE.city} · {SITE.tagline}</p>
-
-      <h1 id="hero-heading" class="hero__headline">
-        Ruhig schön.<br />
-        <span class="hero__headline-accent">Professionell geschnitten.</span>
-      </h1>
-
-      <p class="hero__lead">
-        Meisterbetrieb in Gelsenkirchen: klare Beratung, ruhige Hände — Schnitt, Farbe und Pflege, die im Alltag funktionieren.
+    <div class="hero__stack" data-reveal style="--reveal-delay: 0ms">
+      <p class="hero__intro">
+        Willkommen in Ihrem Meisterbetrieb in {SITE.city}: ruhige Beratung, klare Hände, Schnitt und Farbe mit Substanz
+        — Ihr wiederkehrender Moment für Haar, das sich im Alltag bewährt.
       </p>
 
-      <div class="hero__cta-block">
-        <p class="hero__cta-label">Online-Termin</p>
-        <p class="hero__cta-text">
-          Wählen Sie in Planity passende Zeit und Leistung — die Buchung öffnet sich in einem neuen Tab. Zahlung wie gewohnt vor Ort.
-        </p>
-        <div class="hero__actions">
-          <BookingButton variant="heroSolid" />
-          <a class="btn btn--hero-outline" href="#leistungen">Leistungen ansehen</a>
-        </div>
-      </div>
+      <h1 id="hero-heading" class="hero__title">
+        <span class="hero__title-line">New Style</span>
+        <span class="hero__title-line hero__title-line--sub">by Zeynep &amp; Faisal</span>
+      </h1>
+
+      <p class="hero__micro">
+        <a class="hero__link" href="/preise/">Preise &amp; Leistungen</a>
+        <span class="hero__dot" aria-hidden="true">·</span>
+        <a class="hero__link" href="#leistungen">Kurzüberblick</a>
+        <span class="hero__dot" aria-hidden="true">·</span>
+        <a class="hero__link" href={SITE.bookingUrl} target="_blank" rel="noopener noreferrer">Termin bei Planity</a>
+      </p>
     </div>
   </div>
 </section>
 
 <style>
-  .hero--editorial.hero--fullscreen {
+  .hero--editorial.hero--kalm {
     position: relative;
-    min-height: min(92vh, 920px);
+    min-height: min(100vh, 980px);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-top: calc(var(--header-h) + 2.5rem);
-    padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
+    padding-top: calc(var(--header-h) + 1.5rem);
+    padding-bottom: clamp(1.25rem, 4vh, 2.75rem);
     overflow: hidden;
     color: rgba(255, 255, 255, 0.96);
   }
@@ -75,7 +69,7 @@ const bg = {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 35%;
+    object-position: center 28%;
   }
 
   .hero__scrim {
@@ -83,15 +77,15 @@ const bg = {
     inset: 0;
     z-index: 1;
     background:
-      linear-gradient(180deg, rgba(12, 10, 9, 0.45) 0%, rgba(12, 10, 9, 0.25) 38%, rgba(12, 10, 9, 0.72) 100%),
-      linear-gradient(90deg, rgba(12, 10, 9, 0.55) 0%, transparent 55%);
+      linear-gradient(180deg, rgba(18, 14, 12, 0.35) 0%, rgba(18, 14, 12, 0.12) 42%, rgba(12, 9, 8, 0.82) 100%),
+      linear-gradient(90deg, rgba(10, 8, 7, 0.65) 0%, transparent 62%);
   }
 
   .hero__grain--dark {
     position: absolute;
     inset: 0;
     z-index: 2;
-    opacity: 0.35;
+    opacity: 0.3;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   }
@@ -101,97 +95,91 @@ const bg = {
     z-index: 3;
   }
 
-  .hero__copy {
-    max-width: 40rem;
+  .hero__stack {
+    max-width: min(52rem, 100%);
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
-  .hero__kicker {
+  .hero__intro {
     margin: 0 0 1rem;
+    max-width: 34rem;
     font-family: var(--font-body);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.72);
-  }
-
-  .hero__headline {
-    margin: 0 0 1.25rem;
-    font-family: var(--font-display);
+    font-size: clamp(0.62rem, 1.35vw, 0.72rem);
     font-weight: 600;
-    font-size: clamp(2.25rem, 6.2vw, 3.65rem);
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    color: #fff;
-    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
-  }
-
-  .hero__headline-accent {
-    font-weight: 400;
-    color: rgba(255, 252, 248, 0.95);
-  }
-
-  .hero__lead {
-    margin: 0 0 1.75rem;
-    font-size: 1.0625rem;
-    line-height: 1.75;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.88);
-    max-width: 36rem;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
-  }
-
-  .hero__cta-block {
-    padding: 1.35rem 1.5rem;
-    border-radius: var(--radius-md);
-    background: rgba(8, 7, 6, 0.42);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(14px) saturate(1.1);
-    -webkit-backdrop-filter: blur(14px) saturate(1.1);
-    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.5);
-  }
-
-  .hero__cta-label {
-    margin: 0 0 0.4rem;
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    line-height: 1.85;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 20px rgba(0, 0, 0, 0.45);
   }
 
-  .hero__cta-text {
-    margin: 0 0 1.15rem;
-    font-size: 0.98rem;
-    line-height: 1.68;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+  .hero__title {
+    margin: 0 0 1rem;
+    padding: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.35rem, 7.5vw, 4.85rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    color: #fff;
+    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
   }
 
-  .hero__actions {
+  .hero__title-line {
+    display: block;
+  }
+
+  .hero__title-line--sub {
+    font-size: 0.52em;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-top: 0.12em;
+    opacity: 0.92;
+  }
+
+  @media (min-width: 720px) {
+    .hero__title-line {
+      margin-left: -0.02em;
+    }
+  }
+
+  .hero__micro {
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1rem;
     align-items: center;
+    gap: 0.35rem 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
   }
 
-  .hero__actions :global(.btn) {
-    min-height: 3rem;
+  .hero__dot {
+    opacity: 0.5;
+    user-select: none;
+  }
+
+  .hero__link {
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 0.12em;
+    transition:
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .hero__link:hover {
+    color: #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.75);
   }
 
   @media (max-width: 520px) {
-    .hero__cta-block {
-      padding: 1.15rem 1.15rem;
-    }
-
-    .hero__actions {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .hero__actions :global(.btn) {
-      justify-content: center;
+    .hero__intro {
+      letter-spacing: 0.16em;
     }
   }
 </style>

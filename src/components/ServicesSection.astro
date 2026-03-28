@@ -1,137 +1,109 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
-import BookingButton from "./BookingButton.astro";
 
 /**
- * Leistungskategorien — Texte & Bilder bei Bedarf in `categories` pflegen.
+ * Kompakter Überblick — weniger Höhe, gleiche Inhalte verdichtet.
  */
-const categories = [
+const items = [
   {
     title: "Schnitt & Form",
-    text: "Von klarer Silhouette bis zu weicher Bewegung: Wir schneiden mit Blick auf Ihre Struktur, Pflegegewohnheiten und den Alltag, der danach folgt.",
-    image:
-      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=80",
-    alt: "Haarschnitt im Fokus — Platzhalterbild",
+    text: "Silhouette und Bewegung — abgestimmt auf Struktur und Alltag.",
   },
   {
     title: "Farbe & Licht",
-    text: "Balayage, konturierte Töne oder ein ruhiges Naturhaar: Wir setzen Farbe so, dass sie gesund wirkt — und sich edel entwickelt, nicht schnell verblasst.",
-    image:
-      "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&w=900&q=80",
-    alt: "Coloration — Platzhalterbild",
+    text: "Balayage, Naturton oder Kontur — gesund wirkend, edel im Verlauf.",
   },
   {
     title: "Pflege & Finish",
-    text: "Behandlungen, die Substanz geben: Glanz, Geschmeidigkeit, Schutz. Perfekt abgestimmt auf das, was Ihr Haar wirklich braucht — nicht auf den neuesten Buzzword.",
-    image:
-      "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=900&q=80",
-    alt: "Haarpflege — Platzhalterbild",
+    text: "Substanz, Glanz, Schutz — was Ihr Haar wirklich braucht.",
   },
 ];
 ---
 
-<section class="section services" id="leistungen" aria-labelledby="services-heading">
+<section class="section services services--compact" id="leistungen" aria-labelledby="services-heading">
   <div class="container">
     <SectionHeading
       eyebrow="Leistungen"
-      title="Klar strukturiert — für jeden Moment das Richtige"
-      subtitle="Drei Säulen, unter denen sich Ihre individuelle Beratung entfaltet. Im Termin klären wir Details, Pflege zu Hause und den Rhythmus zwischen den Besuchen."
+      title="Schnitt, Farbe, Pflege — auf einen Blick"
+      subtitle="Details und aktuelle Preise finden Sie auf der Preisseite. Im Termin klären wir alles Weitere in Ruhe."
       headingId="services-heading"
     />
 
-    <div class="services__list">
+    <ul class="services__grid" role="list">
       {
-        categories.map((c, i) => (
-          <article class="services__item" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
-            <div class="services__visual">
-              <img src={c.image} alt={c.alt} width={900} height={1120} loading="lazy" decoding="async" class="services__img" />
-            </div>
-            <div class="services__body">
-              <h3 class="display-md">{c.title}</h3>
-              <p class="muted" style="margin: var(--space-sm) 0 var(--space-md);">
-                {c.text}
-              </p>
-              <a class="btn btn--ghost" href="/preise/">
-                Zu den Preisen
-              </a>
-            </div>
-          </article>
+        items.map((item, i) => (
+          <li class="services__card" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <h3 class="services__card-title">{item.title}</h3>
+            <p class="services__card-text">{item.text}</p>
+          </li>
         ))
       }
-    </div>
+    </ul>
 
-    <div class="services__footer" data-reveal>
-      <p class="lead" style="margin: 0;">
-        Unsicher, welche Kombination passt? Im Gespräch priorisieren wir — Sie entscheiden in Ruhe.
-      </p>
-      <BookingButton />
-    </div>
+    <p class="services__cta" data-reveal>
+      <a class="btn btn--primary" href="/preise/">Komplette Preisliste</a>
+    </p>
   </div>
 </section>
 
 <style>
-  .services__list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xl);
+  .services--compact {
+    padding-block: var(--space-xl);
   }
 
-  .services__item {
+  .services--compact :global(.section-heading) {
+    margin-bottom: var(--space-md);
+  }
+
+  .services__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    gap: var(--space-lg);
-    align-items: center;
-  }
-
-  @media (min-width: 880px) {
-    .services__item {
-      grid-template-columns: 0.9fr 1.1fr;
-    }
-
-    .services__item:nth-child(even) .services__visual {
-      order: 2;
-    }
-
-    .services__item:nth-child(even) .services__body {
-      order: 1;
-    }
-  }
-
-  .services__visual {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    background: var(--color-line);
-    box-shadow: var(--shadow-card);
-  }
-
-  .services__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.85s var(--ease-luxe);
-  }
-
-  @media (hover: hover) {
-    .services__visual:hover .services__img {
-      transform: scale(1.04);
-    }
-  }
-
-  .services__footer {
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-line);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    align-items: flex-start;
+    gap: var(--space-sm);
   }
 
   @media (min-width: 720px) {
-    .services__footer {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    .services__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+  }
+
+  .services__card {
+    margin: 0;
+    padding: var(--space-md) var(--space-md);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+  }
+
+  .services__card-title {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .services__card-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.62;
+    color: var(--color-ink-muted);
+  }
+
+  .services__cta {
+    margin: var(--space-lg) 0 0;
+    text-align: center;
+  }
+
+  @media (min-width: 720px) {
+    .services__cta {
+      text-align: left;
     }
   }
 </style>

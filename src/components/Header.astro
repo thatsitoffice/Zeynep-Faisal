@@ -21,11 +21,19 @@ const isOverlayDark = isOverlay && !isOverlayLight;
 const bookingVariant = isOverlayDark ? "heroOutline" : "primary";
 const mobileBtnClass = isOverlayDark ? "btn--hero-outline" : "btn--primary";
 
+/** Von Unterseiten (z. B. /preise/) zur Startseite mit Anker springen */
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isHome = path === "/";
+
+const toSection = (fragment: string) => (isHome ? `#${fragment}` : `/#${fragment}`);
+
 const nav = [
-  { href: "#leistungen", label: "Leistungen" },
+  { href: "/", label: "Home" },
+  { href: toSection("leistungen"), label: "Leistungen" },
   { href: "/preise/", label: "Preise" },
-  { href: "#produkte", label: "Produkte" },
-  { href: "#stimmen", label: "Stimmen" },
+  { href: toSection("produkte"), label: "Produkte" },
+  { href: toSection("stimmung"), label: "Atmosphäre" },
+  { href: toSection("stimmen"), label: "Stimmen" },
 ];
 ---
 
