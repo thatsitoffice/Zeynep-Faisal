@@ -1,12 +1,28 @@
 ---
 import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
+
+const bg =
+  "https://images.unsplash.com/photo-1562320340-20b163c733bf?auto=format&fit=crop&w=2000&q=85";
 ---
 
-<section class="final-cta section section--dark" aria-labelledby="final-cta-heading">
+<section class="final-cta section" aria-labelledby="final-cta-heading">
+  <div class="final-cta__media" aria-hidden="true">
+    <img
+      src={bg}
+      alt=""
+      width={2000}
+      height={1125}
+      loading="lazy"
+      decoding="async"
+      class="final-cta__img"
+    />
+  </div>
+  <div class="final-cta__scrim" aria-hidden="true"></div>
+
   <div class="container container--narrow final-cta__inner" data-reveal>
-    <p class="eyebrow" style="color: #c4b89a;">Planity</p>
-    <h2 id="final-cta-heading" class="display-lg" style="color: var(--color-bg);">
+    <p class="final-cta__eyebrow">Planity</p>
+    <h2 id="final-cta-heading" class="final-cta__title display-lg">
       Ihr Termin — in wenigen Schritten reserviert
     </h2>
     <p class="final-cta__lead">
@@ -23,17 +39,65 @@ import { SITE } from "../data/site";
 </section>
 
 <style>
+  .final-cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-2xl);
+    color: #faf8f5;
+  }
+
+  .final-cta__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .final-cta__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 45%;
+    filter: saturate(1.05) brightness(0.92);
+  }
+
+  .final-cta__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(12, 10, 9, 0.5) 0%, rgba(12, 10, 9, 0.72) 45%, rgba(8, 7, 6, 0.88) 100%),
+      linear-gradient(90deg, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.35) 50%, rgba(10, 9, 8, 0.65) 100%);
+  }
+
   .final-cta__inner {
+    position: relative;
+    z-index: 2;
     text-align: center;
-    padding-block: var(--space-xl);
+    padding-block: var(--space-lg);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .final-cta__eyebrow {
+    margin: 0 0 var(--space-sm);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 245, 0.72);
+  }
+
+  .final-cta__title {
+    margin: 0;
+    color: #faf8f5;
   }
 
   .final-cta__lead {
     margin: var(--space-md) auto var(--space-lg);
     max-width: 36rem;
-    color: rgba(247, 245, 242, 0.82);
+    color: rgba(247, 245, 242, 0.9);
     font-size: 1.08rem;
     line-height: 1.65;
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.3);
   }
 
   .final-cta__actions {
@@ -46,7 +110,8 @@ import { SITE } from "../data/site";
   .final-cta__hint {
     margin: 0;
     font-size: 0.8rem;
-    color: rgba(247, 245, 242, 0.55);
+    color: rgba(247, 245, 242, 0.62);
     max-width: 26rem;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
   }
 </style>
