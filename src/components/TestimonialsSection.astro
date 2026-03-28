@@ -1,10 +1,13 @@
 ---
 /**
- * Stimmen: Watermark + breites Karussell (Google-Rezensionen via Places API beim Build, sonst kompakte Fallback-Slides).
+ * Stimmen: Watermark + Karussell (Desktop) / Akkordeon (Mobil).
+ * Inhalte: Places API beim Build, sonst MANUAL_GOOGLE_REVIEWS, sonst Kurz-Fallback.
  */
 import BookingButton from "./BookingButton.astro";
 import { GOOGLE, GOOGLE_REVIEWS_FALLBACK } from "../data/google";
+import { MANUAL_GOOGLE_REVIEWS } from "../data/manual-google-reviews";
 import { fetchPlaceReviewData } from "../lib/googlePlaces";
+import type { NormalizedReview } from "../lib/googlePlaces";
 
 const apiKey = import.meta.env.GOOGLE_PLACES_API_KEY as string | undefined;
 const placeIdFromEnv = import.meta.env.GOOGLE_PLACE_ID as string | undefined;
@@ -22,25 +25,57 @@ const userRatingCount =
     ? live.userRatingCount
     : GOOGLE_REVIEWS_FALLBACK.userRatingCount;
 
-const apiReviews = live?.reviews?.length ? live.reviews.filter((r) => r.text.length > 0) : [];
+const apiReviews =
+  live?.reviews?.length ? live.reviews.filter((r) => r.text.length > 0) : [];
+const manualReviews = MANUAL_GOOGLE_REVIEWS.filter((r) => r.text.trim().length > 0);
+
 const ratingLabel = rating.toFixed(1).replace(".", ",");
 
-/** Ohne API: ein Slide mit Kennzahl + CTA (keine erfundenen Zitate). */
-const fallbackSlides =
-  apiReviews.length > 0
-    ? null
-    : [
-        {
-          author: "Google-Profil",
-          rating: Math.round(rating),
-          text: `Aktuell ${userRatingCount.toLocaleString("de-DE")} öffentliche Bewertungen mit Ø ${ratingLabel} Sternen — alle authentischen Texte und Fotos lesen Sie direkt bei Google.`,
-          relativeTime: "Live-Daten",
-        },
-      ];
+type DisplayReview = {
+  author: string;
+  text: string;
+  rating: number;
+  relativeTime?: string;
+  authorPhoto?: string;
+  authorUri?: string;
+  source: "api" | "manual" | "fallback";
+};
 
-const slides = apiReviews.length > 0 ? apiReviews : fallbackSlides!;
+let displayReviews: DisplayReview[];
+
+if (apiReviews.length > 0) {
+  displayReviews = apiReviews.map((r: NormalizedReview) => ({
+    author: r.author,
+    text: r.text,
+    rating: r.rating,
+    relativeTime: r.relativeTime,
+    authorPhoto: r.authorPhoto,
+    authorUri: r.authorUri,
+    source: "api" as const,
+  }));
+} else if (manualReviews.length > 0) {
+  displayReviews = manualReviews.map((r) => ({
+    author: r.author,
+    text: r.text,
+    rating: r.rating,
+    relativeTime: r.relativeTime,
+    source: "manual" as const,
+  }));
+} else {
+  displayReviews = [
+    {
+      author: "Google-Profil",
+      rating: Math.round(rating),
+      text: `Aktuell ${userRatingCount.toLocaleString("de-DE")} öffentliche Bewertungen mit Ø ${ratingLabel} Sternen — alle authentischen Texte und Fotos lesen Sie direkt bei Google.`,
+      relativeTime: "Übersicht",
+      source: "fallback" as const,
+    },
+  ];
+}
+
+const hasRealTexts = displayReviews.some((r) => r.source === "api" || r.source === "manual");
 const carouselId = "stimmen-karussell";
-const carouselMulti = slides.length > 1;
+const carouselMulti = displayReviews.length > 1;
 ---
 
 <section class="section testimonials testimonials--carousel" id="stimmen" aria-labelledby="testimonials-heading">
@@ -51,7 +86,13 @@ const carouselMulti = slides.length > 1;
       <p class="eyebrow">Stimmen</p>
       <h2 id="testimonials-heading" class="display-lg">Was Gäste über uns sagen</h2>
       <p class="lead testimonials__sub">
-        Echte Rückmeldungen von Google{apiReviews.length > 0 ? " — hier als Auszug, vollständig über den Link unten." : " — öffnen Sie unser Profil für alle Texte."}
+        {
+          hasRealTexts
+            ? apiReviews.length > 0
+              ? "Echte Rückmeldungen von Google — hier als Auszug, vollständig über den Link unten."
+              : "Auszüge aus öffentlichen Google-Bewertungen — vollständige Liste und Historie direkt bei Google."
+            : "Öffnen Sie unser Google-Profil für alle Bewertungstexte und Fotos."
+        }
       </p>
     </header>
 
@@ -91,7 +132,62 @@ const carouselMulti = slides.length > 1;
     </div>
   </div>
 
-  <div class="testimonials__bleed">
+  <!-- Mobil: Akkordeon (echte Texte) -->
+  <div class="testimonials__accordion container" aria-label="Bewertungen aufklappen">
+    {
+      displayReviews.map((r, i) => (
+        <details class="testimonials__acc card" name="stimmen-review">
+          <summary class="testimonials__acc-summary">
+            <span class="testimonials__acc-summary-main">
+              {r.source === "api" && r.authorPhoto ? (
+                <img
+                  class="testimonials__avatar testimonials__avatar--sm"
+                  src={r.authorPhoto}
+                  alt=""
+                  width="40"
+                  height="40"
+                  loading={i < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  referrerpolicy="no-referrer"
+                />
+              ) : (
+                <span class="testimonials__avatar testimonials__avatar--ph testimonials__avatar--sm" aria-hidden="true" />
+              )}
+              <span class="testimonials__acc-titles">
+                <span class="testimonials__author">{r.author}</span>
+                {r.relativeTime && <span class="testimonials__time muted">{r.relativeTime}</span>}
+              </span>
+            </span>
+            <span class="testimonials__mini-stars" aria-label={`${r.rating} von 5 Sternen`}>
+              {Array.from({ length: 5 }, (_, si) => (
+                <span class:list={["ts-star ts-star--sm", si < r.rating && "ts-star--on"]} aria-hidden="true">
+                  ★
+                </span>
+              ))}
+            </span>
+            <span class="testimonials__acc-chevron" aria-hidden="true" />
+          </summary>
+          <div class="testimonials__acc-body">
+            <blockquote class="testimonials__quote">
+              <p class="testimonials__text">{r.text}</p>
+            </blockquote>
+            {
+              r.source === "api" && r.authorUri && (
+                <p class="testimonials__acc-google muted">
+                  <a href={r.authorUri} target="_blank" rel="noopener noreferrer">
+                    Rezensent bei Google ↗
+                  </a>
+                </p>
+              )
+            }
+          </div>
+        </details>
+      ))
+    }
+  </div>
+
+  <!-- Desktop: Karussell -->
+  <div class="testimonials__carousel-desktop testimonials__bleed">
     <div
       class="testimonials__carousel"
       data-carousel
@@ -133,10 +229,10 @@ const carouselMulti = slides.length > 1;
         aria-live="polite"
       >
         {
-          slides.map((r, i) => (
+          displayReviews.map((r, i) => (
             <article class="testimonials__slide card" data-carousel-slide data-index={i}>
               <div class="testimonials__slide-top">
-                {apiReviews.length > 0 && "authorPhoto" in r && r.authorPhoto ? (
+                {r.source === "api" && r.authorPhoto ? (
                   <img
                     class="testimonials__avatar"
                     src={r.authorPhoto}
@@ -151,7 +247,7 @@ const carouselMulti = slides.length > 1;
                   <span class="testimonials__avatar testimonials__avatar--ph" aria-hidden="true" />
                 )}
                 <div class="testimonials__slide-meta">
-                  {apiReviews.length > 0 && "authorUri" in r && r.authorUri ? (
+                  {r.source === "api" && r.authorUri ? (
                     <a class="testimonials__author" href={r.authorUri} target="_blank" rel="noopener noreferrer">
                       {r.author}
                     </a>
@@ -184,7 +280,11 @@ const carouselMulti = slides.length > 1;
       <span aria-hidden="true">↗</span>
     </a>
     <p class="muted testimonials__legal">
-      Bewertungen stammen von Google. Vollständige Texte und Historie über „Alle Google-Bewertungen ansehen“.
+      {
+        hasRealTexts
+          ? "Bewertungen stammen von Google. Kurzfassungen können gekürzt sein — Originalwortlaut und Zeitstempel im Profil."
+          : "Bewertungen stammen von Google. Vollständige Texte über den Link oben."
+      }
     </p>
     <div class="testimonials__book">
       <BookingButton />
@@ -297,8 +397,105 @@ const carouselMulti = slides.length > 1;
     font-size: 0.88rem;
   }
 
-  /* Volle Viewport-Breite für die Karten-Schiene */
-  .testimonials__bleed {
+  /* Akkordeon: nur schmal */
+  .testimonials__accordion {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-sm);
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+    margin-inline: auto;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 767px) {
+    .testimonials__accordion {
+      display: flex;
+    }
+
+    .testimonials__carousel-desktop {
+      display: none !important;
+    }
+  }
+
+  .testimonials__acc {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+  }
+
+  .testimonials__acc-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-md);
+    cursor: pointer;
+    list-style: none;
+    font: inherit;
+  }
+
+  .testimonials__acc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .testimonials__acc-summary-main {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .testimonials__acc-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .testimonials__acc-chevron {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    transform: rotate(45deg);
+    margin-top: -0.25rem;
+    transition: transform 0.25s var(--ease-luxe);
+  }
+
+  .testimonials__acc[open] .testimonials__acc-chevron {
+    transform: rotate(225deg);
+    margin-top: 0.15rem;
+  }
+
+  .testimonials__avatar--sm {
+    width: 40px;
+    height: 40px;
+  }
+
+  .testimonials__acc-body {
+    padding: 0 var(--space-md) var(--space-md);
+    margin: 0;
+    border-top: 1px solid var(--color-line);
+    padding-top: var(--space-md);
+  }
+
+  .testimonials__acc-google {
+    margin: var(--space-sm) 0 0;
+    font-size: 0.82rem;
+  }
+
+  .testimonials__acc-google a {
+    font-weight: 600;
+  }
+
+  .testimonials__carousel-desktop.testimonials__bleed {
     position: relative;
     z-index: 1;
     width: 100vw;
@@ -426,6 +623,7 @@ const carouselMulti = slides.length > 1;
   .testimonials__mini-stars {
     display: flex;
     gap: 0;
+    flex-shrink: 0;
   }
 
   .testimonials__quote {
@@ -469,6 +667,10 @@ const carouselMulti = slides.length > 1;
 
     .testimonials__nav-btn:hover {
       transform: none;
+    }
+
+    .testimonials__acc-chevron {
+      transition: none;
     }
   }
 </style>
