@@ -281,19 +281,16 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     display: block;
   }
 
-  /* Dunkles Hero: Logo auf hellem Chip lesbar */
-  .site-header--overlay:not(.site-header--overlay-light):not(.site-header--scrolled) .site-header__logo {
-    padding: 0.28rem 0.55rem;
-    background: rgba(255, 252, 250, 0.94);
-    border-radius: 12px;
-    box-shadow: 0 6px 24px -8px rgba(0, 0, 0, 0.25);
+  /**
+   * Dunkles Hero: kein weißer Kasten mehr — PNG bleibt transparent.
+   * Leichte Kontur + Schatten, damit dunkles Logo auf dunklem Foto lesbar bleibt.
+   */
+  .site-header--overlay:not(.site-header--overlay-light):not(.site-header--scrolled) .site-header__logo-img {
+    filter: drop-shadow(0 0 0.5px rgba(255, 255, 255, 0.95)) drop-shadow(0 2px 14px rgba(0, 0, 0, 0.4));
   }
 
-  .site-header--overlay.site-header--scrolled .site-header__logo {
-    padding: 0;
-    background: transparent;
-    box-shadow: none;
-    border-radius: 0;
+  .site-header--overlay.site-header--scrolled .site-header__logo-img {
+    filter: none;
   }
 
   .site-header__cta-cell {
