@@ -13,7 +13,8 @@ const isOverlayLight = isOverlay && heroTone === "light";
 const isOverlayDark = isOverlay && !isOverlayLight;
 
 const bookingVariant = isOverlayDark ? "heroOutline" : "primary";
-const mobileBtnClass = isOverlayDark ? "btn--hero-outline" : "btn--primary";
+/** Im Off-Canvas (dunkler Hintergrund): heller Button */
+const drawerBookingVariant = "on-dark";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isHome = path === "/";
@@ -94,19 +95,8 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
         <span class="site-header__menu-bar" aria-hidden="true"></span>
         <span class="site-header__menu-bar" aria-hidden="true"></span>
       </button>
-      <div class="site-header__cta-cell">
-        <div class="site-header__cta">
-          <BookingButton variant={bookingVariant} />
-        </div>
-        <a
-          class:list={["site-header__cta-mobile", "btn", mobileBtnClass]}
-          href={SITE.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Termin buchen (Planity)"
-        >
-          Buchen
-        </a>
+      <div class="site-header__cta">
+        <BookingButton variant={bookingVariant} />
       </div>
     </div>
   </div>
@@ -126,12 +116,10 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
               </li>
             ))
           }
-          <li>
-            <a href={SITE.bookingUrl} target="_blank" rel="noopener noreferrer">
-              Termin buchen <span aria-hidden="true">↗</span>
-            </a>
-          </li>
         </ul>
+        <div class="site-header__drawer-cta">
+          <BookingButton variant={drawerBookingVariant} />
+        </div>
       </nav>
     </aside>
   </div>
@@ -275,10 +263,6 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     .site-header__menu-toggle {
       display: flex;
     }
-
-    .site-header__cta-cell {
-      position: static;
-    }
   }
 
   .site-header__links {
@@ -357,13 +341,6 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     filter: none;
   }
 
-  .site-header__cta-cell {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.5rem;
-  }
-
   .site-header__cta {
     display: none;
   }
@@ -371,18 +348,6 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
   @media (min-width: 1024px) {
     .site-header__cta {
       display: block;
-    }
-  }
-
-  .site-header__cta-mobile {
-    padding-inline: 1rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-  }
-
-  @media (min-width: 1024px) {
-    .site-header__cta-mobile {
-      display: none;
     }
   }
 
@@ -396,16 +361,6 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
   .site-header--overlay.site-header--scrolled .site-header__cta :global(.btn--hero-outline:hover) {
     background: var(--color-deep);
     border-color: var(--color-deep);
-  }
-
-  .site-header--overlay.site-header--scrolled .site-header__cta-mobile.btn--hero-outline {
-    background: var(--color-ink);
-    color: #faf8f5;
-    border-color: var(--color-ink);
-  }
-
-  .site-header--overlay.site-header--scrolled .site-header__cta-mobile.btn--hero-outline:hover {
-    background: var(--color-deep);
   }
 
   /* —— Hamburger (nur <1024px sichtbar) —— */
@@ -465,7 +420,7 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     background: var(--color-ink);
   }
 
-  /* —— Off-Canvas —— */
+  /* —— Off-Canvas (nur unter 1024px Breite) —— */
   .site-header__drawer {
     position: fixed;
     inset: 0;
@@ -473,6 +428,12 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     pointer-events: none;
     visibility: hidden;
     transition: visibility 0s linear 0.4s;
+  }
+
+  @media (min-width: 1024px) {
+    .site-header__drawer {
+      display: none !important;
+    }
   }
 
   .site-header__drawer.is-open {
@@ -503,12 +464,14 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     width: min(22rem, 90vw);
     max-width: 100%;
     box-sizing: border-box;
-    padding: calc(var(--header-h) + var(--space-sm)) var(--space-lg) var(--space-xl);
+    padding: calc(var(--header-h) + var(--space-sm)) var(--space-lg) max(var(--space-xl), env(safe-area-inset-bottom, 0px));
     background: rgba(16, 14, 12, 0.88);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: -24px 0 48px -12px rgba(0, 0, 0, 0.35);
     transform: translateX(100%);
     transition: transform 0.38s var(--ease-luxe);
+    display: flex;
+    flex-direction: column;
   }
 
   .site-header__drawer.is-open .site-header__drawer-panel {
@@ -559,6 +522,10 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .site-header__drawer-list a {
@@ -577,6 +544,26 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
   .site-header__drawer-list a:hover {
     color: #fff;
     padding-left: 0.25rem;
+  }
+
+  .site-header__drawer-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .site-header__drawer-cta {
+    flex-shrink: 0;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .site-header__drawer-cta :global(.btn) {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   @media (prefers-reduced-motion: reduce) {
