@@ -87,48 +87,47 @@ const carouselMulti = displayReviews.length > 1;
   </div>
 
   <div class="container testimonials__split">
-    <aside class="testimonials__widget card" aria-label="Google Bewertungen Zusammenfassung">
-      <div class="testimonials__widget-inner">
-        <span class="testimonials__g" aria-hidden="true">
-          <svg width="32" height="32" viewBox="0 0 48 48">
-            <path
-              fill="#4285F4"
-              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
-            ></path>
-            <path
-              fill="#34A853"
-              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6C44.43 39.29 48 34.22 48 24c0-1.64-.15-3.19-.43-4.65z"
-            ></path>
-            <path
-              fill="#FBBC05"
-              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
-            ></path>
-            <path
-              fill="#EA4335"
-              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
-            ></path>
-          </svg>
-        </span>
-        <div class="testimonials__widget-copy">
-          <p class="testimonials__summary-title">{displayName}</p>
-          <div class="testimonials__summary-row">
-            <div class="testimonials__stars" role="img" aria-label={`Durchschnitt ${ratingLabel} von 5 Sternen`}>
-              {[1, 2, 3, 4, 5].map((i) => <span class:list={["ts-star", i <= Math.round(rating) && "ts-star--on"]}>★</span>)}
+    <div class:list={["testimonials__desktop-grid", carouselMulti && "testimonials__desktop-grid--multi"]}>
+      <aside class="testimonials__widget card" aria-label="Google Bewertungen — Zusammenfassung">
+        <div class="testimonials__widget-inner">
+          <span class="testimonials__g" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 48 48">
+              <path
+                fill="#4285F4"
+                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+              ></path>
+              <path
+                fill="#34A853"
+                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6C44.43 39.29 48 34.22 48 24c0-1.64-.15-3.19-.43-4.65z"
+              ></path>
+              <path
+                fill="#FBBC05"
+                d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+              ></path>
+              <path
+                fill="#EA4335"
+                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+              ></path>
+            </svg>
+          </span>
+          <div class="testimonials__widget-copy">
+            <p class="testimonials__summary-title">{displayName}</p>
+            <div class="testimonials__summary-row">
+              <div class="testimonials__stars" role="img" aria-label={`Durchschnitt ${ratingLabel} von 5 Sternen`}>
+                {[1, 2, 3, 4, 5].map((i) => <span class:list={["ts-star", i <= Math.round(rating) && "ts-star--on"]}>★</span>)}
+              </div>
+              <span class="testimonials__score">{ratingLabel}</span>
+              <span class="muted testimonials__count">{userRatingCount.toLocaleString("de-DE")} Bewertungen</span>
             </div>
-            <span class="testimonials__score">{ratingLabel}</span>
-            <span class="muted testimonials__count">{userRatingCount.toLocaleString("de-DE")} Bewertungen</span>
+            <a class="testimonials__widget-maps" href={mapsHref} target="_blank" rel="noopener noreferrer">
+              Profil bei Google <span aria-hidden="true">↗</span>
+            </a>
           </div>
-          <a class="testimonials__widget-maps" href={mapsHref} target="_blank" rel="noopener noreferrer">
-            Profil bei Google <span aria-hidden="true">↗</span>
-          </a>
         </div>
-      </div>
-    </aside>
+      </aside>
 
-    <!-- Desktop: Karussell rechts neben dem Widget -->
-    <div class="testimonials__carousel-side">
       <div
-        class="testimonials__carousel"
+        class="testimonials__carousel-pane"
         data-carousel
         id={carouselId}
         role="region"
@@ -160,72 +159,71 @@ const carouselMulti = displayReviews.length > 1;
           )
         }
 
-        <div class="testimonials__track-outer">
-          <div
-            class="testimonials__track"
-            id={`${carouselId}-track`}
-            data-carousel-track
-            tabindex="0"
-            aria-live="polite"
-          >
-            {
-              displayReviews.map((r, i) => (
-                <article class="testimonials__slide card" data-carousel-slide data-index={i}>
-                  <div class="testimonials__slide-top">
-                    {r.source === "api" && r.authorPhoto ? (
-                      <img
-                        class="testimonials__avatar"
-                        src={r.authorPhoto}
-                        alt=""
-                        width="44"
-                        height="44"
-                        loading={i < 2 ? "eager" : "lazy"}
-                        decoding="async"
-                        referrerpolicy="no-referrer"
-                      />
-                    ) : (
-                      <span class="testimonials__avatar testimonials__avatar--ph" aria-hidden="true" />
-                    )}
-                    <div class="testimonials__slide-meta">
-                      {r.source === "api" && r.authorUri ? (
-                        <a class="testimonials__author" href={r.authorUri} target="_blank" rel="noopener noreferrer">
-                          {r.author}
-                        </a>
-                      ) : (
-                        <span class="testimonials__author">{r.author}</span>
-                      )}
-                      {r.relativeTime && <p class="testimonials__time muted">{r.relativeTime}</p>}
-                    </div>
-                    <div class="testimonials__mini-stars" aria-label={`${r.rating} von 5 Sternen`}>
-                      {Array.from({ length: 5 }, (_, si) => (
-                        <span class:list={["ts-star ts-star--sm", si < r.rating && "ts-star--on"]} aria-hidden="true">
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <blockquote class="testimonials__quote">
-                    <p class="testimonials__text">{r.text}</p>
-                  </blockquote>
-                </article>
-              ))
-            }
-          </div>
+        <div
+          class="testimonials__track"
+          id={`${carouselId}-track`}
+          data-carousel-track
+          tabindex="0"
+          aria-live="polite"
+        >
           {
-            carouselMulti && (
-              <div class="testimonials__carousel-dots" data-carousel-dots role="group" aria-label="Position im Karussell">
-                {displayReviews.map((_, i) => (
-                  <button
-                    type="button"
-                    class="testimonials__dot"
-                    data-carousel-dot
-                    aria-label={`Bewertung ${i + 1} von ${displayReviews.length}`}
-                  />
-                ))}
-              </div>
-            )
+            displayReviews.map((r, i) => (
+              <article class="testimonials__slide card" data-carousel-slide data-index={i}>
+                <div class="testimonials__slide-top">
+                  {r.source === "api" && r.authorPhoto ? (
+                    <img
+                      class="testimonials__avatar"
+                      src={r.authorPhoto}
+                      alt=""
+                      width="44"
+                      height="44"
+                      loading={i < 2 ? "eager" : "lazy"}
+                      decoding="async"
+                      referrerpolicy="no-referrer"
+                    />
+                  ) : (
+                    <span class="testimonials__avatar testimonials__avatar--ph" aria-hidden="true" />
+                  )}
+                  <div class="testimonials__slide-meta">
+                    {r.source === "api" && r.authorUri ? (
+                      <a class="testimonials__author" href={r.authorUri} target="_blank" rel="noopener noreferrer">
+                        {r.author}
+                      </a>
+                    ) : (
+                      <span class="testimonials__author">{r.author}</span>
+                    )}
+                    {r.relativeTime && <p class="testimonials__time muted">{r.relativeTime}</p>}
+                  </div>
+                  <div class="testimonials__mini-stars" aria-label={`${r.rating} von 5 Sternen`}>
+                    {Array.from({ length: 5 }, (_, si) => (
+                      <span class:list={["ts-star ts-star--sm", si < r.rating && "ts-star--on"]} aria-hidden="true">
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <blockquote class="testimonials__quote">
+                  <p class="testimonials__text">{r.text}</p>
+                </blockquote>
+              </article>
+            ))
           }
         </div>
+
+        {
+          carouselMulti && (
+            <div class="testimonials__carousel-dots" data-carousel-dots role="group" aria-label="Position im Karussell">
+              {displayReviews.map((_, i) => (
+                <button
+                  type="button"
+                  class="testimonials__dot"
+                  data-carousel-dot
+                  aria-label={`Bewertung ${i + 1} von ${displayReviews.length}`}
+                />
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
 
@@ -332,20 +330,51 @@ const carouselMulti = displayReviews.length > 1;
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(14rem, 28%) minmax(0, 1fr);
-    gap: var(--space-lg);
-    align-items: stretch;
+    grid-template-columns: 1fr;
     margin-bottom: 0;
   }
 
+  /**
+   * Desktop: Google-Kachel und Bewertungs-Track in derselben Grid-Zeile → gleiche Höhe wie die Karten.
+   * Navigation und Punkte liegen nur in Spalte 2 (nicht unter der Kachel).
+   */
+  .testimonials__desktop-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(14rem, 28%) minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    grid-template-areas: "widget track";
+    column-gap: var(--space-lg);
+    row-gap: var(--space-sm);
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  .testimonials__desktop-grid--multi {
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      ". bar"
+      "widget track"
+      ". dots";
+  }
+
+  /* Kinder (Bar, Track, Dots) werden direkt im Desktop-Grid platziert */
+  .testimonials__carousel-pane {
+    display: contents;
+  }
+
   .testimonials__widget {
+    grid-area: widget;
     text-align: left;
     margin: 0;
     padding: var(--space-md) var(--space-lg);
-    height: 100%;
+    height: auto;
+    align-self: stretch;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    min-height: 0;
   }
 
   .testimonials__widget-inner {
@@ -372,14 +401,6 @@ const carouselMulti = displayReviews.length > 1;
 
   .testimonials__widget-maps:hover {
     text-decoration: underline;
-  }
-
-  .testimonials__carousel-side {
-    position: relative;
-    min-width: 0;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
   }
 
   .testimonials__summary-title {
@@ -439,12 +460,23 @@ const carouselMulti = displayReviews.length > 1;
 
   @media (max-width: 767px) {
     .testimonials__split {
-      grid-template-columns: 1fr;
       gap: var(--space-md);
       margin-bottom: var(--space-lg);
     }
 
-    .testimonials__carousel-side {
+    .testimonials__desktop-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .testimonials__widget {
+      order: -1;
+    }
+
+    .testimonials__carousel-bar,
+    .testimonials__track,
+    .testimonials__carousel-dots {
       display: none !important;
     }
 
@@ -528,21 +560,14 @@ const carouselMulti = displayReviews.length > 1;
     font-weight: 600;
   }
 
-  .testimonials__carousel {
-    position: relative;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
   .testimonials__carousel-bar {
+    grid-area: bar;
     display: flex;
     justify-content: flex-end;
     gap: 0.45rem;
-    margin-bottom: var(--space-sm);
+    margin: 0;
     max-width: 100%;
-    flex-shrink: 0;
+    align-self: end;
   }
 
   .testimonials__nav-btn {
@@ -575,16 +600,11 @@ const carouselMulti = displayReviews.length > 1;
     outline-offset: 2px;
   }
 
-  .testimonials__track-outer {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
   .testimonials__track {
-    flex: 1;
+    grid-area: track;
     min-height: 0;
+    height: 100%;
+    align-self: stretch;
     display: flex;
     gap: var(--space-md);
     align-items: stretch;
@@ -604,12 +624,13 @@ const carouselMulti = displayReviews.length > 1;
   }
 
   .testimonials__carousel-dots {
+    grid-area: dots;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.4rem;
     padding-top: var(--space-sm);
-    flex-shrink: 0;
+    margin: 0;
   }
 
   .testimonials__dot {
