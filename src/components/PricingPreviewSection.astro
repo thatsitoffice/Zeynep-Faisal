@@ -1,43 +1,56 @@
 ---
 /**
- * Startseite: übersichtliche Preis-Vorschau + genau 2 CTAs
+ * Startseite: Kernleistungen mit Preisen (Planity) + CTAs
  */
 import SectionHeading from "./SectionHeading.astro";
 import BookingButton from "./BookingButton.astro";
-import { PRICE_PREVIEW_HIGHLIGHTS } from "../data/pricing";
+import { PLANITY_PRICING_URL, PRICE_PREVIEW_BLOCKS } from "../data/pricing";
 ---
 
 <section class="section pricing-preview" id="preise" aria-labelledby="pricing-preview-heading">
   <div class="container">
     <SectionHeading
       eyebrow="Preise"
-      title="Transparent — wie in Planity gebucht"
-      subtitle="Vier beliebte Einstiege als Orientierung. Alle Zeiten, Pakete und Sonderleistungen finden Sie auf der Preisseite — buchen können Sie direkt bei Planity."
+      title="Häufig gebuchte Leistungen — mit Planity-Preisen"
+      subtitle="Auszug der regulären Services inklusive Dauer und Preis. Erweiterungen, Balayage, Pflegepakete und alle weiteren Positionen finden Sie vollständig bei Planity und auf unserer Preisseite."
       headingId="pricing-preview-heading"
     />
+
+    <p class="pricing-preview__source muted">
+      Quelle & Buchung:{" "}
+      <a href={PLANITY_PRICING_URL} target="_blank" rel="noopener noreferrer">
+        Planity-Profil Gelsenkirchen
+      </a>
+      {" "}— bei Abweichungen gilt der Eintrag dort. „Ab“-Preise je nach Aufwand.
+    </p>
 
     <div class="pricing-preview__layout">
       <div class="pricing-preview__card card" data-reveal>
         <div class="pricing-preview__card-head">
-          <h3 class="pricing-preview__card-title">Unsere beliebtesten Leistungen</h3>
+          <h3 class="pricing-preview__card-title">Auszug aus dem Katalog</h3>
           <p class="pricing-preview__card-sub muted">
-            Endpreis je nach Aufwand und Haarlänge — wie in der Beratung vereinbart.
+            Endpreis in der Terminwahl wie bei Planity — individuelle Beratung im Salon.
           </p>
         </div>
-        <ul class="pricing-preview__list" role="list">
-          {
-            PRICE_PREVIEW_HIGHLIGHTS.map((item) => (
-              <li class="pricing-preview__item">
-                <div class="pricing-preview__item-copy">
-                  {item.badge && <span class="pricing-preview__badge">{item.badge}</span>}
-                  <span class="pricing-preview__name">{item.name}</span>
-                  {item.duration && <span class="pricing-preview__dur muted">{item.duration}</span>}
-                </div>
-                <span class="pricing-preview__price">{item.price}</span>
-              </li>
-            ))
-          }
-        </ul>
+        {
+          PRICE_PREVIEW_BLOCKS.map((block, bi) => (
+            <div class:list={["pricing-preview__group", bi > 0 && "pricing-preview__group--sep"]}>
+              <h4 class="pricing-preview__group-title">{block.title}</h4>
+              <ul class="pricing-preview__list" role="list">
+                {block.rows.map((item) => (
+                  <li class="pricing-preview__item">
+                    <div class="pricing-preview__item-copy">
+                      {item.badge && <span class="pricing-preview__badge">{item.badge}</span>}
+                      <span class="pricing-preview__name">{item.name}</span>
+                      {item.duration && <span class="pricing-preview__dur muted">{item.duration}</span>}
+                    </div>
+                    <span class="pricing-preview__price">{item.price}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
       </div>
 
       <aside class="pricing-preview__aside" data-reveal>
@@ -58,6 +71,38 @@ import { PRICE_PREVIEW_HIGHLIGHTS } from "../data/pricing";
 </section>
 
 <style>
+  .pricing-preview__source {
+    margin: calc(-1 * var(--space-sm)) 0 var(--space-lg);
+    max-width: 44rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .pricing-preview__source a {
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .pricing-preview__source a:hover {
+    text-decoration: underline;
+  }
+
+  .pricing-preview__group-title {
+    margin: 0 0 var(--space-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .pricing-preview__group--sep {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-line);
+  }
+
   .pricing-preview__layout {
     display: grid;
     gap: var(--space-lg);

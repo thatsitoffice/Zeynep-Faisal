@@ -152,38 +152,84 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
 ];
 
-/** Kurz-Vorschau auf der Startseite (nur die wichtigsten Positionen). */
+/** Kurz-Vorschau auf der Startseite — gruppiert wie in Planity. */
 export type PricePreviewRow = PriceRow & {
-  /** Kleines Schlagwort für schnelle Orientierung */
   badge?: string;
 };
 
+export type PricePreviewBlock = {
+  id: string;
+  /** Kurztitel für die Startseite (Planity-Kategorien) */
+  title: string;
+  rows: PricePreviewRow[];
+};
+
 /**
- * Startseite: vier eindeutige Highlights — vollständiges Angebot in Planity und auf /preise/.
+ * Startseite: häufig gebuchte Kernleistungen mit Preisen — abgestimmt auf
+ * @see PLANITY_PRICING_URL
+ * Vollständiges Angebot: Planity oder /preise/
  */
-export const PRICE_PREVIEW_HIGHLIGHTS: PricePreviewRow[] = [
+export const PRICE_PREVIEW_BLOCKS: PricePreviewBlock[] = [
   {
-    badge: "Damen · Schnitt",
-    name: "Signature Haircut",
-    duration: "Waschen, Schneiden & Föhnen · mittleres Haar",
-    price: "42 €",
+    id: "damen-schnitt",
+    title: "Hair Design & Styling | Damen",
+    rows: [
+      {
+        name: "Express Cut — Trockenschnitt kurz",
+        duration: "45 Min. · optional mit Haarwäsche",
+        price: "27 €",
+      },
+      {
+        name: "Express Cut — Trockenschnitt mittel",
+        duration: "60 Min. · optional mit Haarwäsche",
+        price: "30 €",
+      },
+      {
+        name: "Express Cut — Trockenschnitt lang",
+        duration: "60 Min. · optional mit Haarwäsche",
+        price: "ab 32 €",
+      },
+      {
+        name: "Signature Haircut — Waschen, Schneiden & Föhnen kurz",
+        duration: "60 Min.",
+        price: "37 €",
+      },
+      {
+        name: "Signature Haircut — Waschen, Schneiden & Föhnen mittel",
+        duration: "60 Min.",
+        price: "42 €",
+      },
+    ],
   },
   {
-    badge: "Herren · Schnitt",
-    name: "Men's Signature Cut",
-    duration: "Waschen, Schneiden & Styling",
-    price: "22 €",
+    id: "herren-schnitt",
+    title: "Haar Design & Styling | Herren",
+    rows: [
+      { name: "Men's Signature Cut — Waschen, Schneiden & Styling", duration: "30 Min.", price: "22 €" },
+      { name: "Men's Dry Cut — Trockenhaarschnitt", duration: "30 Min.", price: "17 €" },
+      { name: "Precision Buzz Cut — 0 mm", duration: "30 Min.", price: "20 €" },
+      { name: "Boy's Haircut — bis 6 Jahre", duration: "30 Min.", price: "15 €" },
+    ],
   },
   {
-    badge: "Damen · Color",
-    name: "Balayage Signature",
-    duration: "Freihand-Technik inkl. Beratung",
-    price: "ab 220 €",
+    id: "damen-color",
+    title: "Color & Gloss | Damen",
+    rows: [
+      { name: "REDKEN Root Shadow — Ansatzabdeckung", duration: "60 Min.", price: "ab 40 €" },
+      { name: "REDKEN Color Gels Oils — globale Komplettfärbung kurz", duration: "90 Min.", price: "ab 55 €" },
+      { name: "REDKEN Color Gels Oils — globale Komplettfärbung mittel", duration: "90 Min.", price: "ab 70 €" },
+      { name: "REDKEN Shades EQ Gloss — Signature Gloss", duration: "30 Min.", price: "ab 40 €" },
+    ],
   },
   {
-    badge: "Damen · Pflege",
-    name: "REDKEN Shades EQ Gloss",
-    duration: "Signature Gloss — Glanz & Frische",
-    price: "ab 40 €",
+    id: "herren-color-bart",
+    title: "Color, Bart & Finish | Herren",
+    rows: [
+      { name: "Men's Grey Coverage — natürliche Grauhaarkaschierung", duration: "25 Min.", price: "ab 35 €" },
+      { name: "Men's Natural Highlights — dezente Kammsträhnen", duration: "25 Min.", price: "ab 35 €" },
+      { name: "Beard Trim & Shave — klassische Nassrasur", duration: "10 Min.", price: "14 €" },
+      { name: "Beard Machine Shave — Maschinenrasur", duration: "10 Min.", price: "9 €" },
+      { name: "Beard Tinting — Bart färben", duration: "15 Min.", price: "17 €" },
+    ],
   },
 ];
