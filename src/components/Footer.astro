@@ -8,6 +8,20 @@ import BookingButton from "./BookingButton.astro";
     <div class="site-footer__grid" data-reveal>
       <div>
         <p class="eyebrow">Kontakt</p>
+        <a
+          class="site-footer__logo"
+          href="/"
+          aria-label={`${SITE.name} — ${SITE.tagline}, Startseite`}
+        >
+          <img
+            src="/logo-zeynep-faisal.png"
+            alt=""
+            width="440"
+            height="155"
+            class="site-footer__logo-img"
+            decoding="async"
+          />
+        </a>
         <p class="display-md site-footer__title">{SITE.name}</p>
         <p class="muted site-footer__tag">{SITE.tagline} · {SITE.city}</p>
         <p class="site-footer__address">{SITE.addressLine}</p>
@@ -49,6 +63,29 @@ import BookingButton from "./BookingButton.astro";
       grid-template-columns: 1fr 1fr;
       align-items: start;
     }
+  }
+
+  .site-footer__logo {
+    display: inline-block;
+    line-height: 0;
+    margin: 0 0 var(--space-sm);
+    text-decoration: none;
+  }
+
+  .site-footer__logo:hover .site-footer__logo-img {
+    opacity: 1;
+  }
+
+  .site-footer__logo-img {
+    height: clamp(2.1rem, 5vw, 2.85rem);
+    width: auto;
+    max-width: min(240px, 72vw);
+    object-fit: contain;
+    display: block;
+    /* Dunkles Logo auf dunklem Footer: hell zeichnen, Alpha vom PNG bleibt */
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+    transition: opacity 0.25s ease;
   }
 
   .site-footer__title {

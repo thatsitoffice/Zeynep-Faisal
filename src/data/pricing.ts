@@ -152,14 +152,32 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
 ];
 
+function isCatalogAggregateRow(r: PriceRow): boolean {
+  return r.price === "—" && Boolean(r.note);
+}
+
+/** Erste n Leistungen einer Kategorie (ohne Planity-Sammelzeile) — für Startseiten-Kacheln. */
+function sliceCategoryPreview(categoryId: string, maxRows: number): PriceRow[] {
+  const cat = PRICE_CATEGORIES.find((c) => c.id === categoryId);
+  if (!cat) return [];
+  return cat.rows
+    .filter((r) => !isCatalogAggregateRow(r))
+    .slice(0, maxRows)
+    .map((r) => ({ name: r.name, duration: r.duration, price: r.price }));
+}
+
+const TILE_PREVIEW_COUNT = 3;
+
 /**
  * Startseite: drei Kacheln mit Sprungmarken auf /preise/
  * (`anchorId` entspricht `id` am jeweiligen `PriceCategoryCard`).
+ * `previewRows` stammt aus `PRICE_CATEGORIES` (Einstiegskategorie je Kachel).
  */
 export type PriceMainGroupTile = {
   anchorId: string;
   title: string;
   blurb: string;
+  previewRows: PriceRow[];
 };
 
 export const PRICE_MAIN_GROUP_TILES: PriceMainGroupTile[] = [
@@ -167,50 +185,18 @@ export const PRICE_MAIN_GROUP_TILES: PriceMainGroupTile[] = [
     anchorId: "damen-cut",
     title: "Damen",
     blurb: "Schnitt, Color, Blond Signature, Pflege & Beauty — Einstieg bei Hair Design | Damen.",
+    previewRows: sliceCategoryPreview("damen-cut", TILE_PREVIEW_COUNT),
   },
   {
     anchorId: "herren-cut",
     title: "Herren",
     blurb: "Haarstyling, Color, Bart & Finish — Einstieg bei Haar Design | Herren.",
+    previewRows: sliceCategoryPreview("herren-cut", TILE_PREVIEW_COUNT),
   },
   {
     anchorId: "extensions",
     title: "Extensions",
     blurb: "Luxury Bonding Extensions, Beratung & Entfernung — 100 % Echthaar.",
+    previewRows: sliceCategoryPreview("extensions", TILE_PREVIEW_COUNT),
   },
 ];
-
-/** Kurz-Vorschau auf der Startseite — gruppiert wie in Planity. */
-export type PricePreviewRow = PriceRow & {
-  badge?: string;
-};
-
-export type PricePreviewBlock = {
-  id: string;
-  /** Kurztitel für die Startseite (Planity-Kategorien) */
-  title: string;
-  rows: PricePreviewRow[];
-};
-
-/**
- * Startseiten-Auszug: dieselben Kategorien wie `PRICE_CATEGORIES`, aber nur wenige
- * Zeilen pro Block — Details und Varianten nur auf `/preise/` bzw. Planity.
- */
-export const PRICE_PREVIEW_MAX_ROWS = 3 as const;
-
-function isCatalogAggregateRow(r: PriceRow): boolean {
-  return r.price === "—" && Boolean(r.note);
-}
-
-/**
- * Aus `PRICE_CATEGORIES` abgeleitet (keine zweite manuelle Liste).
- * @see PLANITY_PRICING_URL
- */
-export const PRICE_PREVIEW_BLOCKS: PricePreviewBlock[] = PRICE_CATEGORIES.map((cat) => ({
-  id: cat.id,
-  title: cat.title,
-  rows: cat.rows
-    .filter((r) => !isCatalogAggregateRow(r))
-    .slice(0, PRICE_PREVIEW_MAX_ROWS)
-    .map((r) => ({ ...r })),
-})).filter((b) => b.rows.length > 0);

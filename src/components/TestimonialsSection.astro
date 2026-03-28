@@ -299,18 +299,25 @@ const carouselMulti = displayReviews.length > 1;
   .testimonials__watermark {
     position: absolute;
     left: 50%;
-    top: 42%;
-    transform: translate(-50%, -50%);
+    /* Oben verankern (nicht vertikal zentrieren), damit bei overflow:hidden nichts abgeschnitten wird */
+    top: calc(var(--space-2xl) + var(--space-xs));
+    transform: translateX(-50%);
     font-family: var(--font-display);
     font-size: clamp(4.5rem, 18vw, 14rem);
     font-weight: 400;
     letter-spacing: -0.04em;
     line-height: 0.85;
-    color: rgba(20, 19, 18, 0.045);
+    color: rgba(20, 19, 18, 0.065);
     white-space: nowrap;
     pointer-events: none;
     user-select: none;
     z-index: 0;
+  }
+
+  @media (min-width: 768px) {
+    .testimonials__watermark {
+      top: calc(var(--space-2xl) + var(--space-sm));
+    }
   }
 
   .testimonials__intro {

@@ -1,14 +1,10 @@
 ---
 /**
- * Startseite: Intro + CTA, Hauptgruppen-Kacheln (Anker /preise/), Katalogauszug
+ * Startseite: Intro + CTA, Hauptgruppen-Kacheln mit Kurzpreisen (Anker /preise/)
  */
 import SectionHeading from "./SectionHeading.astro";
 import BookingButton from "./BookingButton.astro";
-import {
-  PRICE_MAIN_GROUP_TILES,
-  PRICE_PREVIEW_BLOCKS,
-  PRICE_PREVIEW_MAX_ROWS,
-} from "../data/pricing";
+import { PRICE_MAIN_GROUP_TILES } from "../data/pricing";
 ---
 
 <section class="section pricing-preview" id="preise" aria-labelledby="pricing-preview-heading">
@@ -18,7 +14,7 @@ import {
         <SectionHeading
           eyebrow="Preise"
           title="Häufig gebuchte Leistungen — mit Planity-Preisen"
-          subtitle={`Kurzer Auszug je Planity-Kategorie (max. ${PRICE_PREVIEW_MAX_ROWS} Leistungen) — ohne lange Dopplung zur Preisseite. Alles Weitere inkl. Varianten und Zeiten: Planity oder /preise/.`}
+          subtitle="Je Bereich drei Beispiel-Leistungen mit Preis — vollständiges Angebot inkl. aller Zeiten und Varianten bei Planity und auf der Preisseite."
           headingId="pricing-preview-heading"
         />
 
@@ -52,6 +48,19 @@ import {
           >
             <span class="pricing-preview__tile-title">{tile.title}</span>
             <span class="pricing-preview__tile-blurb">{tile.blurb}</span>
+            <ul class="pricing-preview__tile-rows" role="list">
+              {tile.previewRows.map((row) => (
+                <li class="pricing-preview__tile-row">
+                  <span class="pricing-preview__tile-row-text">
+                    <span class="pricing-preview__tile-row-name">{row.name}</span>
+                    {row.duration && (
+                      <span class="pricing-preview__tile-row-dur muted">{row.duration}</span>
+                    )}
+                  </span>
+                  <span class="pricing-preview__tile-row-price">{row.price}</span>
+                </li>
+              ))}
+            </ul>
             <span class="pricing-preview__tile-cta">
               Zur Sektion auf der Preisseite
               <span class="pricing-preview__tile-arrow" aria-hidden="true">→</span>
@@ -60,40 +69,6 @@ import {
         ))
       }
     </nav>
-
-    <div class="pricing-preview__catalog card" data-reveal>
-      <div class="pricing-preview__card-head">
-        <h3 class="pricing-preview__card-title">Auszug aus dem Katalog</h3>
-        <p class="pricing-preview__card-sub muted">
-          Endpreis in der Terminwahl wie bei Planity — individuelle Beratung im Salon. Kategorietitel verlinken die volle Sektion auf der Preisseite.
-        </p>
-      </div>
-      <div class="pricing-preview__blocks">
-        {
-          PRICE_PREVIEW_BLOCKS.map((block) => (
-            <div class="pricing-preview__group">
-              <h4 class="pricing-preview__group-title">
-                <a class="pricing-preview__group-link" href={`/preise/#${block.id}`}>
-                  {block.title}
-                </a>
-              </h4>
-              <ul class="pricing-preview__list" role="list">
-                {block.rows.map((item) => (
-                  <li class="pricing-preview__item">
-                    <div class="pricing-preview__item-copy">
-                      {item.badge && <span class="pricing-preview__badge">{item.badge}</span>}
-                      <span class="pricing-preview__name">{item.name}</span>
-                      {item.duration && <span class="pricing-preview__dur muted">{item.duration}</span>}
-                    </div>
-                    <span class="pricing-preview__price">{item.price}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-    </div>
   </div>
 </section>
 
@@ -107,7 +82,7 @@ import {
 
   @media (min-width: 900px) {
     .pricing-preview__intro-row {
-      grid-template-columns: minmax(0, 1fr) minmax(18rem, 32rem);
+      grid-template-columns: minmax(0, 1fr) minmax(26rem, min(46rem, 48%));
       column-gap: 5%;
       row-gap: var(--space-lg);
       align-items: center;
@@ -132,6 +107,7 @@ import {
   .pricing-preview__cta-aside {
     display: flex;
     width: 100%;
+    min-width: 0;
   }
 
   @media (min-width: 900px) {
@@ -177,7 +153,7 @@ import {
   .pricing-preview__cta-row {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: stretch;
     gap: var(--space-sm);
     margin-top: var(--space-sm);
@@ -185,15 +161,17 @@ import {
   }
 
   .pricing-preview__cta-row :global(.btn) {
-    flex: 1 1 10rem;
+    flex: 1 1 0;
+    min-width: 0;
     justify-content: center;
     min-height: 3rem;
     white-space: nowrap;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 360px) {
     .pricing-preview__cta-row {
       flex-direction: column;
+      flex-wrap: wrap;
     }
 
     .pricing-preview__cta-row :global(.btn) {
@@ -255,7 +233,60 @@ import {
     font-size: 0.86rem;
     line-height: 1.55;
     color: var(--color-ink-muted);
+  }
+
+  .pricing-preview__tile-rows {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-sm) 0 0;
+    border-top: 1px solid var(--color-line);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
     flex: 1;
+  }
+
+  .pricing-preview__tile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid rgba(20, 19, 18, 0.06);
+  }
+
+  .pricing-preview__tile-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .pricing-preview__tile-row-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .pricing-preview__tile-row-name {
+    font-weight: 600;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
+
+  .pricing-preview__tile-row-dur {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .pricing-preview__tile-row-price {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    color: var(--color-ink);
   }
 
   .pricing-preview__tile-cta {
@@ -276,127 +307,6 @@ import {
 
   .pricing-preview__tile:hover .pricing-preview__tile-arrow {
     transform: translateX(3px);
-  }
-
-  .pricing-preview__catalog {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-lg);
-  }
-
-  .pricing-preview__blocks {
-    display: grid;
-    gap: var(--space-md) var(--space-xl);
-  }
-
-  @media (min-width: 880px) {
-    .pricing-preview__blocks {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .pricing-preview__group {
-    margin: 0;
-    min-width: 0;
-  }
-
-  .pricing-preview__group-title {
-    margin: 0 0 var(--space-sm);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-  }
-
-  .pricing-preview__group-link {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .pricing-preview__group-link:hover {
-    color: var(--color-accent);
-  }
-
-  .pricing-preview__card-head {
-    margin-bottom: var(--space-md);
-    padding-bottom: var(--space-md);
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .pricing-preview__card-title {
-    margin: 0 0 0.35rem;
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-
-  .pricing-preview__card-sub {
-    margin: 0;
-    font-size: 0.88rem;
-    line-height: 1.5;
-  }
-
-  .pricing-preview__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .pricing-preview__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .pricing-preview__item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .pricing-preview__item-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    min-width: 0;
-  }
-
-  .pricing-preview__badge {
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .pricing-preview__name {
-    font-weight: 600;
-    font-size: 1.02rem;
-    line-height: 1.35;
-    color: var(--color-ink);
-  }
-
-  .pricing-preview__dur {
-    font-size: 0.84rem;
-    line-height: 1.45;
-  }
-
-  .pricing-preview__price {
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    font-size: 1.05rem;
-    flex-shrink: 0;
-    color: var(--color-ink);
   }
 
   @media (prefers-reduced-motion: reduce) {
