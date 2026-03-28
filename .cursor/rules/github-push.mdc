@@ -1,0 +1,10 @@
+---
+description: Nach Änderungen immer zu GitHub pushen (origin/main)
+alwaysApply: true
+---
+
+# GitHub: direkt pushen
+
+- Sobald sinnvolle Änderungen **committed** sind: **`git push origin main`** (bzw. aktueller Branch/Remote, falls abweichend).
+- Kein Abschluss einer Aufgabe mit nur lokalem Commit ohne Push, sofern Netzwerk/Remote verfügbar und keine explizite Gegenanweisung.
+- Bei Push-Fehlern: Ursache kurz prüfen (Remote, Auth, Konflikt), Nutzer nur bei Bedarf informieren.
