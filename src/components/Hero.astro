@@ -34,12 +34,9 @@ const bg = SALON_IMAGES.hero;
         — Ihr wiederkehrender Moment für Haar, das sich im Alltag bewährt.
       </p>
 
-      <div class="hero__actions-row">
-        <GoogleRatingChip variant="hero" />
-        <div class="hero__cta-group">
-          <BookingButton variant="heroSolid" />
-          <a class="btn btn--hero-outline" href="/preise/">Preise &amp; Leistungen</a>
-        </div>
+      <div class="hero__cta-group">
+        <BookingButton variant="heroSolid" />
+        <a class="btn btn--hero-outline" href="/preise/">Preise &amp; Leistungen</a>
       </div>
 
       <p class="hero__hint">
@@ -47,6 +44,10 @@ const bg = SALON_IMAGES.hero;
         <span class="hero__dot" aria-hidden="true">·</span>
         <a class="hero__hint-link" href={SITE.bookingUrl} target="_blank" rel="noopener noreferrer">Direkt zu Planity</a>
       </p>
+
+      <div class="hero__google">
+        <GoogleRatingChip variant="hero" />
+      </div>
     </div>
   </div>
 </section>
@@ -165,19 +166,16 @@ const bg = SALON_IMAGES.hero;
     }
   }
 
-  .hero__actions-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem 1.25rem;
-    margin-bottom: 1rem;
-  }
-
   .hero__cta-group {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero__google {
+    margin-top: 0.85rem;
   }
 
   .hero__cta-group :global(.btn) {
