@@ -1,6 +1,6 @@
 /**
- * Designsystem: Quiet Luxury / Editorial Beauty
- * — Instrument Serif + Manrope, weiches Licht, definierte Tiefe, Scroll-Reveal mit Stagger
+ * Designsystem: ruhig-premium, gut lesbar
+ * — Source Serif 4 (Überschriften) + Source Sans 3 (Fließtext)
  */
 
 :root {
@@ -17,8 +17,8 @@
   --color-deep: #252422;
   --color-star: #c4a574;
 
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-body: "Manrope", system-ui, sans-serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -68,7 +68,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 1.0625rem;
-  line-height: 1.68;
+  line-height: 1.72;
   color: var(--color-ink);
   background-color: var(--color-bg);
   text-rendering: optimizeLegibility;

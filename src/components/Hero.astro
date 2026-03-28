@@ -2,202 +2,171 @@
 import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
 
-/** Pill-Bild in der Zeile — stilistisch wie „WHERE BEAUTY MEETS …“ */
-const pillImage = {
-  src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=85",
-  alt: "Haarschnitt im Detail — stellvertretend für Ihren Look bei New Style",
-  width: 600,
-  height: 400,
+/** Vollflächiges Hero — hohe Auflösung für scharfe Darstellung */
+const bg = {
+  src: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=2400&q=85",
+  alt: "Salon-Atmosphäre — stellvertretend für New Style by Zeynep & Faisal",
 };
 ---
 
-<section class="hero hero--editorial hero--light" aria-labelledby="hero-heading">
-  <div class="hero__grain" aria-hidden="true"></div>
+<section class="hero hero--editorial hero--fullscreen" aria-labelledby="hero-heading">
+  <div class="hero__media" aria-hidden="true">
+    <img
+      src={bg.src}
+      alt=""
+      width={2400}
+      height={1350}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="hero__bg-img"
+    />
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__grain hero__grain--dark" aria-hidden="true"></div>
+
   <div class="hero__inner container">
     <div class="hero__copy" data-reveal style="--reveal-delay: 0ms">
       <p class="hero__kicker">{SITE.city} · {SITE.tagline}</p>
 
       <h1 id="hero-heading" class="hero__headline">
-        <span class="hero__line hero__line--1">Wo Stil</span>
-        <span class="hero__line hero__line--2">
-          <span class="hero__pill" role="img" aria-label={pillImage.alt}>
-            <img
-              src={pillImage.src}
-              alt=""
-              width={pillImage.width}
-              height={pillImage.height}
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              class="hero__pill-img"
-            />
-          </span>
-          <span class="hero__meet">trifft</span>
-        </span>
-        <span class="hero__line hero__line--3">Vertrauen</span>
+        Ruhig schön.<br />
+        <span class="hero__headline-accent">Professionell geschnitten.</span>
       </h1>
 
-      <div class="hero__subgrid">
-        <p class="hero__subcap">Bei New Style by Zeynep &amp; Faisal</p>
-        <p class="hero__lead">
-          Meisterbetrieb in Gelsenkirchen: klare Beratung, ruhige Hände, Farben und Schnitte, die zu Ihrem Alltag passen
-          — ohne Lautstärke, mit Haltung.
+      <p class="hero__lead">
+        Meisterbetrieb in Gelsenkirchen: klare Beratung, ruhige Hände — Schnitt, Farbe und Pflege, die im Alltag funktionieren.
+      </p>
+
+      <div class="hero__cta-block">
+        <p class="hero__cta-label">Online-Termin</p>
+        <p class="hero__cta-text">
+          Wählen Sie in Planity passende Zeit und Leistung — die Buchung öffnet sich in einem neuen Tab. Zahlung wie gewohnt vor Ort.
         </p>
         <div class="hero__actions">
-          <BookingButton variant="primary" />
-          <a class="btn btn--ghost" href="#leistungen">Leistungen entdecken</a>
+          <BookingButton variant="heroSolid" />
+          <a class="btn btn--hero-outline" href="#leistungen">Leistungen ansehen</a>
         </div>
-        <p class="hero__note">Online-Termin bei Planity · Zahlung vor Ort</p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hero--editorial.hero--light {
+  .hero--editorial.hero--fullscreen {
     position: relative;
-    min-height: min(92vh, 960px);
+    min-height: min(92vh, 920px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: calc(var(--header-h) + 2rem);
-    padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
-    background: var(--color-cream-hero);
-    color: var(--color-editorial);
+    justify-content: flex-end;
+    padding-top: calc(var(--header-h) + 2.5rem);
+    padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
     overflow: hidden;
+    color: rgba(255, 255, 255, 0.96);
   }
 
-  .hero__grain {
+  .hero__media {
     position: absolute;
     inset: 0;
-    opacity: 0.4;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-    pointer-events: none;
     z-index: 0;
+  }
+
+  .hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(12, 10, 9, 0.45) 0%, rgba(12, 10, 9, 0.25) 38%, rgba(12, 10, 9, 0.72) 100%),
+      linear-gradient(90deg, rgba(12, 10, 9, 0.55) 0%, transparent 55%);
+  }
+
+  .hero__grain--dark {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.35;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   }
 
   .hero__inner {
     position: relative;
-    z-index: 1;
+    z-index: 3;
   }
 
   .hero__copy {
-    max-width: 56rem;
+    max-width: 40rem;
   }
 
   .hero__kicker {
-    margin: 0 0 1.25rem;
+    margin: 0 0 1rem;
     font-family: var(--font-body);
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--color-accent);
+    color: rgba(255, 255, 255, 0.72);
   }
 
   .hero__headline {
-    margin: 0 0 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
+    margin: 0 0 1.25rem;
     font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.25rem, 6.2vw, 3.65rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero__headline-accent {
     font-weight: 400;
-    color: var(--color-editorial);
-    line-height: 0.95;
-  }
-
-  .hero__line {
-    display: block;
-    font-size: clamp(2.4rem, 8.5vw, 5.75rem);
-    letter-spacing: -0.03em;
-    text-transform: none;
-  }
-
-  .hero__line--1 {
-    font-variant-numeric: tabular-nums;
-  }
-
-  .hero__line--2 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.65rem 1rem;
-    font-size: clamp(2.4rem, 8.5vw, 5.75rem);
-    letter-spacing: -0.03em;
-  }
-
-  .hero__meet {
-    font-size: clamp(2.4rem, 8.5vw, 5.75rem);
-    letter-spacing: -0.03em;
-  }
-
-  .hero__line--3 {
-    font-size: clamp(2.4rem, 8.5vw, 5.75rem);
-  }
-
-  .hero__pill {
-    display: inline-flex;
-    width: clamp(148px, 32vw, 260px);
-    height: clamp(52px, 11vw, 88px);
-    border-radius: 999px;
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow:
-      0 12px 40px -16px rgba(45, 33, 24, 0.35),
-      0 0 0 1px rgba(255, 255, 255, 0.65) inset;
-    vertical-align: middle;
-  }
-
-  .hero__pill-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-  }
-
-  @media (max-width: 520px) {
-    .hero__line--2 {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .hero__pill {
-      width: min(100%, 280px);
-      height: clamp(64px, 18vw, 88px);
-    }
-  }
-
-  .hero__subgrid {
-    display: grid;
-    gap: var(--space-md);
-    max-width: 28rem;
-  }
-
-  @media (min-width: 900px) {
-    .hero__subgrid {
-      margin-left: auto;
-      margin-right: 0;
-      max-width: min(28rem, 42%);
-      text-align: left;
-    }
-  }
-
-  .hero__subcap {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-editorial);
-    opacity: 0.88;
+    color: rgba(255, 252, 248, 0.95);
   }
 
   .hero__lead {
-    margin: 0;
-    font-size: 1.02rem;
-    line-height: 1.72;
+    margin: 0 0 1.75rem;
+    font-size: 1.0625rem;
+    line-height: 1.75;
     font-weight: 500;
-    color: var(--color-ink-muted);
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 36rem;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .hero__cta-block {
+    padding: 1.35rem 1.5rem;
+    border-radius: var(--radius-md);
+    background: rgba(8, 7, 6, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero__cta-label {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .hero__cta-text {
+    margin: 0 0 1.15rem;
+    font-size: 0.98rem;
+    line-height: 1.68;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .hero__actions {
@@ -211,11 +180,18 @@ const pillImage = {
     min-height: 3rem;
   }
 
-  .hero__note {
-    margin: 0;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-ink-soft);
+  @media (max-width: 520px) {
+    .hero__cta-block {
+      padding: 1.15rem 1.15rem;
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero__actions :global(.btn) {
+      justify-content: center;
+    }
   }
 </style>
