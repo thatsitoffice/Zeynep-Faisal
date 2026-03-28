@@ -1,0 +1,52 @@
+---
+import BookingButton from "./BookingButton.astro";
+import { SITE } from "../data/site";
+---
+
+<section class="final-cta section section--dark" aria-labelledby="final-cta-heading">
+  <div class="container container--narrow final-cta__inner" data-reveal>
+    <p class="eyebrow" style="color: #c4b89a;">Planity</p>
+    <h2 id="final-cta-heading" class="display-lg" style="color: var(--color-bg);">
+      Ihr Termin — in wenigen Schritten reserviert
+    </h2>
+    <p class="final-cta__lead">
+      Wählen Sie Leistung, Datum und Lieblingszeit. Sie sehen Verfügbarkeiten live — ohne Warteschleife, ohne Rätselraten.
+      {SITE.name} freut sich darauf, Sie im Salon zu begrüßen.
+    </p>
+    <div class="final-cta__actions">
+      <BookingButton variant="on-dark" />
+      <p class="final-cta__hint">
+        Link öffnet die offizielle Planity-Seite für unseren Meisterbetrieb in {SITE.city}.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta__inner {
+    text-align: center;
+    padding-block: var(--space-xl);
+  }
+
+  .final-cta__lead {
+    margin: var(--space-md) auto var(--space-lg);
+    max-width: 36rem;
+    color: rgba(247, 245, 242, 0.82);
+    font-size: 1.08rem;
+    line-height: 1.65;
+  }
+
+  .final-cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .final-cta__hint {
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(247, 245, 242, 0.55);
+    max-width: 26rem;
+  }
+</style>

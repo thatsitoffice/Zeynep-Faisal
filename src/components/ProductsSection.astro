@@ -1,0 +1,131 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import BookingButton from "./BookingButton.astro";
+
+const products = [
+  {
+    name: "Repair Serum",
+    line: "Haarstruktur & Glanz",
+    text: "Konzentrierte Pflege für strapaziertes Haar: wirkt weich, ohne zu beschweren — ideal nach Farbdiensten.",
+    badge: "Salon-Exklusiv",
+  },
+  {
+    name: "Scalp Ritual Oil",
+    line: "Kopfhaut & Balance",
+    text: "Leichte, schnell einziehende Formel für ein beruhigtes Kopfhautgefühl — die Basis für gesund wirkendes Haar.",
+    badge: "Empfehlung",
+  },
+  {
+    name: "Thermal Shield Mist",
+    line: "Hitzeschutz & Finish",
+    text: "Unsichtbarer Schutz vor Föhn & Glätteisen — für ein Finish, das sauber fällt und länger sitzt.",
+    badge: "Daily Essential",
+  },
+];
+---
+
+<section class="section products" id="produkte" aria-labelledby="products-heading">
+  <div class="container">
+    <SectionHeading
+      eyebrow="Produkte"
+      title="Was wir auftragen — und Ihnen mitgeben"
+      subtitle="Wir setzen auf Marken mit Substanz: klare Inhaltsstoffe, nachvollziehbare Wirkung und ein Gefühl, das auch zu Hause bleibt."
+      headingId="products-heading"
+    />
+
+    <div class="products__grid">
+      {
+        products.map((p) => (
+          <article class="products__card" data-reveal>
+            <div class="products__ph" role="img" aria-label={`Produktvisual Platzhalter: ${p.name}`}>
+              <span class="products__ph-label">Produktfoto</span>
+            </div>
+            <p class="products__badge">{p.badge}</p>
+            <h3 class="display-md" style="font-size: 1.45rem; margin: 0 0 0.25rem;">
+              {p.name}
+            </h3>
+            <p class="eyebrow" style="margin: 0 0 var(--space-sm); font-size: 0.65rem;">
+              {p.line}
+            </p>
+            <p class="muted" style="margin: 0;">
+              {p.text}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="products__footer" data-reveal>
+      <p class="lead" style="margin: 0;">
+        Im Salon testen Sie Texturen und Düfte — mitnehmen, was wirklich zu Ihrer Routine passt.
+      </p>
+      <BookingButton variant="ghost" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .products__grid {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .products__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .products__card {
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .products__ph {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(145deg, rgba(154, 139, 110, 0.12), rgba(28, 27, 25, 0.04));
+    display: grid;
+    place-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .products__ph-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .products__badge {
+    margin: 0 0 var(--space-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .products__footer {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .products__footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

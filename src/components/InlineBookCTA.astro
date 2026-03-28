@@ -1,0 +1,53 @@
+---
+/**
+ * Wiederholter Buchungs-Hinweis nach inhaltlichen Blöcken (Conversion).
+ */
+import BookingButton from "./BookingButton.astro";
+
+interface Props {
+  text?: string;
+}
+
+const {
+  text = "Bereit für einen Moment, der sich anfühlt wie eine kleine Auszeit? Reservieren Sie Ihren Wunschtermin — unkompliziert und transparent.",
+} = Astro.props;
+---
+
+<section class="inline-cta" aria-label="Hinweis zur Terminbuchung" data-reveal>
+  <div class="inline-cta__inner container container--narrow">
+    <p class="inline-cta__text">{text}</p>
+    <BookingButton />
+  </div>
+</section>
+
+<style>
+  .inline-cta {
+    padding-block: var(--space-xl);
+  }
+
+  .inline-cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--color-accent-soft);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 640px) {
+    .inline-cta__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .inline-cta__text {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--color-ink-muted);
+    max-width: 36rem;
+  }
+</style>

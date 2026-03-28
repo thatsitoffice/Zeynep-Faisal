@@ -1,0 +1,100 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import BookingButton from "./BookingButton.astro";
+
+const pillars = [
+  {
+    title: "Meisterbetrieb",
+    text: "Zwei Meister:innen, ein Anspruch: Technik, die hält — und ein Look, der zu Ihrem Leben passt, nicht zur nächsten Trendwelle.",
+  },
+  {
+    title: "Qualität ohne Kompromiss",
+    text: "Wir arbeiten mit ausgewählten Produkten und klaren Schritten. Was wir versprechen, können wir wiederholen — Termin für Termin.",
+  },
+  {
+    title: "Ruhe statt Lautstärke",
+    text: "Kein hektisches „Rein-Raus“. Stattdessen: Fokus, Zeit für Details und eine Atmosphäre, in der Sie durchatmen können.",
+  },
+];
+---
+
+<section class="section trust" id="vertrauen" aria-labelledby="trust-heading">
+  <div class="container">
+    <SectionHeading
+      eyebrow="Vertrauen"
+      title="Handwerk, das man spürt — und sieht"
+      subtitle="Im Ruhrgebiet zu Hause, mit dem Anspruch einer Boutique: persönlich, präzise, diskret exzellent."
+      headingId="trust-heading"
+    />
+
+    <ul class="trust__grid" role="list">
+      {
+        pillars.map((p, i) => (
+          <li class="card trust__card" data-reveal style={`transition-delay: ${i * 0.06}s`}>
+            <h3 class="display-md trust__card-title">{p.title}</h3>
+            <p class="muted" style="margin: var(--space-sm) 0 0;">
+              {p.text}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="trust__social card" data-reveal>
+      <div class="trust__social-inner">
+        <p class="eyebrow" style="margin-bottom: var(--space-xs);">Social Proof</p>
+        <p class="display-md" style="margin: 0 0 var(--space-sm);">„Endlich ein Salon, der zuhört — und liefert.“</p>
+        <p class="muted" style="margin: 0;">
+          Platzhalter für echte Google- oder Planity-Bewertungen: Sterne, Kurz-Zitat und Link zur Bewertungsseite einbinden,
+          sobald freigegeben. Aktuell: durchschnittlich <strong>4,9 / 5</strong> bei über <strong>120</strong> verifizierten
+          Rückmeldungen <span class="muted">(Beispielwerte — bitte durch Live-Daten ersetzen)</span>.
+        </p>
+      </div>
+      <div class="trust__social-cta">
+        <BookingButton variant="ghost" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust__grid {
+    list-style: none;
+    margin: 0 0 var(--space-xl);
+    padding: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .trust__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .trust__card-title {
+    font-size: 1.5rem;
+  }
+
+  .trust__social {
+    display: grid;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  @media (min-width: 720px) {
+    .trust__social {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .trust__social-cta {
+    justify-self: start;
+  }
+
+  @media (min-width: 720px) {
+    .trust__social-cta {
+      justify-self: end;
+    }
+  }
+</style>

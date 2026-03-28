@@ -1,0 +1,108 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import BookingButton from "./BookingButton.astro";
+import { SITE } from "../data/site";
+
+const storyImage = {
+  src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80",
+  alt: "Team am Arbeiten — Platzhalter bis zum eigenen Shooting",
+  width: 1200,
+  height: 900,
+};
+---
+
+<section class="section about" id="ueber-uns" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about__grid">
+      <div data-reveal>
+        <SectionHeading
+          eyebrow="Über uns"
+          title="Eine Marke, die leise überzeugt"
+          subtitle={`${SITE.name} steht für Meisterqualität in ${SITE.city}: weniger Show, mehr Substanz. Wir glauben an Haar, das sich im Alltag bewährt — und an Beziehungen, die wachsen, weil wir liefern.`}
+          headingId="about-heading"
+        />
+        <ul class="about__list" role="list">
+          <li>
+            <strong>Beratung mit Respekt</strong>
+            <span class="muted"> — wir fragen, zuhören und übersetzen Wünsche in machbare Looks.</span>
+          </li>
+          <li>
+            <strong>Hygiene &amp; Ordnung</strong>
+            <span class="muted"> — selbstverständlich, ohne darauf groß zu reden.</span>
+          </li>
+          <li>
+            <strong>Ruhrgebiet-Verwurzelung</strong>
+            <span class="muted"> — nah, persönlich, ohne Schnörkel: Qualität, die bleibt.</span>
+          </li>
+        </ul>
+        <BookingButton />
+      </div>
+      <figure class="about__figure" data-reveal>
+        <div class="about__frame">
+          <img
+            src={storyImage.src}
+            alt={storyImage.alt}
+            width={storyImage.width}
+            height={storyImage.height}
+            loading="lazy"
+            decoding="async"
+            class="about__img"
+          />
+        </div>
+        <figcaption class="about__caption">
+          Markenwelt: eigenes Teamfoto / Salondetail — hier nur stilistischer Platzhalter.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .about__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+  }
+
+  .about__list {
+    margin: 0 0 var(--space-lg);
+    padding-left: 1.1rem;
+    max-width: 36rem;
+  }
+
+  .about__list li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .about__figure {
+    margin: 0;
+  }
+
+  .about__frame {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    box-shadow: var(--shadow-soft);
+    background: var(--color-line);
+  }
+
+  .about__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about__caption {
+    margin-top: var(--space-sm);
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+  }
+</style>

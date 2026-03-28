@@ -1,0 +1,93 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import BookingButton from "./BookingButton.astro";
+
+const quotes = [
+  {
+    text: "„Ruhig, professionell — und mein Schnitt hält Wochen länger als gewohnt. Genau das, was ich gesucht habe.“",
+    author: "Lena K.",
+    meta: "Gelsenkirchen",
+  },
+  {
+    text: "„Die Farbberatung war ehrlich. Kein Überreden, sondern ein Look, der zu mir passt. Top.“",
+    author: "Marcus T.",
+    meta: "Buer",
+  },
+  {
+    text: "„Ich buche nur noch online. Klappt reibungslos, und im Salon geht es ohne Stress weiter.“",
+    author: "Aylin S.",
+    meta: "Ruhrgebiet",
+  },
+];
+---
+
+<section class="section testimonials section--tight" id="stimmen" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <SectionHeading
+      eyebrow="Stimmen"
+      title="Was Gäste über uns sagen"
+      subtitle="Authentische Worte schlagen Slogans. Die folgenden Zitate sind stilistische Platzhalter — ersetzen Sie sie durch echte, freigegebene Bewertungen."
+      align="center"
+      headingId="testimonials-heading"
+    />
+
+    <ul class="testimonials__grid" role="list">
+      {
+        quotes.map((q) => (
+          <li class="testimonials__card card" data-reveal>
+            <p class="testimonials__text">{q.text}</p>
+            <footer>
+              <p class="testimonials__author">{q.author}</p>
+              <p class="testimonials__meta muted">{q.meta}</p>
+            </footer>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="testimonials__cta" data-reveal>
+      <BookingButton />
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .testimonials__text {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.45;
+    margin: 0 0 var(--space-md);
+    color: var(--color-ink);
+  }
+
+  .testimonials__author {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .testimonials__meta {
+    margin: 0.15rem 0 0;
+    font-size: 0.8rem;
+  }
+
+  .testimonials__cta {
+    margin-top: var(--space-xl);
+    display: flex;
+    justify-content: center;
+  }
+</style>

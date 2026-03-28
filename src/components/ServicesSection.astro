@@ -1,0 +1,130 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import BookingButton from "./BookingButton.astro";
+
+/**
+ * Leistungskategorien — Texte & Bilder bei Bedarf in `categories` pflegen.
+ */
+const categories = [
+  {
+    title: "Schnitt & Form",
+    text: "Von klarer Silhouette bis zu weicher Bewegung: Wir schneiden mit Blick auf Ihre Struktur, Pflegegewohnheiten und den Alltag, der danach folgt.",
+    image:
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=80",
+    alt: "Haarschnitt im Fokus — Platzhalterbild",
+  },
+  {
+    title: "Farbe & Licht",
+    text: "Balayage, konturierte Töne oder ein ruhiges Naturhaar: Wir setzen Farbe so, dass sie gesund wirkt — und sich edel entwickelt, nicht schnell verblasst.",
+    image:
+      "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&w=900&q=80",
+    alt: "Coloration — Platzhalterbild",
+  },
+  {
+    title: "Pflege & Finish",
+    text: "Behandlungen, die Substanz geben: Glanz, Geschmeidigkeit, Schutz. Perfekt abgestimmt auf das, was Ihr Haar wirklich braucht — nicht auf den neuesten Buzzword.",
+    image:
+      "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=900&q=80",
+    alt: "Haarpflege — Platzhalterbild",
+  },
+];
+---
+
+<section class="section services" id="leistungen" aria-labelledby="services-heading">
+  <div class="container">
+    <SectionHeading
+      eyebrow="Leistungen"
+      title="Klar strukturiert — für jeden Moment das Richtige"
+      subtitle="Drei Säulen, unter denen sich Ihre individuelle Beratung entfaltet. Im Termin klären wir Details, Pflege zu Hause und den Rhythmus zwischen den Besuchen."
+      headingId="services-heading"
+    />
+
+    <div class="services__list">
+      {
+        categories.map((c) => (
+          <article class="services__item" data-reveal>
+            <div class="services__visual">
+              <img src={c.image} alt={c.alt} width={900} height={1120} loading="lazy" decoding="async" class="services__img" />
+            </div>
+            <div class="services__body">
+              <h3 class="display-md">{c.title}</h3>
+              <p class="muted" style="margin: var(--space-sm) 0 var(--space-md);">
+                {c.text}
+              </p>
+              <a class="btn btn--ghost" href="#preise">
+                Zu den Preisen
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="services__footer" data-reveal>
+      <p class="lead" style="margin: 0;">
+        Unsicher, welche Kombination passt? Im Gespräch priorisieren wir — Sie entscheiden in Ruhe.
+      </p>
+      <BookingButton />
+    </div>
+  </div>
+</section>
+
+<style>
+  .services__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .services__item {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  @media (min-width: 880px) {
+    .services__item {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .services__item:nth-child(even) .services__visual {
+      order: 2;
+    }
+
+    .services__item:nth-child(even) .services__body {
+      order: 1;
+    }
+  }
+
+  .services__visual {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--color-line);
+    box-shadow: var(--shadow-card);
+  }
+
+  .services__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .services__footer {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-line);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  @media (min-width: 720px) {
+    .services__footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>
