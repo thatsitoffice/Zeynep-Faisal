@@ -9,11 +9,15 @@ export type PriceRow = {
   note?: string;
 };
 
+/** Gruppierung für den Katalog-Filter auf /preise/ */
+export type PriceCatalogGroup = "damen" | "herren" | "extensions";
+
 export type PriceCategory = {
   id: string;
   title: string;
   intro?: string;
   rows: PriceRow[];
+  catalogGroup: PriceCatalogGroup;
 };
 
 export const PLANITY_PRICING_URL =
@@ -27,6 +31,7 @@ export const PLANITY_PRICING_URL =
 export const PRICE_CATEGORIES: PriceCategory[] = [
   {
     id: "extensions",
+    catalogGroup: "extensions",
     title: "Luxury Bonding Extensions | 100 % Echthaar",
     intro:
       "MyExtensions Keratin-Bondings — Beratung vorab empfohlen. Details und Mengen wie in Planity beschrieben.",
@@ -56,6 +61,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "damen-cut",
+    catalogGroup: "damen",
     title: "Hair Design & Styling | Damen",
     intro: "Express- und Signature-Schnitte — optional mit Haarwäsche laut Planity.",
     rows: [
@@ -73,6 +79,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "damen-color",
+    catalogGroup: "damen",
     title: "Color & Gloss | Damen",
     intro: "Farbework mit REDKEN Professional (u. a. Color Gels Oils, Shades EQ).",
     rows: [
@@ -85,6 +92,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "damen-blond",
+    catalogGroup: "damen",
     title: "Blond Signature | Damen",
     intro: "Strähnen, Kammtechnik, Balayage — REDKEN Professional.",
     rows: [
@@ -102,6 +110,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "damen-care",
+    catalogGroup: "damen",
     title: "Luxury Care | Damen",
     rows: [
       { name: "REDKEN Acidic Bonding Conditioner", duration: "10 Min.", price: "9 €" },
@@ -110,6 +119,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "damen-beauty",
+    catalogGroup: "damen",
     title: "Beauty Finish | Damen",
     rows: [
       { name: "Eyebrow Sculpting — Augenbrauen formen", duration: "15 Min.", price: "9 €" },
@@ -119,6 +129,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "herren-cut",
+    catalogGroup: "herren",
     title: "Haar Design & Styling | Herren",
     rows: [
       { name: "Men's Signature Cut — Waschen, Schneiden & Styling", duration: "30 Min.", price: "22 €" },
@@ -130,6 +141,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "herren-color",
+    catalogGroup: "herren",
     title: "Color & Shine | Herren",
     rows: [
       { name: "Men's Grey Coverage — natürliche Grauhaarkaschierung", duration: "25 Min.", price: "ab 35 €" },
@@ -138,6 +150,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "herren-beard",
+    catalogGroup: "herren",
     title: "Beard Signature | Herren",
     rows: [
       { name: "Beard Trim & Shave — klassische Nassrasur", duration: "10 Min.", price: "14 €" },
@@ -147,6 +160,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
   {
     id: "herren-beauty",
+    catalogGroup: "herren",
     title: "Beauty Finish | Herren",
     rows: [{ name: "Eyebrow Sculpting — Augenbrauen formen", duration: "10 Min.", price: "9 €" }],
   },
@@ -178,6 +192,8 @@ export type PriceMainGroupTile = {
   title: string;
   blurb: string;
   previewRows: PriceRow[];
+  /** Query für den Katalog-Filter auf /preise/ (z. B. ?gruppe=herren) */
+  preiseSearch?: string;
 };
 
 export const PRICE_MAIN_GROUP_TILES: PriceMainGroupTile[] = [
@@ -186,17 +202,20 @@ export const PRICE_MAIN_GROUP_TILES: PriceMainGroupTile[] = [
     title: "Damen",
     blurb: "Schnitt, Color, Blond Signature, Pflege & Beauty — Einstieg bei Hair Design | Damen.",
     previewRows: sliceCategoryPreview("damen-cut", TILE_PREVIEW_COUNT),
+    preiseSearch: "?gruppe=damen",
   },
   {
     anchorId: "herren-cut",
     title: "Herren",
     blurb: "Haarstyling, Color, Bart & Finish — Einstieg bei Haar Design | Herren.",
     previewRows: sliceCategoryPreview("herren-cut", TILE_PREVIEW_COUNT),
+    preiseSearch: "?gruppe=herren",
   },
   {
     anchorId: "extensions",
     title: "Extensions",
     blurb: "Luxury Bonding Extensions, Beratung & Entfernung — 100 % Echthaar.",
     previewRows: sliceCategoryPreview("extensions", TILE_PREVIEW_COUNT),
+    preiseSearch: "?gruppe=extensions",
   },
 ];

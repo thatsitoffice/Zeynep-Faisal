@@ -43,7 +43,7 @@ import { PRICE_MAIN_GROUP_TILES } from "../data/pricing";
         PRICE_MAIN_GROUP_TILES.map((tile) => (
           <a
             class="pricing-preview__tile card"
-            href={`/preise/#${tile.anchorId}`}
+            href={`/preise/${tile.preiseSearch ?? ""}#${tile.anchorId}`}
             data-reveal
           >
             <span class="pricing-preview__tile-title">{tile.title}</span>

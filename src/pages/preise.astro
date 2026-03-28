@@ -94,13 +94,42 @@ const heroBg = SALON_IMAGES.preiseHero;
     </section>
 
     <section class="section preise-page__list" aria-label="Preisliste nach Kategorien">
-      <div class="container">
+      <div class="container" id="preise-katalog">
         <SectionHeading
           eyebrow="Leistungskatalog"
           title="Alles im Überblick"
-          subtitle="Kategorien wie in Planity — für Details und Verfügbarkeit nutzen Sie die Online-Buchung."
+          subtitle="Filtern Sie nach Damen, Männern oder Extensions — vollständige Angaben wie in Planity; buchen und Verfügbarkeiten dort prüfen."
           headingId="preise-katalog-heading"
         />
+
+        <div class="preise-page__filter-block" data-reveal>
+          <p class="preise-page__filter-hint muted">
+            Bereich wählen — inkl. Leistungen für <strong>Männer</strong> (Haar, Color, Bart &amp; Beauty).
+          </p>
+          <div class="preise-page__filter" role="group" aria-label="Leistungskatalog nach Bereich filtern">
+            <button
+              type="button"
+              class="preise-page__filter-btn preise-page__filter-btn--active"
+              data-preise-filter="alle"
+              aria-pressed="true"
+            >
+              Alle
+            </button>
+            <button type="button" class="preise-page__filter-btn" data-preise-filter="damen" aria-pressed="false">
+              Damen
+            </button>
+            <button type="button" class="preise-page__filter-btn" data-preise-filter="herren" aria-pressed="false">
+              Männer
+            </button>
+            <button type="button" class="preise-page__filter-btn" data-preise-filter="extensions" aria-pressed="false">
+              Extensions
+            </button>
+          </div>
+          <p class="preise-page__filter-empty" data-preise-filter-empty hidden>
+            In dieser Auswahl sind aktuell keine Kategorien hinterlegt.
+          </p>
+        </div>
+
         <div class="preise-page__categories">
           {PRICE_CATEGORIES.map((cat, i) => <PriceCategoryCard category={cat} revealDelayMs={i * 50} />)}
         </div>
@@ -115,6 +144,10 @@ const heroBg = SALON_IMAGES.preiseHero;
   </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  import "../scripts/preise-filter";
+</script>
 
 <style>
   .preise-page__hero-wrap {
@@ -328,6 +361,79 @@ const heroBg = SALON_IMAGES.preiseHero;
   .preise-page__hours-table tr:last-child th,
   .preise-page__hours-table tr:last-child td {
     border-bottom: none;
+  }
+
+  .preise-page__filter-block {
+    margin-bottom: var(--space-xl);
+    max-width: 48rem;
+  }
+
+  .preise-page__filter-hint {
+    margin: 0 0 var(--space-md);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .preise-page__filter-hint strong {
+    font-weight: 600;
+    color: var(--color-ink-muted);
+  }
+
+  .preise-page__filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .preise-page__filter-btn {
+    appearance: none;
+    margin: 0;
+    padding: 0.55rem 1.1rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .preise-page__filter-btn:hover {
+    border-color: rgba(20, 19, 18, 0.14);
+    color: var(--color-ink);
+  }
+
+  .preise-page__filter-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .preise-page__filter-btn--active {
+    background: var(--color-ink);
+    color: #faf8f5;
+    border-color: var(--color-ink);
+    box-shadow: 0 8px 22px -12px rgba(20, 19, 18, 0.35);
+  }
+
+  .preise-page__filter-btn--active:hover {
+    background: var(--color-deep);
+    border-color: var(--color-deep);
+    color: #fff;
+  }
+
+  .preise-page__filter-empty {
+    margin: var(--space-sm) 0 0;
+    font-size: 0.9rem;
+    color: var(--color-ink-muted);
   }
 
   .preise-page__categories {

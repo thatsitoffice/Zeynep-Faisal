@@ -13,6 +13,7 @@ const { category, revealDelayMs = 0 } = Astro.props;
 <article
   class="price-cat card"
   id={category.id}
+  data-catalog-group={category.catalogGroup}
   data-reveal
   style={revealDelayMs ? `--reveal-delay: ${revealDelayMs}ms` : undefined}
 >
