@@ -1,0 +1,474 @@
+---
+/**
+ * Stimmen: Watermark + breites Karussell (Google-Rezensionen via Places API beim Build, sonst kompakte Fallback-Slides).
+ */
+import BookingButton from "./BookingButton.astro";
+import { GOOGLE, GOOGLE_REVIEWS_FALLBACK } from "../data/google";
+import { fetchPlaceReviewData } from "../lib/googlePlaces";
+
+const apiKey = import.meta.env.GOOGLE_PLACES_API_KEY as string | undefined;
+const placeIdFromEnv = import.meta.env.GOOGLE_PLACE_ID as string | undefined;
+const placeId = (placeIdFromEnv || GOOGLE.placeId || "").trim();
+
+const live = await fetchPlaceReviewData(apiKey, placeId);
+
+const mapsHref =
+  live?.googleMapsUri || `https://www.google.com/maps?cid=${GOOGLE.mapsCid}&hl=de`;
+
+const displayName = live?.displayName || "Google Bewertungen";
+const rating = live && live.rating > 0 ? live.rating : GOOGLE_REVIEWS_FALLBACK.rating;
+const userRatingCount =
+  live && live.userRatingCount > 0
+    ? live.userRatingCount
+    : GOOGLE_REVIEWS_FALLBACK.userRatingCount;
+
+const apiReviews = live?.reviews?.length ? live.reviews.filter((r) => r.text.length > 0) : [];
+const ratingLabel = rating.toFixed(1).replace(".", ",");
+
+/** Ohne API: ein Slide mit Kennzahl + CTA (keine erfundenen Zitate). */
+const fallbackSlides =
+  apiReviews.length > 0
+    ? null
+    : [
+        {
+          author: "Google-Profil",
+          rating: Math.round(rating),
+          text: `Aktuell ${userRatingCount.toLocaleString("de-DE")} öffentliche Bewertungen mit Ø ${ratingLabel} Sternen — alle authentischen Texte und Fotos lesen Sie direkt bei Google.`,
+          relativeTime: "Live-Daten",
+        },
+      ];
+
+const slides = apiReviews.length > 0 ? apiReviews : fallbackSlides!;
+const carouselId = "stimmen-karussell";
+const carouselMulti = slides.length > 1;
+---
+
+<section class="section testimonials testimonials--carousel" id="stimmen" aria-labelledby="testimonials-heading">
+  <div class="testimonials__watermark" aria-hidden="true">Stimmen</div>
+
+  <div class="container testimonials__intro">
+    <header class="testimonials__header">
+      <p class="eyebrow">Stimmen</p>
+      <h2 id="testimonials-heading" class="display-lg">Was Gäste über uns sagen</h2>
+      <p class="lead testimonials__sub">
+        Echte Rückmeldungen von Google{apiReviews.length > 0 ? " — hier als Auszug, vollständig über den Link unten." : " — öffnen Sie unser Profil für alle Texte."}
+      </p>
+    </header>
+
+    <div class="testimonials__summary card">
+      <div class="testimonials__summary-inner">
+        <span class="testimonials__g" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 48 48">
+            <path
+              fill="#4285F4"
+              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+            ></path>
+            <path
+              fill="#34A853"
+              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6C44.43 39.29 48 34.22 48 24c0-1.64-.15-3.19-.43-4.65z"
+            ></path>
+            <path
+              fill="#FBBC05"
+              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+            ></path>
+            <path
+              fill="#EA4335"
+              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+            ></path>
+          </svg>
+        </span>
+        <div>
+          <p class="testimonials__summary-title">{displayName}</p>
+          <div class="testimonials__summary-row">
+            <div class="testimonials__stars" role="img" aria-label={`Durchschnitt ${ratingLabel} von 5 Sternen`}>
+              {[1, 2, 3, 4, 5].map((i) => <span class:list={["ts-star", i <= Math.round(rating) && "ts-star--on"]}>★</span>)}
+            </div>
+            <span class="testimonials__score">{ratingLabel}</span>
+            <span class="muted testimonials__count">{userRatingCount.toLocaleString("de-DE")} Bewertungen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonials__bleed">
+    <div
+      class="testimonials__carousel"
+      data-carousel
+      id={carouselId}
+      role="region"
+      aria-roledescription="Karussell"
+      aria-label="Ausgewählte Google-Bewertungen"
+    >
+      {
+        carouselMulti && (
+          <div class="testimonials__carousel-bar container">
+            <button
+              type="button"
+              class="testimonials__nav-btn"
+              data-carousel-prev
+              aria-controls={`${carouselId}-track`}
+              aria-label="Vorherige Bewertung"
+            >
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button
+              type="button"
+              class="testimonials__nav-btn"
+              data-carousel-next
+              aria-controls={`${carouselId}-track`}
+              aria-label="Nächste Bewertung"
+            >
+              <span aria-hidden="true">›</span>
+            </button>
+          </div>
+        )
+      }
+
+      <div
+        class="testimonials__track"
+        id={`${carouselId}-track`}
+        data-carousel-track
+        tabindex="0"
+        aria-live="polite"
+      >
+        {
+          slides.map((r, i) => (
+            <article class="testimonials__slide card" data-carousel-slide data-index={i}>
+              <div class="testimonials__slide-top">
+                {apiReviews.length > 0 && "authorPhoto" in r && r.authorPhoto ? (
+                  <img
+                    class="testimonials__avatar"
+                    src={r.authorPhoto}
+                    alt=""
+                    width="44"
+                    height="44"
+                    loading={i < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                    referrerpolicy="no-referrer"
+                  />
+                ) : (
+                  <span class="testimonials__avatar testimonials__avatar--ph" aria-hidden="true" />
+                )}
+                <div class="testimonials__slide-meta">
+                  {apiReviews.length > 0 && "authorUri" in r && r.authorUri ? (
+                    <a class="testimonials__author" href={r.authorUri} target="_blank" rel="noopener noreferrer">
+                      {r.author}
+                    </a>
+                  ) : (
+                    <span class="testimonials__author">{r.author}</span>
+                  )}
+                  {r.relativeTime && <p class="testimonials__time muted">{r.relativeTime}</p>}
+                </div>
+                <div class="testimonials__mini-stars" aria-label={`${r.rating} von 5 Sternen`}>
+                  {Array.from({ length: 5 }, (_, si) => (
+                    <span class:list={["ts-star ts-star--sm", si < r.rating && "ts-star--on"]} aria-hidden="true">
+                      ★
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <blockquote class="testimonials__quote">
+                <p class="testimonials__text">{r.text}</p>
+              </blockquote>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container testimonials__footer">
+    <a class="btn btn--ghost testimonials__maps" href={mapsHref} target="_blank" rel="noopener noreferrer">
+      Alle Google-Bewertungen ansehen
+      <span aria-hidden="true">↗</span>
+    </a>
+    <p class="muted testimonials__legal">
+      Bewertungen stammen von Google. Vollständige Texte und Historie über „Alle Google-Bewertungen ansehen“.
+    </p>
+    <div class="testimonials__book">
+      <BookingButton />
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/reviews-carousel";
+</script>
+
+<style>
+  .testimonials--carousel {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-2xl);
+  }
+
+  .testimonials__watermark {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 18vw, 14rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    color: rgba(20, 19, 18, 0.045);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .testimonials__intro {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  .testimonials__header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .testimonials__header .display-lg {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .testimonials__sub {
+    margin: 0 auto;
+    max-width: 34rem;
+  }
+
+  .testimonials__summary {
+    text-align: left;
+    max-width: 28rem;
+    margin-inline: auto;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .testimonials__summary-inner {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .testimonials__summary-title {
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .testimonials__summary-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.65rem;
+  }
+
+  .testimonials__stars {
+    display: inline-flex;
+    gap: 0.06rem;
+  }
+
+  .ts-star {
+    color: rgba(20, 19, 18, 0.18);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .ts-star--on {
+    color: var(--color-star);
+  }
+
+  .ts-star--sm {
+    font-size: 0.82rem;
+  }
+
+  .testimonials__score {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .testimonials__count {
+    font-size: 0.88rem;
+  }
+
+  /* Volle Viewport-Breite für die Karten-Schiene */
+  .testimonials__bleed {
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .testimonials__carousel {
+    position: relative;
+  }
+
+  .testimonials__carousel-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: var(--space-md);
+    max-width: 100%;
+  }
+
+  .testimonials__nav-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-line);
+    background: var(--color-bg-elevated);
+    color: var(--color-ink);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-card);
+    transition:
+      background 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .testimonials__nav-btn:hover {
+    border-color: rgba(20, 19, 18, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .testimonials__nav-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .testimonials__track {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--page-pad);
+    padding-inline: var(--page-pad);
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+  }
+
+  .testimonials__track:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .testimonials__slide {
+    flex: 0 0 min(100% - 2.5rem, 420px);
+    scroll-snap-align: start;
+    margin: 0;
+    padding: var(--space-lg);
+    text-align: left;
+    box-shadow: var(--shadow-card);
+  }
+
+  @media (min-width: 720px) {
+    .testimonials__slide {
+      flex-basis: min(100% - 4rem, 460px);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .testimonials__slide {
+      flex-basis: min(100% - 5rem, 520px);
+    }
+  }
+
+  .testimonials__slide-top {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-sm);
+    align-items: start;
+    margin-bottom: var(--space-md);
+  }
+
+  .testimonials__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .testimonials__avatar--ph {
+    display: block;
+    background: var(--color-line);
+  }
+
+  .testimonials__author {
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .testimonials__author:hover {
+    text-decoration: underline;
+  }
+
+  .testimonials__time {
+    margin: 0.15rem 0 0;
+    font-size: 0.78rem;
+  }
+
+  .testimonials__mini-stars {
+    display: flex;
+    gap: 0;
+  }
+
+  .testimonials__quote {
+    margin: 0;
+  }
+
+  .testimonials__text {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--color-ink-muted);
+  }
+
+  .testimonials__footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  .testimonials__maps {
+    margin-bottom: var(--space-sm);
+  }
+
+  .testimonials__legal {
+    margin: 0 auto var(--space-lg);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    max-width: 32rem;
+  }
+
+  .testimonials__book :global(.btn) {
+    min-height: 3rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials__track {
+      scroll-behavior: auto;
+    }
+
+    .testimonials__nav-btn:hover {
+      transform: none;
+    }
+  }
+</style>
