@@ -172,6 +172,13 @@ const label = `Google: ${ratingDisplay} von 5 Sternen, ${userRatingCount.toLocal
     white-space: nowrap;
   }
 
+  @media (max-width: 380px) {
+    .google-chip__meta {
+      white-space: normal;
+      letter-spacing: 0.05em;
+    }
+  }
+
   .google-chip--hero .google-chip__meta {
     font-size: 0.68rem;
     letter-spacing: 0.08em;

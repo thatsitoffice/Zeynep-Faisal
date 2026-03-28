@@ -368,6 +368,35 @@ const carouselMulti = displayReviews.length > 1;
       ". dots";
   }
 
+  /* Tablet / kleines Laptop: eine Spalte — Widget oben, Karussell volle Breite */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonials__desktop-grid {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: var(--space-md);
+    }
+
+    .testimonials__desktop-grid:not(.testimonials__desktop-grid--multi) {
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "widget"
+        "track";
+    }
+
+    .testimonials__desktop-grid--multi {
+      grid-template-rows: auto auto 1fr auto;
+      grid-template-areas:
+        "widget"
+        "bar"
+        "track"
+        "dots";
+    }
+
+    .testimonials__slide {
+      flex: 0 0 min(calc(100% - 0.75rem), 28rem);
+    }
+  }
+
   /* Kinder (Bar, Track, Dots) werden direkt im Desktop-Grid platziert */
   .testimonials__carousel-pane {
     display: contents;

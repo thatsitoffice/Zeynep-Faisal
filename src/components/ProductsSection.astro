@@ -120,8 +120,10 @@ const products = [
     gap: var(--space-md);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--page-pad);
-    padding-inline: var(--page-pad);
+    scroll-padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
+      max(var(--page-pad), env(safe-area-inset-right, 0px));
+    padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
+      max(var(--page-pad), env(safe-area-inset-right, 0px));
     padding-bottom: var(--space-sm);
     -webkit-overflow-scrolling: touch;
     scrollbar-gutter: stable;
@@ -199,7 +201,8 @@ const products = [
 
   .products__scroll-hint {
     margin: 0;
-    padding-inline: var(--page-pad);
+    padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
+      max(var(--page-pad), env(safe-area-inset-right, 0px));
     font-size: 0.68rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;

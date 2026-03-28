@@ -35,15 +35,15 @@ const { title, description, heading } = Astro.props;
 
 <style>
   .legal-page {
-    padding-top: calc(var(--header-h) + var(--space-xl));
-    padding-bottom: var(--space-2xl);
+    padding-top: calc(var(--header-h) + var(--space-xl) + env(safe-area-inset-top, 0px));
+    padding-bottom: max(var(--space-2xl), env(safe-area-inset-bottom, 0px));
     min-height: 50vh;
   }
 
   .legal-page__article {
     max-width: 42rem;
     margin-inline: auto;
-    padding: var(--space-lg) var(--space-lg);
+    padding: clamp(var(--space-md), 4vw, var(--space-lg));
   }
 
   .legal-page__head {

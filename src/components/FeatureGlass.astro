@@ -42,10 +42,16 @@ const bg = SALON_IMAGES.feature;
 
   .feature-glass {
     position: relative;
-    min-height: min(72vh, 820px);
+    min-height: min(72svh, 820px);
     display: flex;
     align-items: center;
-    padding-block: clamp(3rem, 10vh, 5rem);
+    padding-block: clamp(2.25rem, 8vh, 5rem);
+  }
+
+  @supports not (min-height: 72svh) {
+    .feature-glass {
+      min-height: min(72vh, 820px);
+    }
   }
 
   .feature-glass__bg {
@@ -83,7 +89,7 @@ const bg = SALON_IMAGES.feature;
   }
 
   .feature-glass__panel {
-    padding: var(--space-lg) var(--space-xl);
+    padding: clamp(var(--space-md), 4vw, var(--space-lg)) clamp(var(--space-md), 5vw, var(--space-xl));
     border-radius: var(--radius-lg);
     background: rgba(255, 252, 250, 0.14);
     border: 1px solid rgba(255, 255, 255, 0.22);

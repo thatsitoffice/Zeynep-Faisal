@@ -121,11 +121,17 @@ const heroBg = SALON_IMAGES.preiseHero;
     position: relative;
     overflow: hidden;
     margin-top: calc(-1 * var(--header-h));
-    padding-top: calc(var(--space-2xl) + var(--header-h));
-    padding-bottom: var(--space-2xl);
-    min-height: min(72vh, 52rem);
+    padding-top: calc(var(--space-2xl) + var(--header-h) + env(safe-area-inset-top, 0px));
+    padding-bottom: max(var(--space-2xl), env(safe-area-inset-bottom, 0px));
+    min-height: min(72svh, 52rem);
     display: flex;
     align-items: center;
+  }
+
+  @supports not (min-height: 72svh) {
+    .preise-page__hero-wrap {
+      min-height: min(72vh, 52rem);
+    }
   }
 
   .preise-page__hero-media {

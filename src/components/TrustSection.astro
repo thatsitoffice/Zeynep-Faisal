@@ -112,10 +112,24 @@ const pillars = [
     gap: var(--space-md);
   }
 
+  @media (min-width: 560px) and (max-width: 767px) {
+    .trust__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trust__grid .trust__card:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+  }
+
   @media (min-width: 768px) {
     .trust__grid {
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-lg);
+    }
+
+    .trust__grid .trust__card:nth-child(3) {
+      grid-column: auto;
     }
   }
 

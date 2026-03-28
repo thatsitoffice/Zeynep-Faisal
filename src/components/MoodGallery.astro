@@ -110,6 +110,22 @@ const shots = [
     align-items: start;
   }
 
+  @media (min-width: 560px) and (max-width: 767px) {
+    .mood-gallery__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    .mood-gallery__fig--tall {
+      margin-top: 0;
+      grid-row: span 2;
+    }
+
+    .mood-gallery__fig:nth-child(2) {
+      margin-top: 0;
+    }
+  }
+
   @media (min-width: 768px) {
     .mood-gallery__grid {
       grid-template-columns: 1.1fr 0.9fr 0.9fr;
@@ -118,6 +134,7 @@ const shots = [
 
     .mood-gallery__fig--tall {
       margin-top: -2.5rem;
+      grid-row: auto;
     }
 
     .mood-gallery__fig:nth-child(2) {
