@@ -152,18 +152,38 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
   },
 ];
 
+/** Kurz-Vorschau auf der Startseite (nur die wichtigsten Positionen). */
+export type PricePreviewRow = PriceRow & {
+  /** Kleines Schlagwort für schnelle Orientierung */
+  badge?: string;
+};
+
 /**
- * Startseiten-Vorschau: beliebte Einstiege (spiegelt Planity-Logik, nicht alle Positionen).
+ * Startseite: vier eindeutige Highlights — vollständiges Angebot in Planity und auf /preise/.
  */
-export const PRICE_PREVIEW_HIGHLIGHTS: PriceRow[] = [
+export const PRICE_PREVIEW_HIGHLIGHTS: PricePreviewRow[] = [
   {
-    name: "Signature Haircut — Waschen, Schneiden & Föhnen (mittel)",
-    duration: "60 Min.",
+    badge: "Damen · Schnitt",
+    name: "Signature Haircut",
+    duration: "Waschen, Schneiden & Föhnen · mittleres Haar",
     price: "42 €",
   },
-  { name: "Men's Signature Cut — Waschen, Schneiden & Styling", duration: "30 Min.", price: "22 €" },
-  { name: "REDKEN Root Shadow — Ansatzabdeckung", duration: "60 Min.", price: "ab 40 €" },
-  { name: "Balayage Signature", duration: "220 Min.", price: "ab 220 €" },
-  { name: "REDKEN Shades EQ Gloss — Signature Gloss", duration: "30 Min.", price: "ab 40 €" },
-  { name: "Natural Comb Highlights — Kammsträhnen", duration: "90 Min.", price: "ab 60 €" },
+  {
+    badge: "Herren · Schnitt",
+    name: "Men's Signature Cut",
+    duration: "Waschen, Schneiden & Styling",
+    price: "22 €",
+  },
+  {
+    badge: "Damen · Color",
+    name: "Balayage Signature",
+    duration: "Freihand-Technik inkl. Beratung",
+    price: "ab 220 €",
+  },
+  {
+    badge: "Damen · Pflege",
+    name: "REDKEN Shades EQ Gloss",
+    duration: "Signature Gloss — Glanz & Frische",
+    price: "ab 40 €",
+  },
 ];
