@@ -177,8 +177,15 @@ const heroBg = SALON_IMAGES.preiseHero;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 42%;
+    /* Motiv: Styling-Stationen / Spiegel eher rechts im Bild */
+    object-position: 62% 48%;
     filter: saturate(1.05) brightness(0.88);
+  }
+
+  @media (max-width: 640px) {
+    .preise-page__hero-img {
+      object-position: 58% 42%;
+    }
   }
 
   .preise-page__hero-scrim {
