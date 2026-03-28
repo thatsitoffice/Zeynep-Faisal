@@ -2,13 +2,9 @@
 import BookingButton from "./BookingButton.astro";
 import GoogleRatingChip from "./GoogleRatingChip.astro";
 import { SITE } from "../data/site";
+import { SALON_IMAGES } from "../data/salon-images";
 
-/** Eigenes Hero-Foto (public/hero-background.jpeg) */
-const bg = {
-  src: "/hero-background.jpeg",
-  width: 2400,
-  height: 1792,
-};
+const bg = SALON_IMAGES.hero;
 ---
 
 <section class="hero hero--editorial hero--invite" id="top" aria-labelledby="hero-heading">
@@ -16,8 +12,8 @@ const bg = {
     <img
       src={bg.src}
       alt=""
-      width={bg.width}
-      height={bg.height}
+      width={bg.w}
+      height={bg.h}
       loading="eager"
       fetchpriority="high"
       decoding="async"

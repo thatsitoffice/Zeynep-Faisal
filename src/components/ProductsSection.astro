@@ -1,47 +1,59 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
 import BookingButton from "./BookingButton.astro";
+import { SALON_IMAGES } from "../data/salon-images";
 
 /**
- * Horizontale Übersicht — Platzhalter-Motiv bis eigene Produktfotos in /public liegen.
- * Eigene Bilder: z. B. src: "/images/produkt-1.jpg"
+ * Echte Salon-Motive — passend zu Marken & Beratung vor Ort (REDKEN u. a.).
  */
 const products = [
   {
     name: "Salon-Pflege",
     line: "Shampoo & Kur",
-    src: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=700&q=82",
-    alt: "Haarpflegeprodukte in Flaschen — stellvertretend fürs Sortiment",
+    src: SALON_IMAGES.mood1.src,
+    w: SALON_IMAGES.mood1.w,
+    h: SALON_IMAGES.mood1.h,
+    alt: "Salon New Style — Pflege und Produkte im Beratungsgespräch",
   },
   {
     name: "Serum & Öl",
     line: "Struktur & Glanz",
-    src: "https://images.unsplash.com/photo-1556228578-8d85aab2b8bb?auto=format&fit=crop&w=700&q=82",
-    alt: "Pflegeöl und Serum in Glasflaschen",
+    src: SALON_IMAGES.mood2.src,
+    w: SALON_IMAGES.mood2.w,
+    h: SALON_IMAGES.mood2.h,
+    alt: "Styling und Finish im Salon",
   },
   {
     name: "Styling",
     line: "Finish & Halt",
-    src: "https://images.unsplash.com/photo-1522338242992-e1a5492a4fd4?auto=format&fit=crop&w=700&q=82",
-    alt: "Stylingprodukte und Sprays",
+    src: SALON_IMAGES.mood3.src,
+    w: SALON_IMAGES.mood3.w,
+    h: SALON_IMAGES.mood3.h,
+    alt: "Arbeit am Salonplatz — Details und Handwerk",
   },
   {
     name: "Kopfhaut",
     line: "Balance & Ruhe",
-    src: "https://images.unsplash.com/photo-1571875257727-256c39da42af?auto=format&fit=crop&w=700&q=82",
-    alt: "Kosmetikflaschen für sensible Pflege",
+    src: SALON_IMAGES.feature.src,
+    w: SALON_IMAGES.feature.w,
+    h: SALON_IMAGES.feature.h,
+    alt: "Saloninterieur — ruhige Atmosphäre für Beratung",
   },
   {
     name: "Color-Pflege",
     line: "Nach dem Service",
-    src: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=82",
-    alt: "Produktflaschen für coloriertes Haar",
+    src: SALON_IMAGES.preiseHero.src,
+    w: SALON_IMAGES.preiseHero.w,
+    h: SALON_IMAGES.preiseHero.h,
+    alt: "Im Salon — Service und Qualität",
   },
   {
     name: "Finish",
     line: "Spray & Schutz",
-    src: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=82",
-    alt: "Feines Spray und Pflegeprodukte",
+    src: SALON_IMAGES.hero.src,
+    w: SALON_IMAGES.hero.w,
+    h: SALON_IMAGES.hero.h,
+    alt: "Salonansicht — Empfang und Atmosphäre New Style",
   },
 ];
 ---
@@ -66,8 +78,8 @@ const products = [
                 class="products__img"
                 src={p.src}
                 alt={p.alt}
-                width={700}
-                height={875}
+                width={p.w}
+                height={p.h}
                 loading={i < 3 ? "eager" : "lazy"}
                 decoding="async"
               />

@@ -2,15 +2,22 @@
 /**
  * Vollbreite Szene + Glassmorphism-Panel (inspiriert von Spa-„Benefits“-Layern)
  */
-const bg = {
-  src: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=2000&q=85",
-  alt: "Entspannte Behandlung — stilistisches Platzhalterbild",
-};
+import { SALON_IMAGES } from "../data/salon-images";
+
+const bg = SALON_IMAGES.feature;
 ---
 
 <section class="feature-glass section section--flush" aria-labelledby="feature-glass-heading">
   <div class="feature-glass__bg">
-    <img class="feature-glass__img" src={bg.src} alt="" width="2000" height="1333" loading="lazy" decoding="async" />
+    <img
+      class="feature-glass__img"
+      src={bg.src}
+      alt=""
+      width={bg.w}
+      height={bg.h}
+      loading="lazy"
+      decoding="async"
+    />
     <div class="feature-glass__dim" aria-hidden="true"></div>
   </div>
   <div class="feature-glass__grid container">

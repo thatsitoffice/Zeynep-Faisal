@@ -2,9 +2,9 @@
 import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
 import { GOOGLE } from "../data/google";
+import { SALON_IMAGES } from "../data/salon-images";
 
-const bg =
-  "https://images.unsplash.com/photo-1562320340-20b163c733bf?auto=format&fit=crop&w=2000&q=85";
+const bg = SALON_IMAGES.cta;
 
 const mapsPlaceHref = `https://www.google.com/maps?cid=${GOOGLE.mapsCid}&hl=de`;
 const mapsDirectionsHref =
@@ -20,10 +20,10 @@ const mapEmbedSrc =
 <section class="final-cta section" aria-labelledby="final-cta-heading">
   <div class="final-cta__media" aria-hidden="true">
     <img
-      src={bg}
+      src={bg.src}
       alt=""
-      width={2000}
-      height={1125}
+      width={bg.w}
+      height={bg.h}
       loading="lazy"
       decoding="async"
       class="final-cta__img"

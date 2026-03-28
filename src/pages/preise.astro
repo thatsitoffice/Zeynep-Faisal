@@ -7,14 +7,14 @@ import PriceCategoryCard from "../components/PriceCategoryCard.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { SITE } from "../data/site";
 import { PRICE_CATEGORIES, PLANITY_PRICING_URL } from "../data/pricing";
+import { SALON_IMAGES } from "../data/salon-images";
 
 const pageTitle = `Preise & Leistungen | ${SITE.name} — ${SITE.tagline} ${SITE.city}`;
 const pageDescription = `Aktuelle Leistungen und Preise: Schnitt, Color, Blond Signature, Pflege, Herren, Bart & Beauty — gebucht bei Planity. ${SITE.addressLine}.`;
 
 const hoursRows = SITE.openingHoursLines;
 
-const heroBg =
-  "https://images.unsplash.com/photo-1562320340-20b163c733bf?auto=format&fit=crop&w=2200&q=85";
+const heroBg = SALON_IMAGES.preiseHero;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -23,10 +23,10 @@ const heroBg =
     <section class="preise-page__hero-wrap" aria-labelledby="preise-hero-heading">
       <div class="preise-page__hero-media" aria-hidden="true">
         <img
-          src={heroBg}
+          src={heroBg.src}
           alt=""
-          width={2200}
-          height={1238}
+          width={heroBg.w}
+          height={heroBg.h}
           loading="eager"
           fetchpriority="high"
           decoding="async"

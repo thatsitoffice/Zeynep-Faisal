@@ -2,20 +2,28 @@
 /**
  * Staggered Mood-Gallery mit Watermark-Typo (Editorial)
  */
+import { SALON_IMAGES } from "../data/salon-images";
+
 const shots = [
   {
-    src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80",
-    alt: "Salon-Atmosphäre",
+    src: SALON_IMAGES.mood2.src,
+    w: SALON_IMAGES.mood2.w,
+    h: SALON_IMAGES.mood2.h,
+    alt: "Im Salon — Styling und Beratung",
     tall: true,
   },
   {
-    src: "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&w=900&q=80",
-    alt: "Color & Styling",
+    src: SALON_IMAGES.mood1.src,
+    w: SALON_IMAGES.mood1.w,
+    h: SALON_IMAGES.mood1.h,
+    alt: "Salon New Style — Atmosphäre und Licht",
     tall: false,
   },
   {
-    src: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=900&q=80",
-    alt: "Pflege-Moment",
+    src: SALON_IMAGES.mood3.src,
+    w: SALON_IMAGES.mood3.w,
+    h: SALON_IMAGES.mood3.h,
+    alt: "Im Salon — Details und Ruhe",
     tall: false,
   },
 ];
@@ -33,7 +41,15 @@ const shots = [
         shots.map((s, i) => (
           <figure class:list={["mood-gallery__fig", s.tall && "mood-gallery__fig--tall"]} data-reveal style={`--reveal-delay: ${i * 90}ms`}>
             <div class="mood-gallery__frame">
-              <img src={s.src} alt={s.alt} width="900" height={1120} loading="lazy" decoding="async" class="mood-gallery__img" />
+              <img
+                src={s.src}
+                alt={s.alt}
+                width={s.w}
+                height={s.h}
+                loading="lazy"
+                decoding="async"
+                class="mood-gallery__img"
+              />
             </div>
           </figure>
         ))
