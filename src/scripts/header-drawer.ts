@@ -43,6 +43,13 @@ function initHeaderDrawer(): void {
       setOpen(false);
     }
   });
+
+  const desktopMq = window.matchMedia("(min-width: 1024px)");
+  const closeIfDesktop = () => {
+    if (desktopMq.matches && drawer.classList.contains("is-open")) setOpen(false);
+  };
+  desktopMq.addEventListener("change", closeIfDesktop);
+  window.addEventListener("resize", closeIfDesktop);
 }
 
 initHeaderDrawer();
