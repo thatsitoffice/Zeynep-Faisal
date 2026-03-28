@@ -1,0 +1,167 @@
+---
+/**
+ * Startseite: kompakte Preis-Vorschau + Link zur vollständigen Unterseite /preise
+ */
+import SectionHeading from "./SectionHeading.astro";
+import BookingButton from "./BookingButton.astro";
+import { PRICE_PREVIEW_HIGHLIGHTS, PLANITY_PRICING_URL } from "../data/pricing";
+---
+
+<section class="section pricing-preview" id="preise" aria-labelledby="pricing-preview-heading">
+  <div class="container">
+    <SectionHeading
+      eyebrow="Preise"
+      title="Transparent — wie in Planity gebucht"
+      subtitle="Ein Auszug beliebter Leistungen. Die vollständige Liste mit allen Kategorien finden Sie auf der Preisseite — gebucht wird immer über Planity."
+      headingId="pricing-preview-heading"
+    />
+
+    <div class="pricing-preview__layout">
+      <div class="pricing-preview__card card" data-reveal>
+        <h3 class="pricing-preview__card-title">Beliebte Einstiege</h3>
+        <ul class="pricing-preview__list" role="list">
+          {
+            PRICE_PREVIEW_HIGHLIGHTS.map((item) => (
+              <li class="pricing-preview__item">
+                <div class="pricing-preview__item-main">
+                  <span class="pricing-preview__name">{item.name}</span>
+                  {item.duration && <span class="pricing-preview__dur muted">{item.duration}</span>}
+                </div>
+                <span class="pricing-preview__price">{item.price}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="pricing-preview__hint muted">
+          Endpreis je nach Aufwand, Haarlänge und Produktwahl — wie in der Salonberatung besprochen.
+        </p>
+      </div>
+
+      <aside class="pricing-preview__aside" data-reveal>
+        <div class="pricing-preview__planity card">
+          <p class="eyebrow" style="margin-bottom: var(--space-sm);">Live in Planity</p>
+          <p class="display-md" style="font-size: 1.35rem; margin: 0 0 var(--space-sm);">
+            Alle Services &amp; Zeiten
+          </p>
+          <p class="muted" style="margin: 0 0 var(--space-md); font-size: 0.95rem; line-height: 1.55;">
+            Verfügbarkeiten, Dauer und aktuelle Pakete sehen Sie in Echtzeit — inklusive Extensions, REDKEN Color und Herrenbereich.
+          </p>
+          <div class="pricing-preview__aside-actions">
+            <a class="btn btn--primary" href="/preise/">Zur vollständigen Preisliste</a>
+            <a
+              class="btn btn--ghost"
+              href={PLANITY_PRICING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Planity öffnen (neuer Tab)"
+            >
+              Planity öffnen ↗
+            </a>
+          </div>
+        </div>
+        <div class="pricing-preview__book">
+          <BookingButton />
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-preview__layout {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  @media (min-width: 960px) {
+    .pricing-preview__layout {
+      grid-template-columns: 1.2fr 0.85fr;
+    }
+  }
+
+  .pricing-preview__card-title {
+    margin: 0 0 var(--space-md);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+
+  .pricing-preview__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pricing-preview__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .pricing-preview__item:first-of-type {
+    padding-top: 0;
+  }
+
+  .pricing-preview__item-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .pricing-preview__name {
+    font-weight: 500;
+    font-size: 0.98rem;
+    line-height: 1.4;
+  }
+
+  .pricing-preview__dur {
+    font-size: 0.8rem;
+  }
+
+  .pricing-preview__price {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    font-size: 0.95rem;
+  }
+
+  .pricing-preview__hint {
+    margin: var(--space-md) 0 0;
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  .pricing-preview__planity {
+    margin: 0 0 var(--space-md);
+  }
+
+  .pricing-preview__aside-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .pricing-preview__book {
+    display: flex;
+    justify-content: stretch;
+  }
+
+  .pricing-preview__book :global(.btn) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (min-width: 480px) {
+    .pricing-preview__book :global(.btn) {
+      width: auto;
+    }
+  }
+</style>

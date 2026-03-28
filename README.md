@@ -17,10 +17,16 @@ npm run build
 
 Ausgabe: `dist/` (z. B. [Cloudflare Pages](https://pages.cloudflare.com/) oder GitHub Pages).
 
+Seiten: `/` (Start), `/preise/` (vollständige Preisliste aus `src/data/pricing.ts`).
+
 ## Inhalte pflegen
 
 - Zentrale URLs & Kontakt: `src/data/site.ts`
 - SEO-Titel & Beschreibung: `src/pages/index.astro`
 - Domain für Sitemap: `astro.config.mjs` → `site`
+- **Preise & Katalog:** `src/data/pricing.ts` (Vorschau + Unterseite `/preise/`, Quelle: Planity)
+- **Google-Bewertungen:** `src/data/google.ts` (CID, Fallback-Sterne/-Anzahl, optional `placeId`)
+  - Link „Alle Bewertungen“ nutzt die **CID** (`mapsCid`) aus dem Google-Profil.
+  - Für **automatische Rezensionstexte** beim Build: `.env` aus `.env.example` anlegen und `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID` setzen ([Places API New](https://developers.google.com/maps/documentation/places/web-service/place-details)).
 
 Online-Termine: [Planity](https://www.planity.com/de-DE/new-style-by-zeynep-faisal-meisterbetrieb-45891-gelsenkirchen)

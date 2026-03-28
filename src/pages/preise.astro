@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import BookingButton from "../components/BookingButton.astro";
+import PriceCategoryCard from "../components/PriceCategoryCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { SITE } from "../data/site";
+import { PRICE_CATEGORIES, PLANITY_PRICING_URL } from "../data/pricing";
+
+const pageTitle = `Preise & Leistungen | ${SITE.name} — ${SITE.tagline} ${SITE.city}`;
+const pageDescription = `Aktuelle Leistungen und Preise: Schnitt, Color, Blond Signature, Pflege, Herren, Bart & Beauty — gebucht bei Planity. ${SITE.addressLine}.`;
+
+const hoursRows = SITE.openingHoursLines;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main id="main" class="preise-page">
+    <section class="section preise-page__hero" aria-labelledby="preise-hero-heading">
+      <div class="container container--narrow">
+        <p class="eyebrow">Planity</p>
+        <h1 id="preise-hero-heading" class="display-xl">Preise & Leistungen</h1>
+        <p class="lead preise-page__lead">
+          Alle Angaben entsprechen der öffentlichen Karte bei{" "}
+          <a href={PLANITY_PRICING_URL} target="_blank" rel="noopener noreferrer">Planity</a>
+          — verbindlich für Buchung und Finale sind die dortigen Beschreibungen, Zeiten und Preise zum Zeitpunkt Ihrer Reservierung.
+        </p>
+        <div class="preise-page__hero-actions">
+          <BookingButton />
+          <a class="btn btn--ghost" href="/">Zur Startseite</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight preise-page__meta" aria-labelledby="preise-meta-heading">
+      <div class="container">
+        <div class="preise-page__meta-grid">
+          <div class="card preise-page__meta-card" data-reveal>
+            <h2 id="preise-meta-heading" class="display-md" style="font-size: 1.25rem; margin: 0 0 var(--space-sm);">
+              Adresse & Erreichbarkeit
+            </h2>
+            <p class="muted" style="margin: 0 0 var(--space-sm);">{SITE.addressLine}</p>
+            <p class="muted" style="margin: 0;">
+              <a href={SITE.bookingUrl} target="_blank" rel="noopener noreferrer">Termin online bei Planity</a>
+            </p>
+          </div>
+          <div class="card preise-page__meta-card" data-reveal>
+            <h2 class="display-md" style="font-size: 1.25rem; margin: 0 0 var(--space-sm);">Öffnungszeiten</h2>
+            <table class="hours-table" aria-label="Öffnungszeiten">
+              <tbody>
+                {
+                  hoursRows.map((row) => (
+                    <tr>
+                      <th scope="row">{row.day}</th>
+                      <td>{row.hours}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="card preise-page__meta-card" data-reveal>
+            <h2 class="display-md" style="font-size: 1.25rem; margin: 0 0 var(--space-sm);">Zahlung vor Ort</h2>
+            <p class="muted" style="margin: 0;">{SITE.paymentMethods}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section preise-page__list" aria-label="Preisliste nach Kategorien">
+      <div class="container">
+        <SectionHeading
+          eyebrow="Leistungskatalog"
+          title="Alles im Überblick"
+          subtitle="Kategorien wie in Planity — für Details und Verfügbarkeit nutzen Sie die Online-Buchung."
+          headingId="preise-katalog-heading"
+        />
+        <div class="preise-page__categories">
+          {PRICE_CATEGORIES.map((cat) => <PriceCategoryCard category={cat} />)}
+        </div>
+        <footer class="preise-page__footer-cta card" data-reveal>
+          <p class="lead" style="margin: 0;">
+            Fertig ausgewählt? Im nächsten Schritt wählen Sie Mitarbeitende:in, Datum und Uhrzeit — direkt in Planity.
+          </p>
+          <BookingButton />
+        </footer>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .preise-page__hero {
+    padding-top: calc(var(--space-xl) + var(--header-h));
+    margin-top: calc(-1 * var(--header-h));
+    padding-bottom: var(--space-lg);
+  }
+
+  .preise-page__lead {
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .preise-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .preise-page__meta-grid {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 900px) {
+    .preise-page__meta-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .preise-page__meta-card {
+    margin: 0;
+    height: 100%;
+  }
+
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .hours-table th,
+  .hours-table td {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--color-line);
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .hours-table th {
+    font-weight: 600;
+    padding-right: var(--space-md);
+    white-space: nowrap;
+  }
+
+  .preise-page__categories {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .preise-page__footer-cta {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .preise-page__footer-cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

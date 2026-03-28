@@ -5,13 +5,14 @@ import Hero from "../components/Hero.astro";
 import TrustSection from "../components/TrustSection.astro";
 import InlineBookCTA from "../components/InlineBookCTA.astro";
 import ServicesSection from "../components/ServicesSection.astro";
-import PricingSection from "../components/PricingSection.astro";
+import PricingPreviewSection from "../components/PricingPreviewSection.astro";
 import ProductsSection from "../components/ProductsSection.astro";
 import AboutSection from "../components/AboutSection.astro";
 import TestimonialsSection from "../components/TestimonialsSection.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
 import { SITE } from "../data/site";
+import { GOOGLE_REVIEWS_FALLBACK } from "../data/google";
 
 /**
  * SEO: Titel & Description — bei Go-Live an echte Keywords / USPs anpassen.
@@ -30,7 +31,7 @@ const jsonLd = {
   image: `${SITE.canonicalBase}/og-placeholder.svg`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Musterstraße 1",
+    streetAddress: "Cranger Str. 316",
     addressLocality: SITE.city,
     postalCode: "45891",
     addressCountry: "DE",
@@ -41,6 +42,14 @@ const jsonLd = {
     "@type": "Offer",
     url: SITE.bookingUrl,
     name: "Online-Terminbuchung",
+  },
+  /** An GOOGLE_REVIEWS_FALLBACK in google.ts anpassen, wenn keine API genutzt wird */
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: GOOGLE_REVIEWS_FALLBACK.rating,
+    reviewCount: GOOGLE_REVIEWS_FALLBACK.userRatingCount,
+    bestRating: 5,
+    worstRating: 1,
   },
 };
 ---
@@ -55,7 +64,7 @@ const jsonLd = {
       text="Wenn Sie Wert auf Ruhe, Klarheit und Meisterhand legen, reservieren Sie jetzt Ihren Termin — passend zu Ihrem Alltag im Ruhrgebiet."
     />
     <ServicesSection />
-    <PricingSection />
+    <PricingPreviewSection />
     <InlineBookCTA
       text="Preise verstanden? Als Nächstes wählen Sie in Planity einfach Leistung und Zeit — wir freuen uns auf Sie."
     />
