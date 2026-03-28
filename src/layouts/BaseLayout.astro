@@ -20,7 +20,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f7f5f2" />
+    <meta name="theme-color" content="#f4f1eb" />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
@@ -38,7 +38,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
 
@@ -66,7 +66,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
               }
             });
           },
-          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+          { rootMargin: "0px 0px -6% 0px", threshold: 0.06 }
         );
         nodes.forEach(function (n) {
           io.observe(n);

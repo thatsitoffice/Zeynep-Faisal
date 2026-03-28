@@ -15,8 +15,9 @@ const heroImage = {
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__ambient" aria-hidden="true"></div>
   <div class="hero__grid container">
-    <div class="hero__copy" data-reveal>
+    <div class="hero__copy" data-reveal style="--reveal-delay: 0ms">
       <p class="eyebrow">{SITE.city} · {SITE.tagline}</p>
       <h1 id="hero-heading" class="display-xl">
         Wo Präzision auf Ruhe trifft — Ihr Haar in Meisterhand.
@@ -33,7 +34,7 @@ const heroImage = {
         Online buchen bei Planity — Wunschtermin, Service und Team wählen Sie selbst.
       </p>
     </div>
-    <figure class="hero__figure" data-reveal>
+    <figure class="hero__figure" data-reveal style="--reveal-delay: 140ms">
       <div class="hero__frame">
         <img
           src={heroImage.src}
@@ -53,12 +54,24 @@ const heroImage = {
 
 <style>
   .hero {
+    position: relative;
     padding-block: var(--space-xl) var(--space-2xl);
     padding-top: calc(var(--space-xl) + var(--header-h));
     margin-top: calc(-1 * var(--header-h));
   }
 
+  .hero__ambient {
+    position: absolute;
+    inset: 0;
+    top: 10%;
+    background: radial-gradient(ellipse 55% 45% at 85% 25%, rgba(196, 165, 116, 0.11), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .hero__grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     gap: var(--space-xl);
     align-items: center;
@@ -94,11 +107,23 @@ const heroImage = {
   }
 
   .hero__frame {
+    position: relative;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-soft);
     aspect-ratio: 4 / 5;
     background: var(--color-line);
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -1px;
+  }
+
+  .hero__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, transparent 55%, rgba(20, 19, 18, 0.12) 100%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   .hero__img {
@@ -106,6 +131,19 @@ const heroImage = {
     height: 100%;
     object-fit: cover;
     object-position: center;
+    transform: scale(1.07);
+    transition: transform 1.35s var(--ease-luxe);
+  }
+
+  .hero__figure.is-visible .hero__img {
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__img {
+      transform: none;
+      transition: none;
+    }
   }
 
   .hero__caption {

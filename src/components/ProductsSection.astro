@@ -35,8 +35,8 @@ const products = [
 
     <div class="products__grid">
       {
-        products.map((p) => (
-          <article class="products__card" data-reveal>
+        products.map((p, i) => (
+          <article class="products__card" data-reveal style={`--reveal-delay: ${i * 100}ms`}>
             <div class="products__ph" role="img" aria-label={`Produktvisual Platzhalter: ${p.name}`}>
               <span class="products__ph-label">Produktfoto</span>
             </div>

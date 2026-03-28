@@ -1,0 +1,245 @@
+---
+/**
+ * Trust-Zeile: echte Kennzahlen aus google.ts, offizielles Google-„G“, Sterne, klare CTAs.
+ * Kein API-Jargon für Gäste — Verknüpfung zu Stimmen-Sektion + Google Maps.
+ */
+import BookingButton from "./BookingButton.astro";
+import { GOOGLE, GOOGLE_REVIEWS_FALLBACK } from "../data/google";
+
+const mapsHref = `https://www.google.com/maps?cid=${GOOGLE.mapsCid}&hl=de`;
+const { rating, userRatingCount } = GOOGLE_REVIEWS_FALLBACK;
+const ratingDisplay = rating.toFixed(1).replace(".", ",");
+const frac = rating - Math.floor(rating);
+const hasHalf = frac >= 0.25 && frac < 0.75;
+const extraFull = frac >= 0.75 ? 1 : 0;
+const nFull = Math.min(5, Math.floor(rating) + extraFull);
+const nEmpty = Math.max(0, 5 - nFull - (hasHalf ? 1 : 0));
+---
+
+<div class="trust-ribbon" data-reveal>
+  <div class="trust-ribbon__glow" aria-hidden="true"></div>
+  <div class="trust-ribbon__main">
+    <div class="trust-ribbon__brand" aria-hidden="true">
+      <svg class="trust-ribbon__google" width="36" height="36" viewBox="0 0 48 48" role="img" aria-label="Google">
+        <path
+          fill="#4285F4"
+          d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+        ></path>
+        <path
+          fill="#34A853"
+          d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6C44.43 39.29 48 34.22 48 24c0-1.64-.15-3.19-.43-4.65z"
+        ></path>
+        <path
+          fill="#FBBC05"
+          d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+        ></path>
+        <path
+          fill="#EA4335"
+          d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+        ></path>
+      </svg>
+    </div>
+
+    <div class="trust-ribbon__copy">
+      <p class="trust-ribbon__kicker">Google Bewertungen</p>
+      <div class="trust-ribbon__rating-row">
+        <div class="trust-ribbon__stars" role="img" aria-label={`${ratingDisplay} von 5 Sternen bei ${userRatingCount} Bewertungen`}>
+          {
+            Array.from({ length: nFull }, () => (
+              <span class="trust-ribbon__star trust-ribbon__star--on" aria-hidden="true">
+                ★
+              </span>
+            ))
+          }
+          {
+            hasHalf && (
+              <span class="trust-ribbon__star trust-ribbon__star--half" aria-hidden="true">
+                ★
+              </span>
+            )
+          }
+          {
+            Array.from({ length: nEmpty }, () => (
+              <span class="trust-ribbon__star" aria-hidden="true">
+                ★
+              </span>
+            ))
+          }
+        </div>
+        <span class="trust-ribbon__score">{ratingDisplay}</span>
+        <span class="trust-ribbon__slash">/</span>
+        <span class="trust-ribbon__max">5</span>
+        <span class="trust-ribbon__dot" aria-hidden="true">·</span>
+        <span class="trust-ribbon__count">{userRatingCount.toLocaleString("de-DE")} Rezensionen</span>
+      </div>
+      <p class="trust-ribbon__sub">
+        Verifizierte Rückmeldungen von Gästen — nachlesen in der Sektion{" "}
+        <a class="trust-ribbon__link" href="#stimmen">Stimmen</a> oder direkt auf{" "}
+        <a class="trust-ribbon__link" href={mapsHref} target="_blank" rel="noopener noreferrer">Google Maps</a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="trust-ribbon__actions">
+    <BookingButton />
+    <a class="trust-ribbon__ghost btn btn--ghost" href="#stimmen">Stimmen ansehen</a>
+  </div>
+</div>
+
+<style>
+  .trust-ribbon {
+    position: relative;
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+    padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(28, 27, 25, 0.06);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(252, 250, 247, 0.98) 48%,
+      rgba(247, 243, 236, 0.92) 100%
+    );
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 28px 56px -32px rgba(28, 27, 25, 0.12),
+      0 12px 28px -18px rgba(28, 27, 25, 0.06);
+    overflow: hidden;
+    scroll-margin-top: calc(var(--header-h) + var(--space-md));
+  }
+
+  @media (min-width: 880px) {
+    .trust-ribbon {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-xl);
+    }
+  }
+
+  .trust-ribbon__glow {
+    position: absolute;
+    width: 55%;
+    height: 140%;
+    top: -20%;
+    right: -10%;
+    background: radial-gradient(ellipse at center, rgba(197, 160, 89, 0.09) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .trust-ribbon__main {
+    position: relative;
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  .trust-ribbon__google {
+    flex-shrink: 0;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+  }
+
+  .trust-ribbon__kicker {
+    margin: 0 0 0.35rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .trust-ribbon__rating-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.5rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .trust-ribbon__stars {
+    display: inline-flex;
+    gap: 0.06rem;
+    margin-right: 0.25rem;
+  }
+
+  .trust-ribbon__star {
+    color: rgba(28, 27, 25, 0.15);
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+
+  .trust-ribbon__star--on {
+    color: var(--color-star);
+  }
+
+  /* Halber Stern: dezente Opazität — konsistent in allen Browsern */
+  .trust-ribbon__star--half {
+    color: var(--color-star);
+    opacity: 0.5;
+  }
+
+  .trust-ribbon__score {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .trust-ribbon__slash,
+  .trust-ribbon__max {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-ink-muted);
+    line-height: 1;
+  }
+
+  .trust-ribbon__dot {
+    color: var(--color-ink-soft);
+    margin-inline: 0.15rem;
+  }
+
+  .trust-ribbon__count {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-ink-muted);
+  }
+
+  .trust-ribbon__sub {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--color-ink-muted);
+    max-width: 36rem;
+  }
+
+  .trust-ribbon__link {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: rgba(154, 139, 110, 0.45);
+  }
+
+  .trust-ribbon__link:hover {
+    text-decoration-color: var(--color-accent);
+  }
+
+  .trust-ribbon__actions {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  @media (min-width: 880px) {
+    .trust-ribbon__actions {
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+  }
+
+</style>

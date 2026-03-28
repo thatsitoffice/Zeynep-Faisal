@@ -3,12 +3,19 @@ import type { PriceCategory } from "../data/pricing";
 
 interface Props {
   category: PriceCategory;
+  /** Stagger für Scroll-Reveal (ms) */
+  revealDelayMs?: number;
 }
 
-const { category } = Astro.props;
+const { category, revealDelayMs = 0 } = Astro.props;
 ---
 
-<article class="price-cat card" id={category.id} data-reveal>
+<article
+  class="price-cat card"
+  id={category.id}
+  data-reveal
+  style={revealDelayMs ? `--reveal-delay: ${revealDelayMs}ms` : undefined}
+>
   <h2 class="display-md price-cat__title">{category.title}</h2>
   {category.intro && <p class="price-cat__intro muted">{category.intro}</p>}
   <div class="price-cat__table-wrap">

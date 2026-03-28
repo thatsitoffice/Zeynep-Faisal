@@ -1,6 +1,6 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
-import BookingButton from "./BookingButton.astro";
+import TrustGoogleRibbon from "./TrustGoogleRibbon.astro";
 
 const pillars = [
   {
@@ -27,40 +27,34 @@ const pillars = [
       headingId="trust-heading"
     />
 
+    <TrustGoogleRibbon />
+
     <ul class="trust__grid" role="list">
       {
         pillars.map((p, i) => (
-          <li class="card trust__card" data-reveal style={`transition-delay: ${i * 0.06}s`}>
-            <h3 class="display-md trust__card-title">{p.title}</h3>
-            <p class="muted" style="margin: var(--space-sm) 0 0;">
-              {p.text}
-            </p>
+          <li
+            class="trust__card"
+            data-reveal
+            style={`--reveal-delay: ${80 + i * 100}ms`}
+          >
+            <div class="trust__card-inner">
+              <span class="trust__index" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 class="trust__card-title">{p.title}</h3>
+              <p class="trust__card-text">{p.text}</p>
+            </div>
           </li>
         ))
       }
     </ul>
-
-    <div class="trust__social card" data-reveal>
-      <div class="trust__social-inner">
-        <p class="eyebrow" style="margin-bottom: var(--space-xs);">Google</p>
-        <p class="display-md" style="margin: 0 0 var(--space-sm);">Bewertungen, die Sie öffentlich nachvollziehen können.</p>
-        <p class="muted" style="margin: 0;">
-          Unsere Gästestimmen sind bei Google einsehbar — in der Sektion{" "}
-          <a href="#stimmen">Stimmen</a> binden wir ein Widget mit Durchschnittsnote, Link zu allen Rezensionen und optional
-          Live-Texten (über Places API beim Build).
-        </p>
-      </div>
-      <div class="trust__social-cta">
-        <BookingButton variant="ghost" />
-      </div>
-    </div>
   </div>
 </section>
 
 <style>
   .trust__grid {
     list-style: none;
-    margin: 0 0 var(--space-xl);
+    margin: 0;
     padding: 0;
     display: grid;
     gap: var(--space-md);
@@ -69,32 +63,58 @@ const pillars = [
   @media (min-width: 768px) {
     .trust__grid {
       grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
     }
+  }
+
+  .trust__card {
+    margin: 0;
+    border-radius: var(--radius-md);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.5s var(--ease-luxe),
+      box-shadow 0.5s var(--ease-luxe),
+      border-color 0.35s ease;
+  }
+
+  @media (hover: hover) {
+    .trust__card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lift);
+      border-color: rgba(28, 27, 25, 0.1);
+    }
+  }
+
+  .trust__card-inner {
+    padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-lg);
+    position: relative;
+  }
+
+  .trust__index {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    opacity: 0.85;
+    margin-bottom: var(--space-sm);
   }
 
   .trust__card-title {
-    font-size: 1.5rem;
+    margin: 0 0 var(--space-sm);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.2vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
-  .trust__social {
-    display: grid;
-    gap: var(--space-md);
-    align-items: center;
-  }
-
-  @media (min-width: 720px) {
-    .trust__social {
-      grid-template-columns: 1fr auto;
-    }
-  }
-
-  .trust__social-cta {
-    justify-self: start;
-  }
-
-  @media (min-width: 720px) {
-    .trust__social-cta {
-      justify-self: end;
-    }
+  .trust__card-text {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.62;
+    color: var(--color-ink-muted);
   }
 </style>

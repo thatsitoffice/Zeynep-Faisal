@@ -77,7 +77,7 @@ const hoursRows = SITE.openingHoursLines;
           headingId="preise-katalog-heading"
         />
         <div class="preise-page__categories">
-          {PRICE_CATEGORIES.map((cat) => <PriceCategoryCard category={cat} />)}
+          {PRICE_CATEGORIES.map((cat, i) => <PriceCategoryCard category={cat} revealDelayMs={i * 50} />)}
         </div>
         <footer class="preise-page__footer-cta card" data-reveal>
           <p class="lead" style="margin: 0;">

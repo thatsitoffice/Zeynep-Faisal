@@ -1,43 +1,47 @@
 /**
- * Designsystem: Premium-Wellness / Boutique-Beauty
- * — warmes Off-White, tiefe Typo, dezente Akzente, viel Luft
+ * Designsystem: Quiet Luxury / Editorial Beauty
+ * — Instrument Serif + Manrope, weiches Licht, definierte Tiefe, Scroll-Reveal mit Stagger
  */
 
 :root {
-  --color-bg: #f7f5f2;
-  --color-bg-elevated: #ffffff;
-  --color-ink: #1c1b19;
-  --color-ink-muted: #5c5a56;
-  --color-ink-soft: #8a8780;
-  --color-line: rgba(28, 27, 25, 0.08);
-  --color-accent: #9a8b6e;
-  --color-accent-soft: rgba(154, 139, 110, 0.14);
-  --color-deep: #2c2a26;
+  --color-bg: #f4f1eb;
+  --color-bg-elevated: #fffcfa;
+  --color-ink: #141312;
+  --color-ink-muted: #5a5752;
+  --color-ink-soft: #8c8880;
+  --color-line: rgba(20, 19, 18, 0.07);
+  --color-accent: #8e7b5e;
+  --color-accent-soft: rgba(142, 123, 94, 0.12);
+  --color-deep: #252422;
+  --color-star: #c4a574;
 
-  --font-display: "Cormorant Garamond", "Times New Roman", serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
   --space-lg: 2.5rem;
   --space-xl: 4rem;
-  --space-2xl: 6rem;
-  --space-3xl: 8rem;
+  --space-2xl: 6.5rem;
+  --space-3xl: 9rem;
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
 
-  --shadow-soft: 0 24px 60px rgba(28, 27, 25, 0.06);
-  --shadow-card: 0 12px 40px rgba(28, 27, 25, 0.05);
+  --shadow-soft: 0 32px 64px -24px rgba(20, 19, 18, 0.14);
+  --shadow-card: 0 16px 40px -20px rgba(20, 19, 18, 0.08);
+  --shadow-lift: 0 24px 48px -16px rgba(20, 19, 18, 0.12);
 
   --max-read: 38rem;
   --max-content: 72rem;
-  --header-h: 4.25rem;
+  --header-h: 4.35rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur: 0.7s;
+  --ease-luxe: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur: 0.85s;
+  --dur-fast: 0.45s;
 }
 
 *,
@@ -61,11 +65,25 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 1.0625rem;
-  line-height: 1.65;
+  line-height: 1.68;
   color: var(--color-ink);
-  background: var(--color-bg);
+  background-color: var(--color-bg);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Dezentes Umgebungslicht — editorial, nicht „Template-Gradient“ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 70% at 0% -15%, rgba(196, 165, 116, 0.09), transparent 52%),
+    radial-gradient(ellipse 70% 55% at 100% 5%, rgba(20, 19, 18, 0.035), transparent 48%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(142, 123, 94, 0.05), transparent 55%);
 }
 
 img {
@@ -77,7 +95,7 @@ img {
 a {
   color: inherit;
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
 }
 
 a:hover {
@@ -117,34 +135,36 @@ a:hover {
 /* --- Typografie --- */
 .display-xl {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: clamp(2.65rem, 6.5vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
 .display-lg {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.2vw, 3.15rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   margin: 0;
 }
 
 .display-md {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.65rem, 3vw, 2.25rem);
-  line-height: 1.15;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   margin: 0;
 }
 
 .eyebrow {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin: 0 0 var(--space-sm);
@@ -152,6 +172,7 @@ a:hover {
 
 .lead {
   font-size: 1.125rem;
+  font-weight: 500;
   color: var(--color-ink-muted);
   max-width: var(--max-read);
 }
@@ -166,47 +187,52 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.95rem 1.65rem;
+  padding: 1rem 1.75rem;
   font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
   transition:
-    background var(--dur) var(--ease-out),
-    color var(--dur) var(--ease-out),
-    border-color var(--dur) var(--ease-out),
-    transform 0.35s var(--ease-out);
+    background var(--dur-fast) var(--ease-luxe),
+    color var(--dur-fast) var(--ease-luxe),
+    border-color var(--dur-fast) var(--ease-luxe),
+    transform 0.4s var(--ease-luxe),
+    box-shadow 0.4s var(--ease-luxe);
 }
 
 .btn--primary {
   background: var(--color-ink);
-  color: var(--color-bg);
+  color: #faf8f5;
+  box-shadow: 0 10px 28px -12px rgba(20, 19, 18, 0.45);
 }
 
 .btn--primary:hover {
   background: var(--color-deep);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -14px rgba(20, 19, 18, 0.5);
   text-decoration: none;
 }
 
 .btn--ghost {
-  background: transparent;
+  background: rgba(255, 252, 250, 0.5);
   color: var(--color-ink);
   border-color: var(--color-line);
+  backdrop-filter: blur(8px);
 }
 
 .btn--ghost:hover {
-  border-color: var(--color-ink);
+  border-color: rgba(20, 19, 18, 0.18);
+  background: var(--color-bg-elevated);
   text-decoration: none;
 }
 
 .btn--on-dark {
-  background: var(--color-bg);
+  background: #faf8f5;
   color: var(--color-ink);
 }
 
@@ -215,24 +241,30 @@ a:hover {
   text-decoration: none;
 }
 
-/* --- Scroll-Reveal (per JS Klasse) --- */
+/* --- Scroll-Reveal + Stagger (--reveal-delay) --- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(1.25rem);
+  transform: translateY(1.75rem);
+  filter: blur(6px);
   transition:
-    opacity var(--dur) var(--ease-out),
-    transform var(--dur) var(--ease-out);
+    opacity var(--dur) var(--ease-luxe),
+    transform var(--dur) var(--ease-luxe),
+    filter var(--dur) var(--ease-luxe);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
 }
 
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
 }
@@ -248,16 +280,16 @@ a:hover {
 
 .section--dark {
   background: var(--color-ink);
-  color: var(--color-bg);
+  color: #faf8f5;
 }
 
 .section--dark .muted,
 .section--dark .lead {
-  color: rgba(247, 245, 242, 0.78);
+  color: rgba(250, 248, 245, 0.76);
 }
 
 .section--dark .eyebrow {
-  color: #c4b89a;
+  color: #d4c4a8;
 }
 
 .divider {
@@ -296,6 +328,18 @@ a:hover {
   padding: var(--space-lg);
   box-shadow: var(--shadow-card);
   border: 1px solid var(--color-line);
+  transition:
+    transform 0.5s var(--ease-luxe),
+    box-shadow 0.5s var(--ease-luxe),
+    border-color 0.35s ease;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+    border-color: rgba(20, 19, 18, 0.09);
+  }
 }
 
 .price-table {
@@ -314,8 +358,8 @@ a:hover {
 
 .price-table th {
   font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ink-soft);
 }

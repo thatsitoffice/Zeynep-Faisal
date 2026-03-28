@@ -29,8 +29,8 @@ const hasLiveReviews = reviews.length > 0;
 const ratingLabel = rating.toFixed(1).replace(".", ",");
 ---
 
-<div class="g-rating" data-reveal>
-  <div class="g-rating__head">
+<div class="g-rating">
+  <div class="g-rating__head" data-reveal style="--reveal-delay: 0ms">
     <div class="g-rating__brand" aria-hidden="true">
       <svg class="g-rating__g" width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
         <path
@@ -90,8 +90,8 @@ const ratingLabel = rating.toFixed(1).replace(".", ",");
   {
     hasLiveReviews && (
       <ul class="g-rating__list" role="list">
-        {reviews.map((r) => (
-          <li class="g-rating__card card">
+        {reviews.map((r, i) => (
+          <li class="g-rating__card card" data-reveal style={`--reveal-delay: ${(i + 1) * 85}ms`}>
             <div class="g-rating__card-top">
               {r.authorPhoto ? (
                 <img
@@ -134,7 +134,11 @@ const ratingLabel = rating.toFixed(1).replace(".", ",");
     )
   }
 
-  <div class="g-rating__actions">
+  <div
+    class="g-rating__actions"
+    data-reveal
+    style={`--reveal-delay: ${hasLiveReviews ? 100 + reviews.length * 85 : 120}ms`}
+  >
     <a class="btn btn--ghost g-rating__all" href={mapsHref} target="_blank" rel="noopener noreferrer">
       Alle Google-Bewertungen ansehen
       <span aria-hidden="true">↗</span>
@@ -186,8 +190,10 @@ const ratingLabel = rating.toFixed(1).replace(".", ",");
   }
 
   .g-rating__score {
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
   }
 
   .g-rating__count {
@@ -220,7 +226,7 @@ const ratingLabel = rating.toFixed(1).replace(".", ",");
   }
 
   .stars__i--on {
-    color: #f4b400;
+    color: var(--color-star);
   }
 
   .stars__i--sm {
