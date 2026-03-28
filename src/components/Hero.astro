@@ -24,7 +24,7 @@ const bg = {
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
-  <div class="hero__inner container">
+  <div class="hero__inner">
     <div class="hero__stack" data-reveal style="--reveal-delay: 0ms">
       <p class="hero__intro">
         Willkommen in Ihrem Meisterbetrieb in {SITE.city}: ruhige Beratung, klare Hände, Schnitt und Farbe mit Substanz
@@ -59,9 +59,9 @@ const bg = {
     min-height: min(100vh, 980px);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding-top: calc(var(--header-h) + 1.5rem);
-    padding-bottom: clamp(1.5rem, 5vh, 3.25rem);
+    justify-content: center;
+    padding-top: calc(var(--header-h) + 1.25rem);
+    padding-bottom: clamp(2rem, 6vh, 3.5rem);
     overflow: hidden;
     color: rgba(255, 255, 255, 0.98);
   }
@@ -93,11 +93,23 @@ const bg = {
   .hero__inner {
     position: relative;
     z-index: 2;
+    width: 100%;
+    padding-right: var(--page-pad);
+    padding-left: var(--page-pad);
+    box-sizing: border-box;
   }
 
   .hero__stack {
-    max-width: min(56rem, 100%);
+    margin-left: 20%;
+    max-width: min(42rem, calc(100% - var(--page-pad)));
     padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  @media (max-width: 768px) {
+    .hero__stack {
+      margin-left: 0;
+      max-width: 100%;
+    }
   }
 
   .hero__intro {
