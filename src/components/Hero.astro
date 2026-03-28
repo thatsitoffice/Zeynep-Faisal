@@ -3,9 +3,11 @@ import BookingButton from "./BookingButton.astro";
 import GoogleRatingChip from "./GoogleRatingChip.astro";
 import { SITE } from "../data/site";
 
-/** Helles, freundliches Salon-Interieur */
+/** Eigenes Hero-Foto (public/hero-background.jpeg) */
 const bg = {
-  src: "https://images.unsplash.com/photo-1562320340-20b163c733bf?auto=format&fit=crop&w=2400&q=88",
+  src: "/hero-background.jpeg",
+  width: 2400,
+  height: 1792,
 };
 ---
 
@@ -14,8 +16,8 @@ const bg = {
     <img
       src={bg.src}
       alt=""
-      width={2400}
-      height={1350}
+      width={bg.width}
+      height={bg.height}
       loading="eager"
       fetchpriority="high"
       decoding="async"
