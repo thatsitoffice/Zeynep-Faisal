@@ -1,6 +1,7 @@
 ---
 /**
- * Atmosphäre: zwei Motive ziehen über den Schriftzug „Atmosphäre“ (Watermark dahinter)
+ * Atmosphäre: Bild links / rechts, Schriftzug in der Mitte sichtbar;
+ * nur leichte Überlappung (~2 %) Richtung Wortmitte.
  */
 import { SALON_IMAGES } from "../data/salon-images";
 
@@ -25,7 +26,7 @@ const rightShot = {
     <div class="mood-gallery__watermark" aria-hidden="true">Atmosphäre</div>
     <div class="mood-gallery__dual">
       <figure class="mood-gallery__side mood-gallery__side--left" data-reveal style="--reveal-delay: 0ms">
-        <div class="mood-gallery__frame mood-gallery__frame--left-wide">
+        <div class="mood-gallery__frame">
           <img
             src={leftShot.src}
             alt={leftShot.alt}
@@ -74,9 +75,7 @@ const rightShot = {
     border: 0;
   }
 
-  /**
-   * Volle Viewport-Breite wie der Seitenrand — Bilder können bis an den Rand und über die Mitte
-   */
+  /** Volle Breite inkl. Seitenrand (page-pad) */
   .mood-gallery__wrap {
     position: relative;
     z-index: 0;
@@ -90,9 +89,7 @@ const rightShot = {
     box-sizing: border-box;
   }
 
-  /**
-   * Schriftzug in der Mitte, hinter den Bildern (niedriger z-index im Stack)
-   */
+  /** Schriftzug mittig, in der Grid-Lücke sichtbar; unter den Bildern nur an den Innenkanten */
   .mood-gallery__watermark {
     position: absolute;
     left: 50%;
@@ -108,7 +105,7 @@ const rightShot = {
     line-height: 0.95;
     letter-spacing: -0.03em;
     color: var(--color-editorial);
-    opacity: 0.07;
+    opacity: 0.085;
     pointer-events: none;
     white-space: nowrap;
     padding-inline: var(--page-pad);
@@ -116,43 +113,37 @@ const rightShot = {
   }
 
   .mood-gallery__dual {
+    --mood-word-nudge: clamp(0.2rem, 2vw, 0.85rem);
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
-    gap: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 12vw, 7rem);
     align-items: center;
-    min-height: min(56vw, 32rem);
+    min-height: min(48vw, 28rem);
   }
 
   .mood-gallery__side {
     margin: 0;
     position: relative;
+    z-index: 2;
   }
 
-  /**
-   * Links: deutlich breiter, von links in die Mitte über „Atmosphäre“
-   */
+  /* Links am Rand, Innenkante minimal (~2 %) Richtung Schriftzug */
   .mood-gallery__side--left {
-    justify-self: end;
-    z-index: 2;
-    width: min(100%, 42rem);
-    max-width: min(92vw, 42rem);
-    margin-right: clamp(-7rem, -16vw, -2.5rem);
-    transform: translateX(clamp(1.25rem, 11vw, 6.5rem));
+    justify-self: start;
+    width: min(100%, 26rem);
+    max-width: min(44vw, 26rem);
+    transform: translateX(var(--mood-word-nudge));
   }
 
-  /**
-   * Rechts: von rechts über den Schriftzug
-   */
+  /* Rechts am Rand, spiegelbildlich leicht ins Wort */
   .mood-gallery__side--right {
-    justify-self: start;
-    z-index: 2;
-    width: min(100%, 27rem);
-    max-width: min(58vw, 27rem);
-    margin-left: clamp(-6rem, -14vw, -2rem);
-    margin-top: clamp(1.5rem, 4.5vw, 3.5rem);
-    transform: translateX(clamp(-1.25rem, -11vw, -6.5rem));
+    justify-self: end;
+    width: min(100%, 26rem);
+    max-width: min(44vw, 26rem);
+    margin-top: clamp(1rem, 3.5vw, 2.75rem);
+    transform: translateX(calc(-1 * var(--mood-word-nudge)));
   }
 
   .mood-gallery__frame {
@@ -161,11 +152,6 @@ const rightShot = {
     aspect-ratio: 4 / 5;
     box-shadow: var(--shadow-card);
     background: var(--color-line);
-  }
-
-  /* Empfang: breiteres Format (mehr Breite pro Höhe), wirkt größer in die Mitte */
-  .mood-gallery__frame--left-wide {
-    aspect-ratio: 5 / 6;
   }
 
   .mood-gallery__img {
@@ -193,34 +179,29 @@ const rightShot = {
   @media (max-width: 640px) {
     .mood-gallery__dual {
       grid-template-columns: 1fr;
+      row-gap: var(--space-md);
+      column-gap: 0;
       min-height: 0;
-      gap: var(--space-md);
     }
 
     .mood-gallery__watermark {
       font-size: clamp(2.2rem, 11vw, 3.5rem);
-      top: 44%;
+      top: 48%;
     }
 
     .mood-gallery__side--left {
       justify-self: start;
-      width: min(100%, 22rem);
-      max-width: min(88vw, 22rem);
-      margin-right: 0;
-      transform: translateX(-4%);
+      width: min(100%, 19rem);
+      max-width: min(78vw, 19rem);
+      transform: translateX(clamp(0.15rem, 1.5vw, 0.5rem));
     }
 
     .mood-gallery__side--right {
       justify-self: end;
       width: min(100%, 19rem);
-      max-width: min(82vw, 19rem);
-      margin-left: 0;
-      margin-top: -0.35rem;
-      transform: translateX(4%);
-    }
-
-    .mood-gallery__frame--left-wide {
-      aspect-ratio: 4 / 5;
+      max-width: min(78vw, 19rem);
+      margin-top: 0;
+      transform: translateX(clamp(-0.15rem, -1.5vw, -0.5rem));
     }
   }
 </style>
