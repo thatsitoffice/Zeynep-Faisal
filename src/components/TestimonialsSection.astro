@@ -1,6 +1,6 @@
 ---
 /**
- * Stimmen: Watermark + Karussell (Desktop) / Akkordeon (Mobil).
+ * Stimmen: Watermark + Karussell (Tablet/Desktop) / gestapelte Karten (Mobil).
  * Inhalte: Places API beim Build, sonst MANUAL_GOOGLE_REVIEWS, sonst Kurz-Fallback.
  */
 import { GOOGLE, GOOGLE_REVIEWS_FALLBACK } from "../data/google";
@@ -205,6 +205,15 @@ const carouselMulti = displayReviews.length > 1;
                 <blockquote class="testimonials__quote">
                   <p class="testimonials__text">{r.text}</p>
                 </blockquote>
+                {
+                  r.source === "api" && r.authorUri && (
+                    <p class="testimonials__slide-google muted">
+                      <a href={r.authorUri} target="_blank" rel="noopener noreferrer">
+                        Rezensent bei Google <span aria-hidden="true">↗</span>
+                      </a>
+                    </p>
+                  )
+                }
               </article>
             ))
           }
@@ -226,60 +235,6 @@ const carouselMulti = displayReviews.length > 1;
         }
       </div>
     </div>
-
-    <!-- Mobil: Akkordeon -->
-    <div class="testimonials__accordion" aria-label="Bewertungen aufklappen">
-    {
-      displayReviews.map((r, i) => (
-        <details class="testimonials__acc card" name="stimmen-review">
-          <summary class="testimonials__acc-summary">
-            <span class="testimonials__acc-summary-main">
-              {r.source === "api" && r.authorPhoto ? (
-                <img
-                  class="testimonials__avatar testimonials__avatar--sm"
-                  src={r.authorPhoto}
-                  alt=""
-                  width="40"
-                  height="40"
-                  loading={i < 3 ? "eager" : "lazy"}
-                  decoding="async"
-                  referrerpolicy="no-referrer"
-                />
-              ) : (
-                <span class="testimonials__avatar testimonials__avatar--ph testimonials__avatar--sm" aria-hidden="true" />
-              )}
-              <span class="testimonials__acc-titles">
-                <span class="testimonials__author">{r.author}</span>
-                {r.relativeTime && <span class="testimonials__time muted">{r.relativeTime}</span>}
-              </span>
-            </span>
-            <span class="testimonials__mini-stars" aria-label={`${r.rating} von 5 Sternen`}>
-              {Array.from({ length: 5 }, (_, si) => (
-                <span class:list={["ts-star ts-star--sm", si < r.rating && "ts-star--on"]} aria-hidden="true">
-                  ★
-                </span>
-              ))}
-            </span>
-            <span class="testimonials__acc-chevron" aria-hidden="true" />
-          </summary>
-          <div class="testimonials__acc-body">
-            <blockquote class="testimonials__quote">
-              <p class="testimonials__text">{r.text}</p>
-            </blockquote>
-            {
-              r.source === "api" && r.authorUri && (
-                <p class="testimonials__acc-google muted">
-                  <a href={r.authorUri} target="_blank" rel="noopener noreferrer">
-                    Rezensent bei Google ↗
-                  </a>
-                </p>
-              )
-            }
-          </div>
-        </details>
-      ))
-    }
-  </div>
   </div>
 </section>
 
@@ -484,18 +439,6 @@ const carouselMulti = displayReviews.length > 1;
     font-size: 0.88rem;
   }
 
-  /* Akkordeon: nur Mobil */
-  .testimonials__accordion {
-    display: none;
-    flex-direction: column;
-    gap: var(--space-sm);
-    position: relative;
-    z-index: 1;
-    grid-column: 1 / -1;
-    margin: 0;
-    max-width: none;
-  }
-
   @media (max-width: 767px) {
     /* Hintergrund „Stimmen“ etwas höher (ca. 50px), damit es auf dem Handy besser sitzt */
     .testimonials__watermark {
@@ -518,89 +461,60 @@ const carouselMulti = displayReviews.length > 1;
     }
 
     .testimonials__carousel-bar,
-    .testimonials__track,
     .testimonials__carousel-dots {
       display: none !important;
     }
 
-    .testimonials__accordion {
+    /* Bewertungen als volle Karten untereinander (kein Akkordeon) */
+    .testimonials__carousel-pane {
       display: flex;
+      flex-direction: column;
+      gap: 0;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .testimonials__track {
+      display: flex !important;
+      flex-direction: column;
+      gap: var(--space-md);
+      overflow: visible;
+      height: auto;
+      min-height: 0;
+      scroll-snap-type: none;
+      padding-inline: 0;
+      -webkit-overflow-scrolling: auto;
+    }
+
+    .testimonials__slide {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: none;
+      min-height: 0;
+      scroll-snap-align: none;
+      padding: var(--space-md);
     }
   }
 
-  .testimonials__acc {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid var(--color-line);
-    box-shadow: var(--shadow-card);
-  }
-
-  .testimonials__acc-summary {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-md) var(--space-md);
-    cursor: pointer;
-    list-style: none;
-    font: inherit;
-  }
-
-  .testimonials__acc-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .testimonials__acc-summary-main {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    flex: 1;
-    min-width: 0;
-    text-align: left;
-  }
-
-  .testimonials__acc-titles {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    min-width: 0;
-  }
-
-  .testimonials__acc-chevron {
-    flex-shrink: 0;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-right: 2px solid var(--color-accent);
-    border-bottom: 2px solid var(--color-accent);
-    transform: rotate(45deg);
-    margin-top: -0.25rem;
-    transition: transform 0.25s var(--ease-luxe);
-  }
-
-  .testimonials__acc[open] .testimonials__acc-chevron {
-    transform: rotate(225deg);
-    margin-top: 0.15rem;
-  }
-
-  .testimonials__avatar--sm {
-    width: 40px;
-    height: 40px;
-  }
-
-  .testimonials__acc-body {
-    padding: 0 var(--space-md) var(--space-md);
-    margin: 0;
-    border-top: 1px solid var(--color-line);
-    padding-top: var(--space-md);
-  }
-
-  .testimonials__acc-google {
+  .testimonials__slide-google {
     margin: var(--space-sm) 0 0;
     font-size: 0.82rem;
   }
 
-  .testimonials__acc-google a {
+  .testimonials__slide-google a {
     font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .testimonials__slide-google a:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .testimonials__slide-google {
+      display: none;
+    }
   }
 
   .testimonials__carousel-bar {
@@ -804,10 +718,6 @@ const carouselMulti = displayReviews.length > 1;
 
     .testimonials__nav-btn:hover {
       transform: none;
-    }
-
-    .testimonials__acc-chevron {
-      transition: none;
     }
 
     .testimonials__dot,

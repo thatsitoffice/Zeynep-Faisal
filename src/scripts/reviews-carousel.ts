@@ -3,6 +3,10 @@ function getSlides(track: HTMLElement): HTMLElement[] {
 }
 
 export function initReviewCarousels(): void {
+  if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+    return;
+  }
+
   document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
     const track = root.querySelector<HTMLElement>("[data-carousel-track]");
     if (!track) return;
