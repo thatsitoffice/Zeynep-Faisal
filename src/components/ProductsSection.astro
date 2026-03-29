@@ -3,104 +3,39 @@ import SectionHeading from "./SectionHeading.astro";
 import BookingButton from "./BookingButton.astro";
 import { SALON_IMAGES } from "../data/salon-images";
 
-/**
- * Echte Salon-Motive — passend zu Marken & Beratung vor Ort (REDKEN u. a.).
- */
-const products = [
-  {
-    name: "Salon-Pflege",
-    line: "Shampoo & Kur",
-    src: SALON_IMAGES.mood1.src,
-    w: SALON_IMAGES.mood1.w,
-    h: SALON_IMAGES.mood1.h,
-    alt: "Salon New Style — Pflege und Produkte im Beratungsgespräch",
-  },
-  {
-    name: "Serum & Öl",
-    line: "Struktur & Glanz",
-    src: SALON_IMAGES.mood2.src,
-    w: SALON_IMAGES.mood2.w,
-    h: SALON_IMAGES.mood2.h,
-    alt: "Styling und Finish im Salon",
-  },
-  {
-    name: "Styling",
-    line: "Finish & Halt",
-    src: SALON_IMAGES.mood3.src,
-    w: SALON_IMAGES.mood3.w,
-    h: SALON_IMAGES.mood3.h,
-    alt: "Arbeit am Salonplatz — Details und Handwerk",
-  },
-  {
-    name: "Kopfhaut",
-    line: "Balance & Ruhe",
-    src: SALON_IMAGES.feature.src,
-    w: SALON_IMAGES.feature.w,
-    h: SALON_IMAGES.feature.h,
-    alt: "Saloninterieur — ruhige Atmosphäre für Beratung",
-  },
-  {
-    name: "Color-Pflege",
-    line: "Nach dem Service",
-    src: SALON_IMAGES.preiseHero.src,
-    w: SALON_IMAGES.preiseHero.w,
-    h: SALON_IMAGES.preiseHero.h,
-    alt: "Im Salon — Service und Qualität",
-  },
-  {
-    name: "Finish",
-    line: "Spray & Schutz",
-    src: SALON_IMAGES.hero.src,
-    w: SALON_IMAGES.hero.w,
-    h: SALON_IMAGES.hero.h,
-    alt: "Salonansicht — Empfang und Atmosphäre New Style",
-  },
-];
+const banner = SALON_IMAGES.productsBanner;
 ---
 
 <section class="section products" id="produkte" aria-labelledby="products-heading">
   <div class="container">
     <SectionHeading
       eyebrow="Produkte"
-      title="Was wir auftragen — und Ihnen mitgeben"
-      subtitle="Kurzer Überblick über unser Sortiment. Im Salon zeigen wir Ihnen passende Texturen und Marken — mitnehmen, was zu Ihrer Routine passt."
+      title="Redken im Salon — Pflege mit Substanz"
+      subtitle="Von intensiver Aufbau-Pflege bis zu Styling und Finish: Wir arbeiten mit klaren Profilinien und zeigen Ihnen im Salon, welche Texturen und Routinen zu Ihrer Haarstruktur passen — mitnehmen, was sich für Sie lohnt."
       headingId="products-heading"
     />
   </div>
 
-  <div class="products__bleed" aria-label="Produktübersicht zum Wischen">
-    <div class="products__strip" tabindex="0">
-      {
-        products.map((p, i) => (
-          <figure class="products__item" data-reveal style={`--reveal-delay: ${i * 55}ms`}>
-            <div class="products__frame">
-              <img
-                class="products__img"
-                src={p.src}
-                alt={p.alt}
-                width={p.w}
-                height={p.h}
-                loading={i < 3 ? "eager" : "lazy"}
-                decoding="async"
-              />
-            </div>
-            <figcaption class="products__cap">
-              <span class="products__name">{p.name}</span>
-              <span class="products__line muted">{p.line}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-    <p class="products__scroll-hint muted container" aria-hidden="true">
-      ← Zurück · Weiter →
-    </p>
+  <div class="products__bleed" data-reveal>
+    <figure class="products__figure">
+      <div class="products__frame">
+        <img
+          class="products__img"
+          src={banner.src}
+          alt="Große Auswahl an Redken Haarpflege- und Stylingprodukten — im Salon erhältlich und zur Beratung"
+          width={banner.w}
+          height={banner.h}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </figure>
   </div>
 
   <div class="container">
     <div class="products__footer" data-reveal>
       <p class="lead" style="margin: 0;">
-        Marken mit klaren Inhaltsstoffen — gerne beraten wir Sie vor Ort zu Ihrer Haarstruktur und Pflege zu Hause.
+        Marken mit nachvollziehbaren Inhaltsstoffen — vor Ort beraten wir Sie zu Struktur, Pflege zu Hause und passenden Finish-Produkten.
       </p>
       <BookingButton variant="ghost" />
     </div>
@@ -113,108 +48,29 @@ const products = [
     margin-left: calc(50% - 50vw);
     margin-top: var(--space-lg);
     margin-bottom: var(--space-md);
-  }
-
-  .products__strip {
-    display: flex;
-    gap: var(--space-md);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
-      max(var(--page-pad), env(safe-area-inset-right, 0px));
     padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
       max(var(--page-pad), env(safe-area-inset-right, 0px));
-    padding-bottom: var(--space-sm);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-gutter: stable;
+    box-sizing: border-box;
   }
 
-  .products__strip:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-  }
-
-  .products__item {
-    flex: 0 0 min(200px, 42vw);
+  .products__figure {
     margin: 0;
-    scroll-snap-align: start;
-  }
-
-  @media (min-width: 640px) {
-    .products__item {
-      flex-basis: min(220px, 32vw);
-    }
-  }
-
-  @media (min-width: 900px) {
-    .products__item {
-      flex-basis: min(240px, 22vw);
-    }
+    max-width: 100%;
   }
 
   .products__frame {
-    aspect-ratio: 3 / 4;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    background: var(--color-line);
+    background: #0c0c0c;
     box-shadow: var(--shadow-card);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(20, 19, 18, 0.12);
   }
 
   .products__img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 35%;
+    height: auto;
     display: block;
-    transition: transform 0.65s var(--ease-luxe);
-  }
-
-  @media (hover: hover) {
-    .products__item:hover .products__img {
-      transform: scale(1.04);
-    }
-  }
-
-  .products__cap {
-    margin-top: var(--space-sm);
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    text-align: left;
-  }
-
-  .products__name {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--color-ink);
-  }
-
-  .products__line {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .products__scroll-hint {
-    margin: 0;
-    padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
-      max(var(--page-pad), env(safe-area-inset-right, 0px));
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    text-align: center;
-    opacity: 0.65;
-  }
-
-  @media (min-width: 1100px) {
-    .products__scroll-hint {
-      text-align: right;
-      padding-right: var(--page-pad);
-    }
+    vertical-align: middle;
   }
 
   .products__footer {
@@ -230,16 +86,6 @@ const products = [
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .products__img {
-      transition: none;
-    }
-
-    .products__item:hover .products__img {
-      transform: none;
     }
   }
 </style>

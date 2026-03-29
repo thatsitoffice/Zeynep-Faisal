@@ -25,4 +25,6 @@ export const SALON_IMAGES = {
   atmosphereReception: { src: "/images/salon/atmosphere-reception.jpeg", w: 2400, h: 1600 },
   /** Atmosphäre-Sektion: Styling-Plätze, Lamellenwand */
   atmosphereStyling: { src: "/images/salon/atmosphere-styling-saloon.png", w: 2400, h: 1792 },
+  /** Produkte-Sektion — Redken-Banner (volle Breite) */
+  productsBanner: { src: "/images/salon/haarprodukte.png", w: 3000, h: 1688 },
 } as const;
