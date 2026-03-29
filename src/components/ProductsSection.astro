@@ -9,13 +9,16 @@ const banner = SALON_IMAGES.productsBanner;
 <section class="section products" id="produkte" aria-labelledby="products-heading">
   <div class="container">
     <div class="products__compose" data-reveal>
-      <div class="products__heading-wrap">
+      <div class="products__intro">
         <SectionHeading
           eyebrow="Produkte"
           title="Redken im Salon — Pflege mit Substanz"
           subtitle="Von intensiver Aufbau-Pflege bis zu Styling und Finish: Wir arbeiten mit klaren Profilinien und zeigen Ihnen im Salon, welche Texturen und Routinen zu Ihrer Haarstruktur passen — mitnehmen, was sich für Sie lohnt."
           headingId="products-heading"
         />
+        <div class="products__cta-wrap">
+          <BookingButton variant="ghost" />
+        </div>
       </div>
       <figure class="products__figure">
         <img
@@ -32,12 +35,9 @@ const banner = SALON_IMAGES.productsBanner;
   </div>
 
   <div class="container">
-    <div class="products__footer" data-reveal>
-      <p class="lead" style="margin: 0;">
-        Marken mit nachvollziehbaren Inhaltsstoffen — vor Ort beraten wir Sie zu Struktur, Pflege zu Hause und passenden Finish-Produkten.
-      </p>
-      <BookingButton variant="ghost" />
-    </div>
+    <p class="products__footer-lead lead" data-reveal>
+      Marken mit nachvollziehbaren Inhaltsstoffen — vor Ort beraten wir Sie zu Struktur, Pflege zu Hause und passenden Finish-Produkten.
+    </p>
   </div>
 </section>
 
@@ -48,9 +48,13 @@ const banner = SALON_IMAGES.productsBanner;
     gap: var(--space-lg);
   }
 
-  .products__heading-wrap {
+  .products__intro {
     position: relative;
     z-index: 1;
+  }
+
+  .products__cta-wrap {
+    margin-top: var(--space-lg);
   }
 
   .products__figure {
@@ -64,74 +68,80 @@ const banner = SALON_IMAGES.productsBanner;
     display: block;
   }
 
-  .products__footer {
-    margin-top: var(--space-xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    align-items: flex-start;
+  .products__footer-lead {
+    margin: var(--space-xl) 0 0;
+    max-width: 48rem;
   }
 
   @media (min-width: 900px) {
     .products__compose {
       display: grid;
-      grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
+      grid-template-columns: 1fr;
       align-items: center;
-      column-gap: clamp(0.25rem, 1.5vw, 1rem);
       margin-bottom: var(--space-sm);
+      min-height: clamp(260px, 44vw, 500px);
     }
 
-    .products__heading-wrap {
-      grid-column: 1 / 2;
+    .products__intro {
+      grid-column: 1;
       grid-row: 1;
       z-index: 2;
-      max-width: min(22.5rem, 100%);
+      max-width: min(24rem, 46%);
+      align-self: center;
+      pointer-events: none;
+    }
+
+    .products__intro :global(a) {
+      pointer-events: auto;
+    }
+
+    .products__intro :global(.section-heading) {
       margin-bottom: 0;
     }
 
-    .products__heading-wrap :global(.section-heading) {
-      margin-bottom: 0;
+    /* Schwarze Schrift; dezenter heller Glow nur für Lesbarkeit auf dunklen Flaschen */
+    .products__intro :global(h2.display-lg) {
+      color: var(--color-ink);
+      text-shadow:
+        0 0 1px rgba(244, 241, 235, 0.9),
+        0 0 14px rgba(244, 241, 235, 0.45);
     }
 
-    /* Lesbare Typo auf dem dunklen Bild (linker Bereich / Flaschen) */
-    .products__heading-wrap :global(h2.display-lg) {
-      color: var(--color-bg);
-      text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
+    .products__intro :global(.section-heading__sub) {
+      color: var(--color-ink-muted);
+      text-shadow:
+        0 0 1px rgba(244, 241, 235, 0.85),
+        0 0 12px rgba(244, 241, 235, 0.4);
     }
 
-    .products__heading-wrap :global(.section-heading__sub) {
-      color: rgba(244, 241, 235, 0.88);
-      text-shadow: 0 1px 20px rgba(0, 0, 0, 0.5);
+    .products__intro :global(.eyebrow) {
+      color: var(--color-ink);
+      text-shadow:
+        0 0 1px rgba(244, 241, 235, 0.8),
+        0 0 10px rgba(244, 241, 235, 0.35);
     }
 
-    .products__heading-wrap :global(.eyebrow) {
-      color: var(--color-star);
-      text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+    .products__cta-wrap {
+      margin-top: var(--space-md);
     }
 
+    /* Bild: 70 % der Containerbreite, rechts ausgerichtet */
     .products__figure {
-      grid-column: 2 / 3;
+      grid-column: 1;
       grid-row: 1;
+      width: 70%;
+      max-width: 960px;
       justify-self: end;
-      width: min(108%, 920px);
-      margin-left: clamp(-3.5rem, -14vw, -1.25rem);
+      margin: 0;
     }
 
     .products__img {
       width: 100%;
       height: auto;
-      max-height: min(520px, 50vw);
+      max-height: min(520px, 52vw);
       object-fit: cover;
-      /* linker Bildbereich (Flaschen) bleibt sichtbar unter der Schrift */
-      object-position: 30% 50%;
-    }
-  }
-
-  @media (min-width: 640px) {
-    .products__footer {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+      /* Produktgruppe sitzt im Motiv rechts */
+      object-position: 88% 50%;
     }
   }
 </style>
