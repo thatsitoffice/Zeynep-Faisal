@@ -31,6 +31,8 @@
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
+  /** Einheitlich abgerundete Buttons / Pill-Form */
+  --radius-pill: 9999px;
 
   --shadow-soft: 0 32px 64px -24px rgba(20, 19, 18, 0.14);
   --shadow-card: 0 16px 40px -20px rgba(20, 19, 18, 0.08);
@@ -220,7 +222,7 @@ a:hover {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   border: 1px solid transparent;
   cursor: pointer;
   transition:
@@ -277,7 +279,6 @@ a:hover {
 .btn--hero-solid {
   background: #faf8f5;
   color: var(--color-ink);
-  border-radius: 999px;
   border: 1px solid rgba(250, 248, 245, 0.95);
   box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.35);
 }
@@ -292,7 +293,6 @@ a:hover {
 .btn--hero-outline {
   background: transparent;
   color: rgba(255, 255, 255, 0.96);
-  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.52);
   backdrop-filter: blur(6px);
 }

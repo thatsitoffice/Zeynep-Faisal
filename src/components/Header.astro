@@ -1,6 +1,7 @@
 ---
 import BookingButton from "./BookingButton.astro";
 import { SITE } from "../data/site";
+import { getNavColumns } from "../data/nav";
 
 interface Props {
   variant?: "default" | "overlay";
@@ -16,23 +17,7 @@ const bookingVariant = isOverlayDark ? "heroOutline" : "primary";
 /** Im Off-Canvas (dunkler Hintergrund): heller Button */
 const drawerBookingVariant = "on-dark";
 
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-const isHome = path === "/";
-const toSection = (fragment: string) => (isHome ? `#${fragment}` : `/#${fragment}`);
-
-const navLeft = [
-  { href: "/", label: "Home" },
-  { href: toSection("vertrauen"), label: "Vorteile" },
-  { href: "/preise/", label: "Preise" },
-];
-
-/** Reihenfolge wie auf der Startseite unterhalb von „Preise“ */
-const navRight = [
-  { href: toSection("stimmen"), label: "Stimmen" },
-  { href: toSection("stimmung"), label: "Atmosphäre" },
-  { href: toSection("produkte"), label: "Produkte" },
-];
-
+const { left: navLeft, right: navRight } = getNavColumns(Astro.url.pathname);
 const navDrawerItems = [...navLeft, ...navRight];
 
 const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
@@ -421,7 +406,7 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     padding: 0;
     margin: 0;
     border: 1px solid rgba(255, 255, 255, 0.42);
-    border-radius: 10px;
+    border-radius: var(--radius-pill);
     background: rgba(8, 7, 6, 0.28);
     color: #fff;
     cursor: pointer;
@@ -514,17 +499,31 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     top: 0;
     right: 0;
     height: 100%;
-    width: min(22rem, 90vw);
+    max-height: 100dvh;
+    width: min(22rem, 100%);
     max-width: 100%;
     box-sizing: border-box;
-    padding: calc(var(--header-h) + var(--space-sm)) var(--space-lg) max(var(--space-xl), env(safe-area-inset-bottom, 0px));
-    background: rgba(16, 14, 12, 0.88);
+    /**
+     * Kein var(--header-h) hier: Overlay ist Vollbild — großes Top-Padding hat die Nav-Liste
+     * auf Handys auf wenige Pixel gedrückt; nur Safe Area + Platz für Schließen-Button.
+     */
+    padding: calc(env(safe-area-inset-top, 0px) + 3.35rem) max(var(--space-lg), env(safe-area-inset-right, 0px))
+      max(var(--space-xl), env(safe-area-inset-bottom, 0px)) var(--space-lg);
+    background: rgba(16, 14, 12, 0.94);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: -24px 0 48px -12px rgba(0, 0, 0, 0.35);
     transform: translateX(100%);
     transition: transform 0.38s var(--ease-luxe);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @supports (height: 100svh) {
+    .site-header__drawer-panel {
+      max-height: 100svh;
+    }
   }
 
   .site-header__drawer.is-open .site-header__drawer-panel {
@@ -533,8 +532,9 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
 
   .site-header__drawer-close {
     position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
+    top: calc(env(safe-area-inset-top, 0px) + var(--space-sm));
+    right: max(var(--space-sm), env(safe-area-inset-right, 0px));
+    z-index: 5;
     width: 2.75rem;
     height: 2.75rem;
     display: flex;
@@ -542,7 +542,7 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     justify-content: center;
     padding: 0;
     border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 50%;
+    border-radius: var(--radius-pill);
     background: rgba(255, 255, 255, 0.06);
     color: #fff;
     cursor: pointer;
@@ -574,49 +574,66 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
-    flex: 1;
+    gap: 0;
+    flex: 1 1 auto;
     min-height: 0;
+    overflow-x: hidden;
     overflow-y: auto;
+    overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
   }
 
-  .site-header__drawer-list a {
-    display: block;
-    padding: 0.85rem 0;
-    font-size: 0.92rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: color 0.2s ease, padding-left 0.2s ease;
+  .site-header__drawer-list li {
+    flex-shrink: 0;
   }
 
-  .site-header__drawer-list a:hover {
+  .site-header__drawer-list a {
+    display: flex;
+    align-items: center;
+    min-height: 3.25rem;
+    padding: 0.65rem 0;
+    font-size: max(0.88rem, 16px);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
     color: #fff;
-    padding-left: 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .site-header__drawer-list a:hover,
+  .site-header__drawer-list a:active {
+    color: #fff;
+    padding-left: 0.2rem;
   }
 
   .site-header__drawer-nav {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 auto;
     min-height: 0;
+    overflow: hidden;
   }
 
   .site-header__drawer-cta {
-    flex-shrink: 0;
-    margin-top: var(--space-lg);
-    padding-top: var(--space-lg);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex: 0 0 auto;
+    margin-top: auto;
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .site-header__drawer-cta :global(.btn) {
     width: 100%;
     justify-content: center;
     box-sizing: border-box;
+    min-height: 3.25rem;
+    font-size: max(0.78rem, 14px);
+    padding-block: 0.95rem;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   @media (prefers-reduced-motion: reduce) {

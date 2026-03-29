@@ -41,9 +41,10 @@ const { title, description, heading } = Astro.props;
   }
 
   .legal-page__article {
-    max-width: 42rem;
-    margin-inline: auto;
-    padding: clamp(var(--space-md), 4vw, var(--space-lg));
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding: clamp(var(--space-md), 4vw, var(--space-xl));
   }
 
   .legal-page__head {
