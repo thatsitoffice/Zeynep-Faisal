@@ -8,17 +8,16 @@ const banner = SALON_IMAGES.productsBanner;
 
 <section class="section products" id="produkte" aria-labelledby="products-heading">
   <div class="container">
-    <SectionHeading
-      eyebrow="Produkte"
-      title="Redken im Salon — Pflege mit Substanz"
-      subtitle="Von intensiver Aufbau-Pflege bis zu Styling und Finish: Wir arbeiten mit klaren Profilinien und zeigen Ihnen im Salon, welche Texturen und Routinen zu Ihrer Haarstruktur passen — mitnehmen, was sich für Sie lohnt."
-      headingId="products-heading"
-    />
-  </div>
-
-  <div class="products__bleed" data-reveal>
-    <figure class="products__figure">
-      <div class="products__frame">
+    <div class="products__compose" data-reveal>
+      <div class="products__heading-wrap">
+        <SectionHeading
+          eyebrow="Produkte"
+          title="Redken im Salon — Pflege mit Substanz"
+          subtitle="Von intensiver Aufbau-Pflege bis zu Styling und Finish: Wir arbeiten mit klaren Profilinien und zeigen Ihnen im Salon, welche Texturen und Routinen zu Ihrer Haarstruktur passen — mitnehmen, was sich für Sie lohnt."
+          headingId="products-heading"
+        />
+      </div>
+      <figure class="products__figure">
         <img
           class="products__img"
           src={banner.src}
@@ -28,8 +27,8 @@ const banner = SALON_IMAGES.productsBanner;
           loading="lazy"
           decoding="async"
         />
-      </div>
-    </figure>
+      </figure>
+    </div>
   </div>
 
   <div class="container">
@@ -43,34 +42,26 @@ const banner = SALON_IMAGES.productsBanner;
 </section>
 
 <style>
-  .products__bleed {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-md);
-    padding-inline: max(var(--page-pad), env(safe-area-inset-left, 0px))
-      max(var(--page-pad), env(safe-area-inset-right, 0px));
-    box-sizing: border-box;
+  .products__compose {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .products__heading-wrap {
+    position: relative;
+    z-index: 1;
   }
 
   .products__figure {
     margin: 0;
-    max-width: 100%;
-  }
-
-  .products__frame {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background: #0c0c0c;
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(20, 19, 18, 0.12);
+    align-self: stretch;
   }
 
   .products__img {
     width: 100%;
     height: auto;
     display: block;
-    vertical-align: middle;
   }
 
   .products__footer {
@@ -79,6 +70,61 @@ const banner = SALON_IMAGES.productsBanner;
     flex-direction: column;
     gap: var(--space-md);
     align-items: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    .products__compose {
+      display: grid;
+      grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
+      align-items: center;
+      column-gap: clamp(0.25rem, 1.5vw, 1rem);
+      margin-bottom: var(--space-sm);
+    }
+
+    .products__heading-wrap {
+      grid-column: 1 / 2;
+      grid-row: 1;
+      z-index: 2;
+      max-width: min(22.5rem, 100%);
+      margin-bottom: 0;
+    }
+
+    .products__heading-wrap :global(.section-heading) {
+      margin-bottom: 0;
+    }
+
+    /* Lesbare Typo auf dem dunklen Bild (linker Bereich / Flaschen) */
+    .products__heading-wrap :global(h2.display-lg) {
+      color: var(--color-bg);
+      text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
+    }
+
+    .products__heading-wrap :global(.section-heading__sub) {
+      color: rgba(244, 241, 235, 0.88);
+      text-shadow: 0 1px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .products__heading-wrap :global(.eyebrow) {
+      color: var(--color-star);
+      text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .products__figure {
+      grid-column: 2 / 3;
+      grid-row: 1;
+      justify-self: end;
+      width: min(108%, 920px);
+      margin-left: clamp(-3.5rem, -14vw, -1.25rem);
+    }
+
+    .products__img {
+      width: 100%;
+      height: auto;
+      max-height: min(520px, 50vw);
+      object-fit: cover;
+      /* linker Bildbereich (Flaschen) bleibt sichtbar unter der Schrift */
+      object-position: 30% 50%;
+    }
   }
 
   @media (min-width: 640px) {
