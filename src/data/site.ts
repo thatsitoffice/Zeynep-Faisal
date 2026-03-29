@@ -12,8 +12,8 @@ export const SITE = {
   /** Echte Domain eintragen, wenn live — auch in astro.config.mjs `site` setzen */
   canonicalBase: "https://new-style-gelsenkirchen.example.com",
   email: "kontakt@new-style-gelsenkirchen.de",
-  phoneDisplay: "0209 · … · …",
-  phoneTel: "+49209…",
+  phoneDisplay: "0209 38917718",
+  phoneTel: "+4920938917718",
   /** Wie auf Planity / Google Business */
   addressLine: "Cranger Str. 316, 45891 Gelsenkirchen",
   openingHours: "Mo–Fr 8:30–18:00 · Sa 8:30–16:00 · So geschlossen",
