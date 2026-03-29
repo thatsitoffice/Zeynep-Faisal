@@ -171,6 +171,8 @@ const heroBg = SALON_IMAGES.preiseHero;
     position: absolute;
     inset: 0;
     z-index: 0;
+    /* Keine Klicks abfangen — Bereich unter Sticky-Header bleibt für Menü/Hamburger nutzbar */
+    pointer-events: none;
   }
 
   .preise-page__hero-img {
@@ -206,6 +208,7 @@ const heroBg = SALON_IMAGES.preiseHero;
     position: relative;
     z-index: 2;
     width: 100%;
+    pointer-events: auto;
   }
 
   .preise-page__hero-grid {

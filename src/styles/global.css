@@ -96,6 +96,12 @@ body {
   min-width: 0;
 }
 
+/** Unter dem Sticky-Header (#site-header, z-index 500) halten — Menü mobil überall bedienbar */
+#main {
+  position: relative;
+  z-index: 0;
+}
+
 /* Dezentes Umgebungslicht — editorial, nicht „Template-Gradient“ */
 body::before {
   content: "";
