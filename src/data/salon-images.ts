@@ -21,4 +21,8 @@ export const SALON_IMAGES = {
   preiseHero: { src: "/images/salon/salon-preise-hero.jpeg", w: 2400, h: 1792 },
   /** Abschnitt „Termin“ — eigenes Motiv (nicht identisch mit Hero) */
   cta: { src: "/images/salon/salon-mood-2.jpeg", w: 1200, h: 1600 },
+  /** Atmosphäre-Sektion: Empfang / Markenwand */
+  atmosphereReception: { src: "/images/salon/atmosphere-reception.jpeg", w: 2400, h: 1600 },
+  /** Atmosphäre-Sektion: Styling-Plätze, Lamellenwand */
+  atmosphereStyling: { src: "/images/salon/atmosphere-styling-saloon.png", w: 2400, h: 1792 },
 } as const;
