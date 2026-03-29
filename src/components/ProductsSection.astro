@@ -125,14 +125,14 @@ const banner = SALON_IMAGES.productsBanner;
       margin-top: var(--space-md);
     }
 
-    /* Bild: 70 % der Containerbreite, rechts ausgerichtet */
+    /* Bild: ~70 % Breite, horizontal eher mittig (leicht nach links für Overlap mit Text) */
     .products__figure {
       grid-column: 1;
       grid-row: 1;
-      width: 70%;
-      max-width: 960px;
-      justify-self: end;
+      width: min(70%, 920px);
+      justify-self: center;
       margin: 0;
+      transform: translateX(clamp(-1.25rem, -3.5vw, -0.25rem));
     }
 
     .products__img {
@@ -140,8 +140,8 @@ const banner = SALON_IMAGES.productsBanner;
       height: auto;
       max-height: min(520px, 52vw);
       object-fit: cover;
-      /* Produktgruppe sitzt im Motiv rechts */
-      object-position: 88% 50%;
+      /* Motiv: Produktgruppe etwas rechts vom Zentrum, linke Flaschen unter Schrift */
+      object-position: 62% 50%;
     }
   }
 </style>
