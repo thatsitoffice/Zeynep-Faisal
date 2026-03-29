@@ -101,7 +101,8 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
       <button type="button" class="site-header__drawer-close" data-drawer-close aria-label="Menü schließen">
         <span class="site-header__drawer-close-x" aria-hidden="true">×</span>
       </button>
-      <nav class="site-header__drawer-nav" aria-label="Navigation">
+      <nav class="site-header__drawer-nav" aria-label="Hauptnavigation">
+        <p class="site-header__drawer-heading">Hauptmenü</p>
         <ul class="site-header__drawer-list" role="list">
           {
             navDrawerItems.map((item) => (
@@ -478,6 +479,7 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     pointer-events: auto;
     visibility: visible;
     transition-delay: 0s;
+    overscroll-behavior: none;
   }
 
   .site-header__drawer-backdrop {
@@ -488,6 +490,9 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     -webkit-backdrop-filter: blur(5px) saturate(1.1);
     opacity: 0;
     transition: opacity 0.38s var(--ease-luxe);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   .site-header__drawer.is-open .site-header__drawer-backdrop {
@@ -496,22 +501,22 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
 
   .site-header__drawer-panel {
     position: absolute;
-    top: 0;
-    right: 0;
+    inset: 0;
+    width: 100%;
     height: 100%;
+    /* Fallback-Kette: Safari/iOS und dynamische Viewport-Höhe */
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: 100dvh;
+    max-height: 100vh;
     max-height: 100dvh;
-    width: min(22rem, 100%);
-    max-width: 100%;
     box-sizing: border-box;
-    /**
-     * Kein var(--header-h) hier: Overlay ist Vollbild — großes Top-Padding hat die Nav-Liste
-     * auf Handys auf wenige Pixel gedrückt; nur Safe Area + Platz für Schließen-Button.
-     */
-    padding: calc(env(safe-area-inset-top, 0px) + 3.35rem) max(var(--space-lg), env(safe-area-inset-right, 0px))
-      max(var(--space-xl), env(safe-area-inset-bottom, 0px)) var(--space-lg);
-    background: rgba(16, 14, 12, 0.94);
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: -24px 0 48px -12px rgba(0, 0, 0, 0.35);
+    padding: calc(env(safe-area-inset-top, 0px) + 3.5rem)
+      max(var(--space-lg), env(safe-area-inset-right, 0px))
+      max(var(--space-md), env(safe-area-inset-bottom, 0px))
+      max(var(--space-lg), env(safe-area-inset-left, 0px));
+    background: rgba(12, 11, 10, 0.97);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
     transform: translateX(100%);
     transition: transform 0.38s var(--ease-luxe);
     display: flex;
@@ -522,7 +527,15 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
 
   @supports (height: 100svh) {
     .site-header__drawer-panel {
+      min-height: 100svh;
       max-height: 100svh;
+    }
+  }
+
+  @supports (height: 100dvh) {
+    .site-header__drawer-panel {
+      min-height: 100dvh;
+      max-height: 100dvh;
     }
   }
 
@@ -568,6 +581,18 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     margin-top: -0.08em;
   }
 
+  .site-header__drawer-heading {
+    flex-shrink: 0;
+    margin: 0 0 var(--space-sm);
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+  }
+
   .site-header__drawer-list {
     list-style: none;
     margin: 0;
@@ -581,6 +606,7 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 
   .site-header__drawer-list li {
@@ -590,7 +616,7 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
   .site-header__drawer-list a {
     display: flex;
     align-items: center;
-    min-height: 3.25rem;
+    min-height: max(3.35rem, 44px);
     padding: 0.65rem 0;
     font-size: max(0.88rem, 16px);
     font-weight: 600;
@@ -615,13 +641,15 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     flex-direction: column;
     flex: 1 1 auto;
     min-height: 0;
+    width: 100%;
     overflow: hidden;
   }
 
   .site-header__drawer-cta {
     flex: 0 0 auto;
     margin-top: auto;
-    padding-top: var(--space-md);
+    padding-top: var(--space-lg);
+    padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom, 0px));
     border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
 
@@ -629,9 +657,9 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     width: 100%;
     justify-content: center;
     box-sizing: border-box;
-    min-height: 3.25rem;
+    min-height: 3.35rem;
     font-size: max(0.78rem, 14px);
-    padding-block: 0.95rem;
+    padding-block: 1rem;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }

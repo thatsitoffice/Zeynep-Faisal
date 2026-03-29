@@ -66,6 +66,11 @@ html {
   overflow-x: clip;
 }
 
+html.drawer-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 @supports not (overflow: clip) {
   html {
     overflow-x: hidden;

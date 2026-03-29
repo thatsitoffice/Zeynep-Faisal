@@ -1,6 +1,31 @@
 /**
  * Off-Canvas-Navigation: Toggle, Backdrop, Escape, Fokus zurück auf Toggle.
+ * Scroll-Lock mit position:fixed (zuverlässiger auf iOS als nur overflow:hidden).
  */
+let savedScrollY = 0;
+
+function lockBodyScroll(): void {
+  savedScrollY = window.scrollY;
+  document.documentElement.classList.add("drawer-open");
+  document.body.style.overflow = "hidden";
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${savedScrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+}
+
+function unlockBodyScroll(): void {
+  document.documentElement.classList.remove("drawer-open");
+  document.body.style.overflow = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  window.scrollTo(0, savedScrollY);
+}
+
 function initHeaderDrawer(): void {
   const header = document.getElementById("site-header");
   const toggle = header?.querySelector<HTMLButtonElement>("[data-drawer-toggle]");
@@ -13,14 +38,15 @@ function initHeaderDrawer(): void {
   const setOpen = (open: boolean) => {
     drawer.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
     drawer.setAttribute("aria-hidden", open ? "false" : "true");
     if (open) {
+      lockBodyScroll();
       drawer.removeAttribute("inert");
-      document.body.style.overflow = "hidden";
       closeBtn?.focus();
     } else {
+      unlockBodyScroll();
       drawer.setAttribute("inert", "");
-      document.body.style.overflow = "";
       toggle.focus();
     }
   };
