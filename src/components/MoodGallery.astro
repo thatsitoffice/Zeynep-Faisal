@@ -177,31 +177,40 @@ const rightShot = {
   }
 
   @media (max-width: 640px) {
+    .mood-gallery {
+      padding-block: clamp(var(--space-2xl), 10vw, 6rem);
+    }
+
     .mood-gallery__dual {
       grid-template-columns: 1fr;
-      row-gap: var(--space-md);
+      row-gap: var(--space-lg);
       column-gap: 0;
       min-height: 0;
     }
 
     .mood-gallery__watermark {
-      font-size: clamp(2.2rem, 11vw, 3.5rem);
+      font-size: clamp(2.5rem, 12.5vw, 4rem);
       top: 48%;
     }
 
     .mood-gallery__side--left {
-      justify-self: start;
-      width: min(100%, 22rem);
-      max-width: min(88vw, 22rem);
-      transform: translate(clamp(0.1rem, 1vw, 0.4rem), -12px);
+      justify-self: stretch;
+      width: 100%;
+      max-width: none;
+      transform: translate(0, -8px);
     }
 
     .mood-gallery__side--right {
-      justify-self: end;
-      width: min(100%, 22rem);
-      max-width: min(88vw, 22rem);
+      justify-self: stretch;
+      width: 100%;
+      max-width: none;
       margin-top: 0;
-      transform: translate(clamp(-0.1rem, -1vw, -0.4rem), 14px);
+      transform: translate(0, 12px);
+    }
+
+    .mood-gallery__frame {
+      aspect-ratio: 4 / 5;
+      min-height: min(78vw, 26rem);
     }
   }
 </style>
