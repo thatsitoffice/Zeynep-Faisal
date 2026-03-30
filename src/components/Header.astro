@@ -94,31 +94,31 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
       </div>
     </div>
   </div>
-
-  <div id="site-nav-drawer" class="site-header__drawer" inert aria-hidden="true">
-    <div class="site-header__drawer-backdrop" data-drawer-backdrop aria-hidden="true"></div>
-    <aside class="site-header__drawer-panel" role="dialog" aria-modal="true" aria-label="Menü">
-      <button type="button" class="site-header__drawer-close" data-drawer-close aria-label="Menü schließen">
-        <span class="site-header__drawer-close-x" aria-hidden="true">×</span>
-      </button>
-      <nav class="site-header__drawer-nav" aria-label="Hauptnavigation">
-        <p class="site-header__drawer-heading">Hauptmenü</p>
-        <ul class="site-header__drawer-list" role="list">
-          {
-            navDrawerItems.map((item) => (
-              <li>
-                <a href={item.href}>{item.label}</a>
-              </li>
-            ))
-          }
-        </ul>
-        <div class="site-header__drawer-cta">
-          <BookingButton variant={drawerBookingVariant} />
-        </div>
-      </nav>
-    </aside>
-  </div>
 </header>
+
+<div id="site-nav-drawer" class="site-header__drawer" inert aria-hidden="true">
+  <div class="site-header__drawer-backdrop" data-drawer-backdrop aria-hidden="true"></div>
+  <aside class="site-header__drawer-panel" role="dialog" aria-modal="true" aria-label="Menü">
+    <button type="button" class="site-header__drawer-close" data-drawer-close aria-label="Menü schließen">
+      <span class="site-header__drawer-close-x" aria-hidden="true">×</span>
+    </button>
+    <nav class="site-header__drawer-nav" aria-label="Hauptnavigation">
+      <p class="site-header__drawer-heading">Hauptmenü</p>
+      <ul class="site-header__drawer-list" role="list">
+        {
+          navDrawerItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="site-header__drawer-cta">
+        <BookingButton variant={drawerBookingVariant} />
+      </div>
+    </nav>
+  </aside>
+</div>
 
 <script>
   import "../scripts/header-drawer";
