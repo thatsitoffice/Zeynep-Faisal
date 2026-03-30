@@ -31,6 +31,9 @@ function initHeaderDrawer(): void {
   const toggle = header?.querySelector<HTMLButtonElement>("[data-drawer-toggle]");
   const drawer = document.getElementById("site-nav-drawer");
   if (!header || !toggle || !drawer) return;
+  // Mehrfach-Initialisierung (z. B. wenn Script auf mehreren Seiten/Slots eingebunden ist) verhindern
+  if (header.dataset.drawerInit === "true") return;
+  header.dataset.drawerInit = "true";
 
   const closeBtn = drawer.querySelector<HTMLButtonElement>("[data-drawer-close]");
   const backdrop = drawer.querySelector<HTMLElement>("[data-drawer-backdrop]");

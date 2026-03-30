@@ -80,6 +80,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
   <body>
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
     <slot />
+    <script>
+      import "../scripts/header-drawer";
+    </script>
     <script is:inline>
       (function () {
         var header = document.getElementById("site-header");
