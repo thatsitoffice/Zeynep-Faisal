@@ -35,10 +35,10 @@ export const LEGAL = {
   /**
    * Hosting gemäß Art. 13 / 28 DSGVO — Anbieter Ihrer Website ergänzen (z. B. Netlify, Vercel, IONOS, eigener Server).
    */
-  hostingProviderName: "[Name des Hosting-Anbieters]",
-  hostingProviderAddress: "[Straße, PLZ Ort, Land des Hosting-Anbieters]",
-  /** z. B. https://… — leer lassen, bis der Link eingetragen ist */
-  hostingPrivacyUrl: "" as string,
+  hostingProviderName: "Cloudflare Germany GmbH",
+  hostingProviderAddress:
+    "c/o Design Offices München Atlas, Rosenheimer Straße 143C (8. OG), 81671 München, Deutschland",
+  hostingPrivacyUrl: "https://cloudflare.com/privacy",
 
   /** Aufsichtsbehörde Datenschutz (NRW) — Standardformulierung */
   supervisoryAuthority:

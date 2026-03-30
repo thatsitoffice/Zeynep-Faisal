@@ -22,6 +22,25 @@ const pageDescription = `Impressum und Pflichtangaben gemäß TMG / RStV — ${S
     E-Mail: <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>
   </p>
 
+  <h2>Hosting</h2>
+  <p>
+    Diese Website wird über einen externen Dienstleister ausgeliefert (Hosting/CDN). Dabei können technisch notwendige Daten (z. B.
+    Server-Logdateien) verarbeitet werden.
+  </p>
+  <p>
+    <strong>Hosting-Anbieter:</strong><br />
+    {LEGAL.hostingProviderName}<br />
+    {LEGAL.hostingProviderAddress}
+  </p>
+  {LEGAL.hostingPrivacyUrl.startsWith("http") && (
+    <p>
+      Datenschutzhinweise:{" "}
+      <a href={LEGAL.hostingPrivacyUrl} target="_blank" rel="noopener noreferrer">
+        {LEGAL.hostingPrivacyUrl}
+      </a>
+    </p>
+  )}
+
   <h2>Vertretungsberechtigt</h2>
   <p>{LEGAL.representatives}</p>
 
