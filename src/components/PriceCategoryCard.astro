@@ -81,9 +81,61 @@ const { category, revealDelayMs = 0 } = Astro.props;
     width: 1%;
   }
 
+  .price-table th:first-child,
+  .price-table td:first-child {
+    padding-right: var(--space-sm);
+    line-height: 1.5;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
   .price-table th:last-child,
   .price-table td:last-child {
     text-align: right;
+  }
+
+  /* Mobil: Dauer & Preis mit mehr Luft; Leistung darf ruhig 2–3 Zeilen einnehmen */
+  @media (max-width: 640px) {
+    .price-cat__table-wrap {
+      margin-inline: calc(-1 * var(--space-xs));
+      padding-inline: var(--space-xs);
+    }
+
+    .price-table {
+      font-size: 0.9rem;
+    }
+
+    .price-table th,
+    .price-table td {
+      padding: 0.7rem 0;
+      vertical-align: top;
+    }
+
+    .price-table th {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      padding-bottom: 0.55rem;
+    }
+
+    .price-table th:first-child,
+    .price-table td:first-child {
+      padding-right: 0.85rem;
+      line-height: 1.48;
+    }
+
+    .price-table th:nth-child(2),
+    .price-table td:nth-child(2) {
+      width: auto;
+      min-width: 6.25rem;
+      padding-left: 0.4rem;
+      padding-right: 0.85rem;
+    }
+
+    .price-table th:last-child,
+    .price-table td:last-child {
+      padding-left: 0.65rem;
+      min-width: 5.25rem;
+    }
   }
 
   .price-cat__note {
