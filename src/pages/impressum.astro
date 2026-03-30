@@ -57,12 +57,27 @@ const subJsonLd = buildWebPageBreadcrumbJsonLd(getSiteOrigin(Astro.site), canoni
 
   <h2>Berufsrechtliche Angaben</h2>
   <p>{LEGAL.professionalChamber}</p>
-  <p>
-    Zuständige Aufsichtsbehörde und Kammerangaben bitte vollständig in der Datei <code>src/data/legal.ts</code> ergänzen.
-  </p>
 
   {
-    LEGAL.vatId && (
+    LEGAL.tradeSupervisoryAuthority.length > 0 && (
+      <>
+        <h2>Zuständige Aufsicht / Kammer</h2>
+        <p>{LEGAL.tradeSupervisoryAuthority}</p>
+      </>
+    )
+  }
+
+  {
+    LEGAL.professionalLiabilityInsurance.length > 0 && (
+      <>
+        <h2>Berufshaftpflichtversicherung</h2>
+        <p>{LEGAL.professionalLiabilityInsurance}</p>
+      </>
+    )
+  }
+
+  {
+    LEGAL.vatId.length > 0 && (
       <>
         <h2>Umsatzsteuer-ID</h2>
         <p>

@@ -16,18 +16,29 @@ export const LEGAL = {
   phoneTel: SITE.phoneTel,
 
   /**
-   * Gesetzliche Vertretung (Inhaber:innen / Geschäftsführer:innen) — vollständige Namen eintragen.
+   * Gesetzliche Vertretung: nur sichtbar, was öffentlich aus dem Markenauftritt (Name des Betriebs) hervorgeht.
+   * Vollständige Namensangabe ggf. nach § 5 TMG vom Steuerberater/Rechtsanwalt ergänzen.
    */
-  representatives: "Zeynep [Nachname], Faisal [Nachname]",
+  representatives: "Zeynep und Faisal (Inhaber:innen)",
 
-  /** USt-IdNr. nach § 27a UStG, falls vorhanden (sonst leer lassen) */
+  /** USt-IdNr. nach § 27a UStG — nur eintragen, wenn verifiziert öffentlich bzw. für das Impressum vorgesehen */
   vatId: "" as string,
 
   /**
-   * Zuständige Handwerkskammer / Berufsständische Zuordnung (Friseurhandwerk) — korrekte Kammer eintragen.
+   * Berufsrechtlicher Kontext ohne behauptete Mitgliedsnummern oder nicht verifizierte Kammer-Zuordnung.
    */
   professionalChamber:
-    "Mitglied der zuständigen Handwerkskammer (bitte Kammer und Mitgliedsnummer hier eintragen).",
+    "Tätigkeit im Friseurhandwerk als Meisterbetrieb gemäß der öffentlich geführten Geschäftsbezeichnung. Konkrete Angaben zu Aufsicht, Handwerksrolle oder Innungszugehörigkeit werden hier ergänzt, sobald sie für das Impressum geprüft vorliegen.",
+
+  /**
+   * Berufshaftpflicht — nur ausfüllen, wenn police/public Impressum des Betriebs vorliegt (Anbieter, Geltungsbereich).
+   */
+  professionalLiabilityInsurance: "" as string,
+
+  /**
+   * Zuständige berufsrechtliche oder ortsübliche Aufsicht — nur wenn konkret und belegt (sonst leer).
+   */
+  tradeSupervisoryAuthority: "" as string,
 
   /** Unternehmensgegenstand in Kurzform */
   businessPurpose: "Friseur- und Barbierleistungen (Meisterbetrieb), einschließlich Beratung und Verkauf zugehöriger Produkte.",
