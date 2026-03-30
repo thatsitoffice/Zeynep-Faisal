@@ -465,33 +465,39 @@ const carouselMulti = displayReviews.length > 1;
       display: none !important;
     }
 
-    /* Bewertungen als volle Karten untereinander (kein Akkordeon) */
+    /* Mobil: horizontales Scrollen mit 1–2 sichtbaren Karten */
     .testimonials__carousel-pane {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      min-width: 0;
+      display: block;
       width: 100%;
+      min-width: 0;
     }
 
     .testimonials__track {
       display: flex !important;
-      flex-direction: column;
+      flex-direction: row;
       gap: var(--space-md);
-      overflow: visible;
-      height: auto;
-      min-height: 0;
-      scroll-snap-type: none;
-      padding-inline: 0;
-      -webkit-overflow-scrolling: auto;
+      align-items: stretch;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 0.75rem;
+      padding-inline: 0.75rem;
+      padding-bottom: 0.25rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .testimonials__track::-webkit-scrollbar {
+      display: none;
     }
 
     .testimonials__slide {
       flex: 0 0 auto;
-      width: 100%;
+      width: min(85vw, 26rem);
       max-width: none;
       min-height: 0;
-      scroll-snap-align: none;
+      scroll-snap-align: start;
       padding: var(--space-md);
     }
   }
