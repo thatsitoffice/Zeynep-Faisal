@@ -62,18 +62,20 @@ const navItems = getMainNavItems(Astro.url.pathname);
     </div>
 
     <div class="site-footer__legal-bar">
-      <p class="site-footer__legal">
-        <span class="site-footer__legal-inner">
-          © {new Date().getFullYear()} {SITE.name}. Alle Rechte vorbehalten. ·{" "}
+      <div class="site-footer__legal">
+        <p class="site-footer__legal-copy">
+          © {new Date().getFullYear()} {SITE.name}. Alle Rechte vorbehalten.
+        </p>
+        <p class="site-footer__legal-links">
           <a href="/preise/">Preise &amp; Leistungen</a>
-          {" · "}
+          <span class="site-footer__legal-sep" aria-hidden="true">·</span>
           <a href={SITE.bookingUrl} target="_blank" rel="noopener noreferrer">Planity</a>
-          {" · "}
+          <span class="site-footer__legal-sep" aria-hidden="true">·</span>
           <a href="/impressum/">Impressum</a>
-          {" · "}
+          <span class="site-footer__legal-sep" aria-hidden="true">·</span>
           <a href="/datenschutz/">Datenschutz</a>
-        </span>
-      </p>
+        </p>
+      </div>
     </div>
   </div>
 </footer>
@@ -184,8 +186,7 @@ const navItems = getMainNavItems(Astro.url.pathname);
    * Auf sehr schmalen Viewports horizontal scrollen statt umbrechen.
    */
   .site-footer__legal-bar {
-    /* ~1–2 % der typischen Footer-Höhe: sehr knappes vertikales Padding */
-    --footer-legal-pad: clamp(0.18rem, 1.25vmin, 0.38rem);
+    --footer-legal-pad: clamp(0.35rem, 2vmin, 0.55rem);
     margin-top: 0;
     padding-top: var(--footer-legal-pad);
     padding-bottom: calc(var(--footer-legal-pad) + env(safe-area-inset-bottom, 0px));
@@ -198,35 +199,53 @@ const navItems = getMainNavItems(Astro.url.pathname);
   .site-footer__legal {
     margin: 0;
     width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    max-width: 36rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    font-size: max(0.62rem, 10px);
-    line-height: 1.1;
+    gap: 0.45rem;
+    font-size: max(0.68rem, 11px);
+    line-height: 1.35;
     letter-spacing: 0.01em;
     color: rgba(247, 245, 242, 0.55);
   }
 
-  .site-footer__legal::-webkit-scrollbar {
-    display: none;
-    height: 0;
+  .site-footer__legal-copy {
+    margin: 0;
+    max-width: 100%;
+    color: rgba(247, 245, 242, 0.58);
   }
 
-  .site-footer__legal-inner {
-    display: inline-block;
-    white-space: nowrap;
-    padding-inline: 0.25rem;
+  .site-footer__legal-links {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.35rem;
+    row-gap: 0.2rem;
+    max-width: 100%;
+  }
+
+  .site-footer__legal-sep {
+    color: rgba(247, 245, 242, 0.35);
+    user-select: none;
   }
 
   .site-footer__legal a {
     color: rgba(247, 245, 242, 0.85);
     text-decoration: none;
+    white-space: nowrap;
   }
 
   .site-footer__legal a:hover {
     text-decoration: underline;
+  }
+
+  @media (min-width: 640px) {
+    .site-footer__legal {
+      max-width: none;
+    }
   }
 </style>
