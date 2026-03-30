@@ -221,16 +221,21 @@ const carouselMulti = displayReviews.length > 1;
 
         {
           carouselMulti && (
-            <div class="testimonials__carousel-dots" data-carousel-dots role="group" aria-label="Position im Karussell">
-              {displayReviews.map((_, i) => (
-                <button
-                  type="button"
-                  class="testimonials__dot"
-                  data-carousel-dot
-                  aria-label={`Bewertung ${i + 1} von ${displayReviews.length}`}
-                />
-              ))}
-            </div>
+            <>
+              <div class="testimonials__carousel-dots" data-carousel-dots role="group" aria-label="Position im Karussell">
+                {displayReviews.map((_, i) => (
+                  <button
+                    type="button"
+                    class="testimonials__dot"
+                    data-carousel-dot
+                    aria-label={`Bewertung ${i + 1} von ${displayReviews.length}`}
+                  />
+                ))}
+              </div>
+              <p class="testimonials__swipe-hint muted" aria-hidden="true">
+                Nach links wischen — weitere Bewertungen
+              </p>
+            </>
           )
         }
       </div>
@@ -460,9 +465,38 @@ const carouselMulti = displayReviews.length > 1;
       order: -1;
     }
 
-    .testimonials__carousel-bar,
-    .testimonials__carousel-dots {
+    /* Pfeile verstecken (Wischen); Punkte unter dem Track für Orientierung */
+    .testimonials__carousel-bar {
       display: none !important;
+    }
+
+    .testimonials__carousel-dots {
+      display: flex !important;
+      justify-content: center;
+      gap: 0.45rem;
+      padding-top: var(--space-sm);
+      padding-bottom: 0.15rem;
+      margin: 0;
+    }
+
+    .testimonials__dot {
+      width: 6px;
+      height: 6px;
+      min-width: 6px;
+      min-height: 6px;
+    }
+
+    .testimonials__dot.testimonials__dot--active {
+      transform: scale(1.35);
+    }
+
+    .testimonials__swipe-hint {
+      display: block;
+      text-align: center;
+      font-size: 0.78rem;
+      margin: 0.35rem 0 0;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
     }
 
     /* Mobil: horizontales Scrollen mit 1–2 sichtbaren Karten */
@@ -518,6 +552,10 @@ const carouselMulti = displayReviews.length > 1;
   }
 
   @media (min-width: 768px) {
+    .testimonials__swipe-hint {
+      display: none;
+    }
+
     .testimonials__slide-google {
       display: none;
     }
