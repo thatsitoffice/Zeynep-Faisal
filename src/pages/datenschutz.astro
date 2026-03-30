@@ -3,12 +3,20 @@ import LegalLayout from "../layouts/LegalLayout.astro";
 import { SITE } from "../data/site";
 import { LEGAL } from "../data/legal";
 import { PLANITY_PRICING_URL } from "../data/pricing";
+import { buildWebPageBreadcrumbJsonLd, getSiteOrigin } from "../data/schema-jsonld";
 
 const pageTitle = `Datenschutz | ${SITE.name}`;
 const pageDescription = `Datenschutzerklärung — ${SITE.name}, Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.`;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).toString();
+const subJsonLd = buildWebPageBreadcrumbJsonLd(getSiteOrigin(Astro.site), canonicalUrl, pageTitle, pageDescription, [
+  { name: "Start", path: "/" },
+  { name: "Datenschutz", path: "/datenschutz/" },
+]);
 ---
 
 <LegalLayout title={pageTitle} description={pageDescription} heading="Datenschutz">
+  <script type="application/ld+json" is:inline slot="head" set:html={JSON.stringify(subJsonLd)} />
   <h2>1. Verantwortliche Stelle</h2>
   <p>
     Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer datenschutzrechtlicher Bestimmungen ist:

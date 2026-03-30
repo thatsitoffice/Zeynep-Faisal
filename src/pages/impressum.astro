@@ -2,12 +2,20 @@
 import LegalLayout from "../layouts/LegalLayout.astro";
 import { SITE } from "../data/site";
 import { LEGAL } from "../data/legal";
+import { buildWebPageBreadcrumbJsonLd, getSiteOrigin } from "../data/schema-jsonld";
 
 const pageTitle = `Impressum | ${SITE.name}`;
 const pageDescription = `Impressum und Pflichtangaben gemäß TMG / RStV — ${SITE.name}, ${LEGAL.city}.`;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).toString();
+const subJsonLd = buildWebPageBreadcrumbJsonLd(getSiteOrigin(Astro.site), canonicalUrl, pageTitle, pageDescription, [
+  { name: "Start", path: "/" },
+  { name: "Impressum", path: "/impressum/" },
+]);
 ---
 
 <LegalLayout title={pageTitle} description={pageDescription} heading="Impressum">
+  <script type="application/ld+json" is:inline slot="head" set:html={JSON.stringify(subJsonLd)} />
   <h2>Angaben gemäß § 5 TMG und § 55 Abs. 2 RStV</h2>
   <p>
     <strong>{LEGAL.entityDisplayName}</strong><br />

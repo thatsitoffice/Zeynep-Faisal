@@ -20,6 +20,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="keywords" content={SITE.localKeywords} />
+    <meta name="geo.region" content={SITE.stateCode} />
+    <meta name="geo.placename" content={SITE.city} />
+    <meta name="geo.position" content={`${SITE.geo.latitude};${SITE.geo.longitude}`} />
+    <meta name="ICBM" content={`${SITE.geo.latitude}, ${SITE.geo.longitude}`} />
     <meta name="theme-color" content="#f4f1eb" />
     <link rel="canonical" href={canonical} />
 
@@ -46,6 +52,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).
     />
 
     <title>{title}</title>
+
+    <slot name="head" />
 
     <script is:inline>
       /**

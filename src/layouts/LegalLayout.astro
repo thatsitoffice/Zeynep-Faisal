@@ -13,6 +13,7 @@ const { title, description, heading } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
+  <slot name="head" slot="head" />
   <Header />
   <main id="main" class="legal-page">
     <div class="container">

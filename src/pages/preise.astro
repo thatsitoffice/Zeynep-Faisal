@@ -8,6 +8,7 @@ import SectionHeading from "../components/SectionHeading.astro";
 import { SITE } from "../data/site";
 import { PRICE_CATEGORIES, PLANITY_PRICING_URL } from "../data/pricing";
 import { SALON_IMAGES } from "../data/salon-images";
+import { buildWebPageBreadcrumbJsonLd, getSiteOrigin } from "../data/schema-jsonld";
 
 const pageTitle = `Preise & Leistungen | ${SITE.name} — ${SITE.tagline} ${SITE.city}`;
 const pageDescription = `Aktuelle Leistungen und Preise: Schnitt, Color, Blond Signature, Pflege, Herren, Bart & Beauty — gebucht bei Planity. ${SITE.addressLine}.`;
@@ -15,9 +16,15 @@ const pageDescription = `Aktuelle Leistungen und Preise: Schnitt, Color, Blond S
 const hoursRows = SITE.openingHoursLines;
 
 const heroBg = SALON_IMAGES.preiseHero;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? SITE.canonicalBase).toString();
+const subJsonLd = buildWebPageBreadcrumbJsonLd(getSiteOrigin(Astro.site), canonicalUrl, pageTitle, pageDescription, [
+  { name: "Start", path: "/" },
+  { name: "Preise & Leistungen", path: "/preise/" },
+]);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" is:inline slot="head" set:html={JSON.stringify(subJsonLd)} />
   <Header />
   <main id="main" class="preise-page">
     <section class="preise-page__hero-wrap" aria-labelledby="preise-hero-heading">
