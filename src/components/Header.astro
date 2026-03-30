@@ -526,6 +526,21 @@ const logoAlt = `${SITE.name} — ${SITE.tagline}, Startseite`;
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Mobil: Panel startet unter der Top-Bar (nicht oben festgesetzt) */
+  @media (max-width: 1023px) {
+    .site-header__drawer-panel {
+      top: var(--header-h);
+      height: calc(100dvh - var(--header-h));
+      min-height: unset;
+      max-height: unset;
+      padding-top: calc(env(safe-area-inset-top, 0px) + var(--space-lg));
+    }
+
+    .site-header__drawer-close {
+      top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + var(--space-sm));
+    }
+  }
+
   @supports (height: 100svh) {
     .site-header__drawer-panel {
       min-height: 100svh;
