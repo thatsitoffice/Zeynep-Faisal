@@ -18,7 +18,7 @@ export const SALON_IMAGES = {
   mood2: { src: "/images/salon/salon-mood-2.jpeg", w: 1200, h: 1600 },
   mood3: { src: "/images/salon/salon-mood-3.jpeg", w: 1200, h: 1600 },
   /** Preisseite Hero — Salon-Arbeitsplätze (Lamellenwand, Spiegel) */
-  preiseHero: { src: "/images/salon/salon-preise-hero.jpeg", w: 2400, h: 1792 },
+  preiseHero: { src: "/images/salon/arbeitsflaeche.jpeg", w: 1600, h: 1200 },
   /** Abschnitt „Termin“ — eigenes Motiv (nicht identisch mit Hero) */
   cta: { src: "/images/salon/salon-mood-2.jpeg", w: 1200, h: 1600 },
   /** Atmosphäre-Sektion: Empfang / Markenwand */
