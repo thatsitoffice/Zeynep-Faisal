@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .astro/
+.git-backup-inner/
+git-backup-inner/
 .DS_Store
 *.log
 .env

@@ -5,9 +5,9 @@
 export const SALON_IMAGES = {
   /** Startseiten-Hero (bereits in public/) */
   hero: {
-    src: "/hero-background.jpeg",
-    w: 2400,
-    h: 1792,
+    src: "/hero-background.webp",
+    w: 847,
+    h: 1020,
   },
   feature: {
     src: "/images/salon/salon-feature.jpeg",
@@ -24,7 +24,7 @@ export const SALON_IMAGES = {
   /** Atmosphäre-Sektion: Empfang / Markenwand */
   atmosphereReception: { src: "/images/salon/atmosphere-reception.jpeg", w: 2400, h: 1600 },
   /** Atmosphäre-Sektion: Styling-Plätze, Lamellenwand */
-  atmosphereStyling: { src: "/images/salon/atmosphere-styling-saloon.png", w: 2400, h: 1792 },
+  atmosphereStyling: { src: "/images/salon/arbeitsflaeche.jpeg", w: 1600, h: 1200 },
   /** Produkte-Sektion — Redken-Banner (volle Breite) */
   productsBanner: { src: "/images/salon/haarprodukte.png", w: 3000, h: 1688 },
 } as const;
