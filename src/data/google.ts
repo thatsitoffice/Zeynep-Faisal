@@ -23,5 +23,5 @@ export const GOOGLE = {
 export const GOOGLE_REVIEWS_FALLBACK = {
   rating: 4.9,
   /** Planity / Profil (Stand März 2026) */
-  userRatingCount: 210,
+  userRatingCount: 244,
 } as const;
