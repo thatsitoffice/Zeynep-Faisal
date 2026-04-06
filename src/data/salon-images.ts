@@ -5,9 +5,9 @@
 export const SALON_IMAGES = {
   /** Startseiten-Hero (bereits in public/) */
   hero: {
-    src: "/hero-background.webp",
-    w: 847,
-    h: 1020,
+    src: "/hero-background.png",
+    w: 2400,
+    h: 1792,
   },
   feature: {
     src: "/images/salon/salon-feature.jpeg",
